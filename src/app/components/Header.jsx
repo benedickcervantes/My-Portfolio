@@ -1,19 +1,19 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { FiMoon, FiSun, FiMenu, FiX, FiChevronDown } from 'react-icons/fi';
+import { FiMoon, FiSun, FiMenu, FiX, FiHome, FiUser, FiCode, FiLayers, FiMail } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const Header = ({ darkMode, setDarkMode, activeSection, setActiveSection }) => {
+const Header = ({ darkMode = true, setDarkMode, activeSection, setActiveSection }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [hoveredLink, setHoveredLink] = useState(null);
 
   const navLinks = [
-    { id: 'home', label: 'Home' },
-    { id: 'about', label: 'About' },
-    { id: 'projects', label: 'Projects' },
-    { id: 'skills', label: 'Skills' },
-    { id: 'contact', label: 'Contact' },
+    { id: 'home', label: 'Home', icon: <FiHome className="w-5 h-5" /> },
+    { id: 'about', label: 'About', icon: <FiUser className="w-5 h-5" /> },
+    { id: 'projects', label: 'Projects', icon: <FiLayers className="w-5 h-5" /> },
+    { id: 'skills', label: 'Skills', icon: <FiCode className="w-5 h-5" /> },
+    { id: 'contact', label: 'Contact', icon: <FiMail className="w-5 h-5" /> },
   ];
 
   useEffect(() => {
@@ -34,6 +34,17 @@ const Header = ({ darkMode, setDarkMode, activeSection, setActiveSection }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [setActiveSection]);
 
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMenuOpen]);
+
   const scrollToSection = (sectionId) => {
     const section = document.getElementById(sectionId);
     if (section) {
@@ -45,11 +56,15 @@ const Header = ({ darkMode, setDarkMode, activeSection, setActiveSection }) => {
     }
   };
 
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
-    <header className={`fixed w-full z-50 transition-all duration-500 ${isScrolled ? 'py-2 shadow-lg' : 'py-4'} ${darkMode ? 'bg-gray-900/90' : 'bg-white/95'}`}>
+    <header className={`fixed w-full z-50 transition-all duration-500 ${isScrolled ? 'py-2 shadow-lg' : 'py-4'} ${darkMode ? 'bg-gray-900' : 'bg-white'}`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
-          {/* Logo with animation */}
+          {/* Logo */}
           <motion.a 
             href="#home" 
             className="text-2xl font-bold flex items-center"
@@ -86,15 +101,15 @@ const Header = ({ darkMode, setDarkMode, activeSection, setActiveSection }) => {
               >
                 <button
                   onClick={() => scrollToSection(link.id)}
-                  className={`relative px-4 py-2 transition-all ${activeSection === link.id 
+                  className={`relative px-4 py-2 transition-all flex items-center gap-1 ${activeSection === link.id 
                     ? 'text-purple-600 dark:text-purple-400 font-medium' 
                     : 'text-gray-700 hover:text-purple-500 dark:text-gray-300 dark:hover:text-purple-300'}`}
                   aria-current={activeSection === link.id ? 'page' : undefined}
                 >
+                  {link.icon}
                   {link.label}
                 </button>
                 
-                {/* Animated underline */}
                 {(activeSection === link.id || hoveredLink === link.id) && (
                   <motion.span 
                     className="absolute bottom-0 left-0 right-0 h-0.5 bg-purple-600 dark:bg-purple-400"
@@ -108,45 +123,71 @@ const Header = ({ darkMode, setDarkMode, activeSection, setActiveSection }) => {
               </div>
             ))}
             
-            {/* Dark Mode Toggle with animation */}
+            {/* Enhanced Dark Mode Toggle - Default to dark */}
             <motion.button
               onClick={() => setDarkMode(!darkMode)}
-              className="p-2 ml-2 rounded-full flex items-center justify-center relative overflow-hidden"
+              className={`relative w-14 h-8 rounded-full p-1 flex items-center ${darkMode ? 'justify-end bg-gray-700' : 'justify-start bg-gray-300'}`}
               aria-label={`Switch to ${darkMode ? 'light' : 'dark'} mode`}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
+              whileTap={{ scale: 0.95 }}
             >
-              <div className={`absolute inset-0 rounded-full ${darkMode ? 'bg-yellow-100' : 'bg-gray-800'}`} style={{ opacity: 0.1 }} />
-              {darkMode ? (
-                <FiSun className="w-5 h-5 text-yellow-400" />
-              ) : (
-                <FiMoon className="w-5 h-5 text-gray-600" />
-              )}
+              <motion.div
+                className={`absolute w-6 h-6 rounded-full shadow-md flex items-center justify-center ${darkMode ? 'bg-yellow-300' : 'bg-white'}`}
+                layout
+                transition={{
+                  type: "spring",
+                  stiffness: 700,
+                  damping: 30
+                }}
+              >
+                {darkMode ? (
+                  <FiSun className="w-4 h-4 text-yellow-600" />
+                ) : (
+                  <FiMoon className="w-4 h-4 text-gray-600" />
+                )}
+              </motion.div>
             </motion.button>
           </nav>
           
           {/* Mobile Menu Button */}
-          <div className="flex md:hidden items-center space-x-3">
-            <button
+          <div className="flex md:hidden items-center space-x-4">
+            {/* Enhanced Mobile Dark Mode Toggle - Default to dark */}
+            <motion.button
               onClick={() => setDarkMode(!darkMode)}
-              className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+              className={`relative w-12 h-6 rounded-full p-1 flex items-center ${darkMode ? 'justify-end bg-gray-700' : 'justify-start bg-gray-300'}`}
               aria-label={`Switch to ${darkMode ? 'light' : 'dark'} mode`}
+              whileTap={{ scale: 0.95 }}
             >
-              {darkMode ? <FiSun className="w-5 h-5" /> : <FiMoon className="w-5 h-5" />}
-            </button>
+              <motion.div
+                className={`absolute w-5 h-5 rounded-full shadow-md flex items-center justify-center ${darkMode ? 'bg-yellow-300' : 'bg-white'}`}
+                layout
+                transition={{
+                  type: "spring",
+                  stiffness: 700,
+                  damping: 30
+                }}
+              >
+                {darkMode ? (
+                  <FiSun className="w-3 h-3 text-yellow-600" />
+                ) : (
+                  <FiMoon className="w-3 h-3 text-gray-600" />
+                )}
+              </motion.div>
+            </motion.button>
             
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            <motion.button
+              onClick={toggleMenu}
               className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
               aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
             >
               {isMenuOpen ? <FiX className="w-6 h-6" /> : <FiMenu className="w-6 h-6" />}
-            </button>
+            </motion.button>
           </div>
         </div>
       </div>
       
-      {/* Mobile Menu with animation */}
+      {/* Mobile Menu - Solid Background */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div 
@@ -155,23 +196,30 @@ const Header = ({ darkMode, setDarkMode, activeSection, setActiveSection }) => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            style={{ top: '80px', backgroundColor: darkMode ? 'rgba(17, 24, 39, 0.98)' : 'rgba(255, 255, 255, 0.98)' }}
+            style={{ top: '80px' }}
           >
-            <nav className="flex flex-col items-center space-y-2 py-6 px-4">
+            <div className={`absolute inset-0 ${darkMode ? 'bg-gray-900' : 'bg-white'}`}></div>
+            <nav className="relative flex flex-col items-center space-y-4 py-6 px-4">
               {navLinks.map((link, index) => (
                 <motion.button
                   key={link.id}
                   onClick={() => scrollToSection(link.id)}
-                  className={`w-full text-lg px-6 py-3 rounded-lg transition-all flex items-center justify-between ${activeSection === link.id 
-                    ? 'bg-purple-100 text-purple-700 dark:bg-purple-900/50 dark:text-purple-300 font-medium' 
-                    : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700/50'}`}
+                  className={`w-full text-lg px-6 py-4 rounded-lg transition-all flex items-center ${activeSection === link.id 
+                    ? 'bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-300 font-medium' 
+                    : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'}`}
                   aria-current={activeSection === link.id ? 'page' : undefined}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1 }}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                 >
-                  {link.label}
-                  <FiChevronDown className="transform rotate-90" />
+                  <div className="flex items-center gap-3">
+                    <span className={`${activeSection === link.id ? 'text-purple-600 dark:text-purple-400' : 'text-gray-500 dark:text-gray-400'}`}>
+                      {link.icon}
+                    </span>
+                    {link.label}
+                  </div>
                 </motion.button>
               ))}
             </nav>
