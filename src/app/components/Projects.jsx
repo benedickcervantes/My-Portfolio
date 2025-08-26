@@ -72,14 +72,14 @@ const Projects = ({ setActiveSection }) => {
         whileInView={{ opacity: 0.05 }}
         viewport={{ once: true }}
         transition={{ duration: 1 }}
-        className="absolute -left-20 top-1/3 w-64 h-64 rounded-full bg-purple-600 filter blur-3xl"
+        className="absolute -left-20 top-1/3 w-64 h-64 rounded-full bg-[#2C98A0] filter blur-3xl"
       />
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 0.05 }}
         viewport={{ once: true }}
         transition={{ duration: 1, delay: 0.3 }}
-        className="absolute -right-20 bottom-1/4 w-64 h-64 rounded-full bg-blue-500 filter blur-3xl"
+        className="absolute -right-20 bottom-1/4 w-64 h-64 rounded-full bg-[#4CC8A3] filter blur-3xl"
       />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -91,14 +91,14 @@ const Projects = ({ setActiveSection }) => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            My <span className="text-purple-600 dark:text-purple-400">Projects</span>
+            My <span className="text-[#2C98A0] dark:text-[#4CC8A3]">Projects</span>
           </h2>
           <motion.div
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
-            className="w-24 h-1 bg-purple-600 dark:bg-purple-400 mx-auto mb-6 transform origin-left"
+            className="w-24 h-1 bg-[#2C98A0] dark:bg-[#4CC8A3] mx-auto mb-6 transform origin-left"
           />
           <p className="max-w-2xl mx-auto text-lg text-gray-600 dark:text-gray-300">
             Here are some of my recent projects. Each one was built to solve a specific problem or explore new technologies.
@@ -117,9 +117,9 @@ const Projects = ({ setActiveSection }) => {
               onMouseEnter={() => setHoveredProject(index)}
               onMouseLeave={() => setHoveredProject(null)}
             >
-              <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-blue-500 rounded-2xl blur opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+              <div className="absolute -inset-1 bg-gradient-to-r from-[#2C98A0] to-[#4CC8A3] rounded-2xl blur opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
               <div className="relative h-full bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700">
-                <div className="h-48 bg-gradient-to-br from-purple-50 to-blue-50 dark:from-gray-700 dark:to-gray-900 flex items-center justify-center text-6xl relative overflow-hidden">
+                <div className="h-48 bg-gradient-to-br from-[#e6f7f5] to-[#d1f2ef] dark:from-gray-700 dark:to-gray-900 flex items-center justify-center text-6xl relative overflow-hidden">
                   {project.image}
                   <motion.div 
                     className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4"
@@ -136,7 +136,7 @@ const Projects = ({ setActiveSection }) => {
                   </motion.div>
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-bold mb-2 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                  <h3 className="text-xl font-bold mb-2 group-hover:text-[#2C98A0] dark:group-hover:text-[#4CC8A3] transition-colors">
                     {project.title}
                   </h3>
                   <p className="text-gray-600 dark:text-gray-300 mb-4">{project.description}</p>
@@ -149,7 +149,7 @@ const Projects = ({ setActiveSection }) => {
                         whileInView={{ scale: 1 }}
                         transition={{ duration: 0.3, delay: 0.2 + tagIndex * 0.05 }}
                         viewport={{ once: true }}
-                        className="inline-block px-3 py-1 bg-gray-100 dark:bg-gray-700 text-sm rounded-full"
+                        className="inline-block px-3 py-1 bg-gray-100 dark:bg-gray-700 text-sm rounded-full text-gray-700 dark:text-gray-300"
                       >
                         {tag}
                       </motion.span>
@@ -163,7 +163,7 @@ const Projects = ({ setActiveSection }) => {
                       href={project.github} 
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
+                      className="flex items-center text-gray-600 dark:text-gray-300 hover:text-[#2C98A0] dark:hover:text-[#4CC8A3] transition-colors"
                     >
                       <FiGithub className="mr-2" /> Code
                     </motion.a>
@@ -173,7 +173,7 @@ const Projects = ({ setActiveSection }) => {
                       href={project.live} 
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
+                      className="flex items-center text-gray-600 dark:text-gray-300 hover:text-[#2C98A0] dark:hover:text-[#4CC8A3] transition-colors"
                     >
                       <FiExternalLink className="mr-2" /> Live Demo
                     </motion.a>
@@ -193,7 +193,7 @@ const Projects = ({ setActiveSection }) => {
         >
           <motion.button
             onClick={() => setActiveSection('contact')}
-            className="group relative px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-500 text-white rounded-lg font-medium overflow-hidden"
+            className="group relative px-8 py-4 bg-gradient-to-r from-[#2C98A0] to-[#4CC8A3] text-white rounded-lg font-medium overflow-hidden shadow-[0_4px_20px_-5px_rgba(44,152,160,0.5)] hover:shadow-[0_4px_25px_-2px_rgba(44,152,160,0.6)]"
             whileHover="hover"
             whileTap="tap"
             onHoverStart={() => setIsButtonHovered(true)}
@@ -202,7 +202,7 @@ const Projects = ({ setActiveSection }) => {
           >
             {/* Animated background elements */}
             <motion.span
-              className="absolute inset-0 bg-gradient-to-r from-purple-700 to-blue-600 opacity-0"
+              className="absolute inset-0 bg-gradient-to-r from-[#2C98A0] to-[#38B2A3] opacity-0"
               variants={{
                 hover: { opacity: 1 },
                 tap: { opacity: 0.8 }

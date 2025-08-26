@@ -76,12 +76,12 @@ const Header = ({ darkMode = true, setDarkMode, activeSection, setActiveSection 
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <span className="bg-gradient-to-r from-purple-600 via-pink-500 to-blue-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#2C98A0] via-[#38B2A3] to-[#4CC8A3] bg-clip-text text-transparent">
               <span className="hidden sm:inline">My Portfolio</span>
               <span className="sm:hidden">BC</span>
             </span>
             <motion.span 
-              className="ml-2 text-xs bg-purple-600 text-white px-2 py-1 rounded-full"
+              className="ml-2 text-xs bg-[#2C98A0] text-white px-2 py-1 rounded-full"
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
@@ -102,8 +102,8 @@ const Header = ({ darkMode = true, setDarkMode, activeSection, setActiveSection 
                 <button
                   onClick={() => scrollToSection(link.id)}
                   className={`relative px-4 py-2 transition-all flex items-center gap-1 ${activeSection === link.id 
-                    ? 'text-purple-600 dark:text-purple-400 font-medium' 
-                    : 'text-gray-700 hover:text-purple-500 dark:text-gray-300 dark:hover:text-purple-300'}`}
+                    ? 'text-[#2C98A0] dark:text-[#4CC8A3] font-medium' 
+                    : 'text-gray-700 hover:text-[#38B2A3] dark:text-gray-300 dark:hover:text-[#4CC8A3]'}`}
                   aria-current={activeSection === link.id ? 'page' : undefined}
                 >
                   {link.icon}
@@ -112,7 +112,7 @@ const Header = ({ darkMode = true, setDarkMode, activeSection, setActiveSection 
                 
                 {(activeSection === link.id || hoveredLink === link.id) && (
                   <motion.span 
-                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-purple-600 dark:bg-purple-400"
+                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#2C98A0] dark:bg-[#4CC8A3]"
                     initial={{ scaleX: 0 }}
                     animate={{ scaleX: 1 }}
                     exit={{ scaleX: 0 }}
@@ -131,7 +131,7 @@ const Header = ({ darkMode = true, setDarkMode, activeSection, setActiveSection 
               whileTap={{ scale: 0.95 }}
             >
               <motion.div
-                className={`absolute w-6 h-6 rounded-full shadow-md flex items-center justify-center ${darkMode ? 'bg-yellow-300' : 'bg-white'}`}
+                className={`absolute w-6 h-6 rounded-full shadow-md flex items-center justify-center ${darkMode ? 'bg-[#4CC8A3]' : 'bg-white'}`}
                 layout
                 transition={{
                   type: "spring",
@@ -140,7 +140,7 @@ const Header = ({ darkMode = true, setDarkMode, activeSection, setActiveSection 
                 }}
               >
                 {darkMode ? (
-                  <FiSun className="w-4 h-4 text-yellow-600" />
+                  <FiSun className="w-4 h-4 text-gray-800" />
                 ) : (
                   <FiMoon className="w-4 h-4 text-gray-600" />
                 )}
@@ -158,7 +158,7 @@ const Header = ({ darkMode = true, setDarkMode, activeSection, setActiveSection 
               whileTap={{ scale: 0.95 }}
             >
               <motion.div
-                className={`absolute w-5 h-5 rounded-full shadow-md flex items-center justify-center ${darkMode ? 'bg-yellow-300' : 'bg-white'}`}
+                className={`absolute w-5 h-5 rounded-full shadow-md flex items-center justify-center ${darkMode ? 'bg-[#4CC8A3]' : 'bg-white'}`}
                 layout
                 transition={{
                   type: "spring",
@@ -167,7 +167,7 @@ const Header = ({ darkMode = true, setDarkMode, activeSection, setActiveSection 
                 }}
               >
                 {darkMode ? (
-                  <FiSun className="w-3 h-3 text-yellow-600" />
+                  <FiSun className="w-3 h-3 text-gray-800" />
                 ) : (
                   <FiMoon className="w-3 h-3 text-gray-600" />
                 )}
@@ -205,7 +205,7 @@ const Header = ({ darkMode = true, setDarkMode, activeSection, setActiveSection 
                   key={link.id}
                   onClick={() => scrollToSection(link.id)}
                   className={`w-full text-lg px-6 py-4 rounded-lg transition-all flex items-center ${activeSection === link.id 
-                    ? 'bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-300 font-medium' 
+                    ? 'bg-[#e6f7f5] text-[#2C98A0] dark:bg-[#1a3a3f] dark:text-[#4CC8A3] font-medium' 
                     : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'}`}
                   aria-current={activeSection === link.id ? 'page' : undefined}
                   initial={{ opacity: 0, x: -20 }}
@@ -215,7 +215,7 @@ const Header = ({ darkMode = true, setDarkMode, activeSection, setActiveSection 
                   whileTap={{ scale: 0.98 }}
                 >
                   <div className="flex items-center gap-3">
-                    <span className={`${activeSection === link.id ? 'text-purple-600 dark:text-purple-400' : 'text-gray-500 dark:text-gray-400'}`}>
+                    <span className={`${activeSection === link.id ? 'text-[#2C98A0] dark:text-[#4CC8A3]' : 'text-gray-500 dark:text-gray-400'}`}>
                       {link.icon}
                     </span>
                     {link.label}
@@ -225,7 +225,7 @@ const Header = ({ darkMode = true, setDarkMode, activeSection, setActiveSection 
             </nav>
             
             <motion.div 
-              className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 to-blue-500"
+              className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#2C98A0] via-[#38B2A3] to-[#4CC8A3]"
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
               transition={{ duration: 0.5, delay: navLinks.length * 0.1 }}
