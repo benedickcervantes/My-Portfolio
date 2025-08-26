@@ -1,7 +1,7 @@
 'use client';
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
-import { FiGithub, FiLinkedin, FiTwitter, FiMail, FiFacebook, FiArrowRight } from 'react-icons/fi';
+import { FiGithub, FiLinkedin, FiTwitter, FiMail, FiFacebook, FiArrowRight, FiCamera, FiX, FiSend, FiBriefcase } from 'react-icons/fi';
 
 const Hero = ({ setActiveSection }) => {
   const socialLinks = [
@@ -14,39 +14,82 @@ const Hero = ({ setActiveSection }) => {
   const [currentRole, setCurrentRole] = useState(0);
   const [displayedGreeting, setDisplayedGreeting] = useState('');
   const [displayedName, setDisplayedName] = useState('');
-  const [typingPhase, setTypingPhase] = useState(0); // 0: greeting, 1: name, 2: complete
+  const [typingPhase, setTypingPhase] = useState(0);
+  const [avatarOption, setAvatarOption] = useState(0);
+  const [showAvatarOptions, setShowAvatarOptions] = useState(false);
   
   const greeting = "Hi there, I'm";
   const fullName = "Benedick Cervantes";
   const roles = [
     'Full Stack Developer',
     'UI/UX Designer',
+    'IT Consultant',
     'Tech Enthusiast',
     'Problem Solver'
   ];
+
+  // Avatar options with different styles
+  const avatarOptions = [
+    {
+      id: 0,
+      name: "Developer",
+      emoji: "👨‍💻",
+      color: "from-[#2C98A0] to-[#4CC8A3]",
+      badges: ["React.js", "Node.js"]
+    },
+    {
+      id: 1,
+      name: "Designer",
+      emoji: "🎨",
+      color: "from-[#38B2A3] to-[#4CC8A3]",
+      badges: ["Figma", "UI/UX"]
+    },
+    {
+      id: 2,
+      name: "Consultant",
+      emoji: "📊",
+      color: "from-[#2C98A0] to-[#38B2A3]",
+      badges: ["IT Strategy", "Solutions"]
+    },
+    {
+      id: 3,
+      name: "Professional",
+      emoji: "👔",
+      color: "from-[#2C98A0] via-[#38B2A3] to-[#4CC8A3]",
+      badges: ["Leadership", "Management"]
+    }
+  ];
+
+  // Function to handle smooth scrolling to sections
+  const scrollToSection = (sectionId) => {
+    setActiveSection(sectionId);
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
 
   // Typing effect controller
   useEffect(() => {
     let timeout;
     
     if (typingPhase === 0) {
-      // Typing greeting
       if (displayedGreeting.length < greeting.length) {
         timeout = setTimeout(() => {
           setDisplayedGreeting(greeting.substring(0, displayedGreeting.length + 1));
         }, 80);
       } else {
-        // Brief pause before name starts typing
         timeout = setTimeout(() => setTypingPhase(1), 300);
       }
     } else if (typingPhase === 1) {
-      // Typing name
       if (displayedName.length < fullName.length) {
         timeout = setTimeout(() => {
           setDisplayedName(fullName.substring(0, displayedName.length + 1));
         }, 100);
       } else {
-        // Brief pause before showing rest of content
         timeout = setTimeout(() => setTypingPhase(2), 500);
       }
     }
@@ -54,7 +97,7 @@ const Hero = ({ setActiveSection }) => {
     return () => clearTimeout(timeout);
   }, [typingPhase, displayedGreeting, displayedName]);
 
-  // Role rotation effect (only after typing complete)
+  // Role rotation effect
   useEffect(() => {
     if (typingPhase < 2) return;
     
@@ -75,13 +118,13 @@ const Hero = ({ setActiveSection }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: typingPhase >= 1 ? 0.05 : 0 }}
           transition={{ delay: 1, duration: 1 }}
-          className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-purple-600 filter blur-3xl"
+          className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-[#2C98A0] filter blur-3xl"
         />
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: typingPhase >= 1 ? 0.05 : 0 }}
           transition={{ delay: 1.2, duration: 1 }}
-          className="absolute bottom-1/4 right-1/4 w-64 h-64 rounded-full bg-blue-500 filter blur-3xl"
+          className="absolute bottom-1/4 right-1/4 w-64 h-64 rounded-full bg-[#4CC8A3] filter blur-3xl"
         />
       </div>
 
@@ -93,11 +136,11 @@ const Hero = ({ setActiveSection }) => {
           transition={{ duration: 0.8 }}
           className="md:w-1/2 flex flex-col"
         >
-          <div className="text-sm font-mono text-purple-600 dark:text-purple-400 mb-4 h-6">
+          <div className="text-sm font-mono text-[#2C98A0] dark:text-[#4CC8A3] mb-4 h-6">
             {displayedGreeting}
             {typingPhase === 0 && (
               <motion.span
-                className="inline-block w-2 h-5 bg-purple-600 dark:bg-purple-400 ml-1"
+                className="inline-block w-2 h-5 bg-[#2C98A0] dark:bg-[#4CC8A3] ml-1"
                 animate={{ opacity: [0, 1, 0] }}
                 transition={{ repeat: Infinity, duration: 1 }}
               />
@@ -109,11 +152,11 @@ const Hero = ({ setActiveSection }) => {
               <>
                 <span className="text-gray-800 dark:text-white">{firstName} </span>
                 {lastName && (
-                  <span className="text-purple-600 dark:text-purple-400">{lastName}</span>
+                  <span className="text-[#2C98A0] dark:text-[#4CC8A3]">{lastName}</span>
                 )}
                 {typingPhase === 1 && (
                   <motion.span
-                    className="inline-block w-2 h-12 bg-purple-600 dark:bg-purple-400 ml-1"
+                    className="inline-block w-2 h-12 bg-[#2C98A0] dark:bg-[#4CC8A3] ml-1"
                     animate={{ opacity: [0, 1, 0] }}
                     transition={{ repeat: Infinity, duration: 1 }}
                   />
@@ -122,7 +165,7 @@ const Hero = ({ setActiveSection }) => {
             )}
           </h1>
           
-          <div className="text-2xl md:text-3xl font-semibold mb-6 text-gray-600 dark:text-gray-300 h-12">
+          <div className="text-2xl md:text-3xl font-semibold mb-6 text-gray-600 dark:text-gray-300 min-h-[3rem] flex items-center">
             {typingPhase === 2 && (
               <motion.div
                 key={currentRole}
@@ -147,29 +190,83 @@ const Hero = ({ setActiveSection }) => {
             Passionate about creating solutions that are both beautiful and functional.
           </motion.p>
           
+          {/* Buttons with consistent sizing and glow effects */}
           <motion.div 
-            className="flex flex-col sm:flex-row gap-4"
+            className="flex flex-col sm:flex-row gap-4 flex-wrap"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: typingPhase === 2 ? 1 : 0, y: typingPhase === 2 ? 0 : 20 }}
             transition={{ delay: typingPhase === 2 ? 0.8 : 0 }}
           >
-            <motion.button 
-              onClick={() => setActiveSection('projects')}
-              className="flex items-center justify-center px-8 py-3.5 bg-gradient-to-r from-purple-600 to-blue-500 text-white rounded-lg font-medium hover:opacity-90 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+            <motion.a
+              href="#projects"
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToSection('projects');
+              }}
+              className="group relative px-6 py-3.5 text-sm sm:text-base font-medium text-white bg-gradient-to-r from-[#2C98A0] to-[#4CC8A3] rounded-lg transition-all duration-300 text-center shadow-[0_4px_20px_-5px_rgba(44,152,160,0.5)] hover:shadow-[0_4px_25px_-2px_rgba(44,152,160,0.6)] overflow-hidden font-[Inter] cursor-pointer inline-flex items-center justify-center whitespace-nowrap"
+              whileHover={{
+                y: -4,
+                scale: 1.02,
+              }}
+              whileTap={{
+                scale: 0.98,
+              }}
             >
-              View My Work <FiArrowRight className="ml-2 transition-transform group-hover:translate-x-1" />
-            </motion.button>
+              <span className="relative z-10 flex items-center justify-center gap-2">
+                <FiBriefcase className="h-4 w-4 flex-shrink-0" />
+                <span>View My Work</span>
+                <FiArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 flex-shrink-0" />
+              </span>
+              <span className="absolute inset-0 bg-[#2C98A0] rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+              <span className="absolute inset-0 bg-gradient-to-r from-white/10 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+            </motion.a>
             
-            <motion.button 
-              onClick={() => setActiveSection('contact')}
-              className="flex items-center justify-center px-8 py-3.5 border-2 border-purple-600 text-purple-600 dark:border-purple-400 dark:text-purple-400 rounded-lg font-medium hover:bg-purple-50 dark:hover:bg-gray-800/50 transition-colors"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+            <motion.a
+              href="#contact"
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToSection('contact');
+              }}
+              className="group relative px-6 py-3.5 text-sm sm:text-base font-medium text-[#2C98A0] dark:text-[#4CC8A3] backdrop-blur-sm bg-white dark:bg-gray-800/80 border-2 border-[#2C98A0] dark:border-[#4CC8A3] rounded-lg transition-all duration-300 text-center shadow-[0_4px_20px_-5px_rgba(44,152,160,0.3)] hover:shadow-[0_4px_25px_-2px_rgba(44,152,160,0.4)] overflow-hidden font-[Inter] cursor-pointer inline-flex items-center justify-center whitespace-nowrap"
+              whileHover={{
+                y: -4,
+                scale: 1.02,
+                backgroundColor: "rgba(255, 255, 255, 0.9)",
+              }}
+              whileTap={{
+                scale: 0.98,
+                backgroundColor: "rgba(255, 255, 255, 0.8)",
+              }}
             >
-              Contact Me
-            </motion.button>
+              <span className="relative z-10 flex items-center justify-center gap-2">
+                <FiSend className="h-4 w-4 flex-shrink-0" />
+                <span>Contact Me</span>
+                <FiArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 flex-shrink-0" />
+              </span>
+              <span className="absolute inset-0 bg-[#e6f7f5] dark:bg-[#1a3a3f] rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+            </motion.a>
+          </motion.div>
+
+          {/* Mobile Social links - visible on small screens */}
+          <motion.div 
+            className="flex md:hidden justify-center space-x-6 mt-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: typingPhase === 2 ? 1 : 0, y: typingPhase === 2 ? 0 : 20 }}
+            transition={{ delay: typingPhase === 2 ? 1.6 : 0 }}
+          >
+            {socialLinks.map((social, index) => (
+              <motion.a 
+                key={index}
+                href={social.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-2xl text-gray-600 dark:text-gray-300 hover:text-[#2C98A0] dark:hover:text-[#4CC8A3] transition-colors"
+                whileHover={{ y: -3 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                {social.icon}
+              </motion.a>
+            ))}
           </motion.div>
         </motion.div>
         
@@ -183,7 +280,7 @@ const Hero = ({ setActiveSection }) => {
           <div className="relative w-72 h-72 md:w-80 md:h-80 lg:w-96 lg:h-96">
             {/* Glow effects */}
             <motion.div 
-              className="absolute inset-0 bg-gradient-to-br from-purple-400 to-blue-500 rounded-full opacity-20 blur-xl"
+              className={`absolute inset-0 bg-gradient-to-br ${avatarOptions[avatarOption].color} rounded-full opacity-20 blur-xl`}
               animate={{
                 scale: [1, 1.05, 1],
                 opacity: [0.2, 0.3, 0.2]
@@ -195,7 +292,7 @@ const Hero = ({ setActiveSection }) => {
               }}
             />
             <motion.div 
-              className="absolute inset-0 bg-gradient-to-br from-purple-600 to-blue-500 rounded-full opacity-10 blur-xl"
+              className={`absolute inset-0 bg-gradient-to-br ${avatarOptions[avatarOption].color} rounded-full opacity-10 blur-xl`}
               animate={{
                 scale: [1, 1.1, 1],
                 opacity: [0.1, 0.2, 0.1]
@@ -209,8 +306,8 @@ const Hero = ({ setActiveSection }) => {
             />
             
             {/* Avatar container */}
-            <div className="relative w-full h-full bg-gradient-to-br from-purple-100 to-blue-100 dark:from-gray-800 dark:to-gray-900 rounded-full overflow-hidden border-4 border-white dark:border-gray-700 shadow-2xl">
-              {/* Replace with your actual image */}
+            <div className="relative w-full h-full bg-gradient-to-br from-[#e6f7f5] to-[#d1f2ef] dark:from-gray-800 dark:to-gray-900 rounded-full overflow-hidden border-4 border-white dark:border-gray-700 shadow-2xl">
+              {/* Avatar content */}
               <div className="w-full h-full bg-gray-300 dark:bg-gray-700 flex items-center justify-center">
                 <motion.div
                   animate={{ 
@@ -223,33 +320,94 @@ const Hero = ({ setActiveSection }) => {
                     ease: "easeInOut"
                   }}
                 >
-                  <span className="text-6xl md:text-7xl">👨‍💻</span>
+                  <span className="text-6xl md:text-7xl">{avatarOptions[avatarOption].emoji}</span>
                 </motion.div>
               </div>
               
               {/* Floating tech badges */}
               <motion.div 
-                className="absolute -bottom-4 -left-4 bg-white dark:bg-gray-800 px-3 py-1 rounded-full shadow-md text-xs font-medium"
+                className="absolute -bottom-4 -left-4 bg-white dark:bg-gray-800 px-3 py-1 rounded-full shadow-md text-xs font-medium text-[#2C98A0] dark:text-[#4CC8A3]"
                 initial={{ scale: 0 }}
                 animate={{ scale: typingPhase === 2 ? 1 : 0 }}
                 transition={{ delay: typingPhase === 2 ? 1.2 : 0 }}
               >
-                React.js
+                {avatarOptions[avatarOption].badges[0]}
               </motion.div>
               <motion.div 
-                className="absolute -top-4 -right-4 bg-white dark:bg-gray-800 px-3 py-1 rounded-full shadow-md text-xs font-medium"
+                className="absolute -top-4 -right-4 bg-white dark:bg-gray-800 px-3 py-1 rounded-full shadow-md text-xs font-medium text-[#2C98A0] dark:text-[#4CC8A3]"
                 initial={{ scale: 0 }}
                 animate={{ scale: typingPhase === 2 ? 1 : 0 }}
                 transition={{ delay: typingPhase === 2 ? 1.4 : 0 }}
               >
-                Node.js
+                {avatarOptions[avatarOption].badges[1]}
               </motion.div>
             </div>
+
+            {/* Avatar selector button */}
+            <motion.button
+              onClick={() => setShowAvatarOptions(!showAvatarOptions)}
+              className="absolute -bottom-2 right-6 bg-white dark:bg-gray-800 p-2 rounded-full shadow-lg hover:shadow-xl transition-all"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: typingPhase === 2 ? 1 : 0 }}
+              transition={{ delay: typingPhase === 2 ? 1.6 : 0 }}
+            >
+              <FiCamera className="text-[#2C98A0] dark:text-[#4CC8A3]" />
+            </motion.button>
           </div>
         </motion.div>
       </div>
+
+      {/* Avatar Options Modal */}
+      {showAvatarOptions && (
+        <motion.div 
+          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          <motion.div 
+            className="bg-white dark:bg-gray-800 rounded-xl p-6 w-full max-w-md mx-4"
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+          >
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-xl font-bold text-gray-800 dark:text-white">Choose Your Avatar</h3>
+              <button 
+                onClick={() => setShowAvatarOptions(false)}
+                className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+              >
+                <FiX size={24} />
+              </button>
+            </div>
+            
+            <div className="grid grid-cols-2 gap-4">
+              {avatarOptions.map((option) => (
+                <motion.button
+                  key={option.id}
+                  onClick={() => {
+                    setAvatarOption(option.id);
+                    setShowAvatarOptions(false);
+                  }}
+                  className={`flex flex-col items-center p-4 rounded-lg border-2 ${
+                    avatarOption === option.id 
+                      ? 'border-[#2C98A0] bg-[#e6f7f5] dark:bg-gray-700' 
+                      : 'border-gray-200 dark:border-gray-700 hover:border-[#38B2A3] dark:hover:border-[#4CC8A3]'
+                  } transition-all`}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <span className="text-4xl mb-2">{option.emoji}</span>
+                  <span className="text-sm font-medium text-gray-700 dark:text-gray-200">{option.name}</span>
+                </motion.button>
+              ))}
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
       
-      {/* Social links */}
+      {/* Desktop Social links - visible on medium screens and up */}
       <motion.div 
         className="hidden md:flex fixed left-8 bottom-8 flex-col items-center space-y-6"
         initial={{ opacity: 0, y: 20 }}
@@ -262,7 +420,7 @@ const Hero = ({ setActiveSection }) => {
             href={social.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-2xl text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
+            className="text-2xl text-gray-600 dark:text-gray-300 hover:text-[#2C98A0] dark:hover:text-[#4CC8A3] transition-colors"
             whileHover={{ y: -3 }}
             whileTap={{ scale: 0.9 }}
           >
@@ -270,36 +428,11 @@ const Hero = ({ setActiveSection }) => {
           </motion.a>
         ))}
         <motion.div 
-          className="w-px h-24 bg-gradient-to-b from-purple-500 to-blue-500"
+          className="w-px h-24 bg-gradient-to-b from-[#2C98A0] to-[#4CC8A3]"
           initial={{ scaleY: 0 }}
           animate={{ scaleY: typingPhase === 2 ? 1 : 0 }}
           transition={{ duration: 0.5, delay: typingPhase === 2 ? 1.8 : 0 }}
         />
-      </motion.div>
-      
-      {/* Scroll indicator */}
-      <motion.div
-        className="hidden md:flex flex-col items-center fixed right-8 bottom-8"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: typingPhase === 2 ? 1 : 0 }}
-        transition={{ delay: typingPhase === 2 ? 2 : 0 }}
-      >
-        <motion.div
-          animate={{ 
-            y: [0, 10, 0],
-          }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="text-gray-500 dark:text-gray-400 mb-2"
-        >
-          Scroll down
-        </motion.div>
-        <svg className="w-6 h-6 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-        </svg>
       </motion.div>
     </section>
   );

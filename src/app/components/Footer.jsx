@@ -83,8 +83,8 @@ const Footer = () => {
     <footer className="py-12 bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-300 relative overflow-hidden border-t border-gray-200 dark:border-gray-800">
       {/* Background elements - removed dynamic opacity to prevent hydration mismatch */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -left-20 -bottom-20 w-64 h-64 rounded-full bg-purple-600 opacity-5 filter blur-3xl dark:opacity-[0.03]"></div>
-        <div className="absolute -right-20 -top-20 w-64 h-64 rounded-full bg-blue-500 opacity-5 filter blur-3xl dark:opacity-[0.03]"></div>
+        <div className="absolute -left-20 -bottom-20 w-64 h-64 rounded-full bg-[#2C98A0] opacity-5 filter blur-3xl dark:opacity-[0.03]"></div>
+        <div className="absolute -right-20 -top-20 w-64 h-64 rounded-full bg-[#4CC8A3] opacity-5 filter blur-3xl dark:opacity-[0.03]"></div>
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -100,7 +100,7 @@ const Footer = () => {
             whileTap="tap"
             aria-label="Back to top"
           >
-            <div className="p-4 bg-gradient-to-br from-purple-600 to-blue-500 rounded-full shadow-lg group-hover:shadow-xl transition-all">
+            <div className="p-4 bg-gradient-to-br from-[#2C98A0] to-[#4CC8A3] rounded-full shadow-lg group-hover:shadow-xl transition-all">
               <FiArrowUp className="text-xl text-white" />
             </div>
           </motion.button>
@@ -124,12 +124,12 @@ const Footer = () => {
                   const sectionId = link.href.substring(1);
                   scrollToSection(sectionId);
                 }}
-                className="hover:text-purple-600 dark:hover:text-purple-400 transition-colors relative group"
+                className="hover:text-[#2C98A0] dark:hover:text-[#4CC8A3] transition-colors relative group"
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.95 }}
               >
                 {link.name}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-purple-600 dark:bg-purple-400 group-hover:w-full transition-all duration-300"></span>
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#2C98A0] dark:bg-[#4CC8A3] group-hover:w-full transition-all duration-300"></span>
               </motion.a>
             ))}
           </motion.div>
@@ -148,7 +148,7 @@ const Footer = () => {
                 e.preventDefault();
                 scrollToSection('home');
               }}
-              className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-500 dark:from-purple-400 dark:to-blue-400 bg-clip-text text-transparent inline-block mb-2"
+              className="text-3xl font-bold bg-gradient-to-r from-[#2C98A0] to-[#4CC8A3] dark:from-[#2C98A0] dark:to-[#4CC8A3] bg-clip-text text-transparent inline-block mb-2"
             >
               Benedick Cervantes
             </a>
@@ -166,7 +166,7 @@ const Footer = () => {
             className="mt-8 pt-8 border-t border-gray-300 dark:border-gray-700 text-center w-full"
           >
             <p className="text-sm text-gray-600 dark:text-gray-400">
-              Designed and built with <span className="text-purple-600 dark:text-purple-400">❤️</span> using Next.js
+              Designed and built with <span className="text-[#2C98A0] dark:text-[#4CC8A3]">❤️</span> using Next.js
             </p>
             <p className="text-xs mt-2 text-gray-500 dark:text-gray-500">
               Last updated: {lastUpdated}
