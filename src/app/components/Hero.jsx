@@ -2,6 +2,7 @@
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { FiGithub, FiLinkedin, FiTwitter, FiMail, FiFacebook, FiArrowRight, FiCamera, FiX, FiSend, FiBriefcase } from 'react-icons/fi';
+import Image from 'next/image';
 
 const Hero = ({ setActiveSection }) => {
   const socialLinks = [
@@ -263,6 +264,7 @@ const Hero = ({ setActiveSection }) => {
                 className="text-2xl text-gray-800 dark:text-gray-300 hover:text-[#2C98A0] dark:hover:text-[#4CC8A3] transition-colors"
                 whileHover={{ y: -3 }}
                 whileTap={{ scale: 0.9 }}
+                aria-label={`Visit ${social.url}`}
               >
                 {social.icon}
               </motion.a>
@@ -270,7 +272,7 @@ const Hero = ({ setActiveSection }) => {
           </motion.div>
         </motion.div>
         
-        {/* Image/avatar */}
+        {/* Professional Photo */}
         <motion.div 
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: typingPhase === 2 ? 1 : 0, y: typingPhase === 2 ? 0 : 50 }}
@@ -280,7 +282,7 @@ const Hero = ({ setActiveSection }) => {
           <div className="relative w-72 h-72 md:w-80 md:h-80 lg:w-96 lg:h-96">
             {/* Glow effects */}
             <motion.div 
-              className={`absolute inset-0 bg-gradient-to-br ${avatarOptions[avatarOption].color} rounded-full opacity-20 blur-xl`}
+              className="absolute inset-0 bg-gradient-to-br from-[#2C98A0] to-[#4CC8A3] rounded-full opacity-20 blur-xl"
               animate={{
                 scale: [1, 1.05, 1],
                 opacity: [0.2, 0.3, 0.2]
@@ -292,7 +294,7 @@ const Hero = ({ setActiveSection }) => {
               }}
             />
             <motion.div 
-              className={`absolute inset-0 bg-gradient-to-br ${avatarOptions[avatarOption].color} rounded-full opacity-10 blur-xl`}
+              className="absolute inset-0 bg-gradient-to-br from-[#2C98A0] to-[#4CC8A3] rounded-full opacity-10 blur-xl"
               animate={{
                 scale: [1, 1.1, 1],
                 opacity: [0.1, 0.2, 0.1]
@@ -305,10 +307,22 @@ const Hero = ({ setActiveSection }) => {
               }}
             />
             
-            {/* Avatar container */}
-            <div className="relative w-full h-full bg-gradient-to-br from-[#e6f7f5] to-[#d1f2ef] dark:from-gray-800 dark:to-gray-900 rounded-full overflow-hidden border-4 border-white dark:border-gray-700 shadow-2xl">
-              {/* Avatar content */}
-              <div className="w-full h-full bg-gray-300 dark:bg-gray-700 flex items-center justify-center">
+            {/* Professional Photo Container */}
+            <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-white dark:border-gray-700 shadow-2xl">
+              <Image
+                src="/images/developer-photo.png"
+                alt="Benedick Cervantes - Full Stack Developer"
+                fill
+                className="object-cover"
+                priority
+                onError={(e) => {
+                  // Fallback to a placeholder if image doesn't exist
+                  e.target.style.display = 'none';
+                  e.target.nextSibling.style.display = 'flex';
+                }}
+              />
+              {/* Fallback content if image doesn't exist */}
+              <div className="w-full h-full bg-gradient-to-br from-[#e6f7f5] to-[#d1f2ef] dark:from-gray-800 dark:to-gray-900 flex items-center justify-center" style={{ display: 'none' }}>
                 <motion.div
                   animate={{ 
                     y: [0, -10, 0],
@@ -320,92 +334,31 @@ const Hero = ({ setActiveSection }) => {
                     ease: "easeInOut"
                   }}
                 >
-                  <span className="text-6xl md:text-7xl">{avatarOptions[avatarOption].emoji}</span>
+                  <span className="text-6xl md:text-7xl">👨‍💻</span>
                 </motion.div>
               </div>
-              
-              {/* Floating tech badges */}
-              <motion.div 
-                className="absolute -bottom-4 -left-4 bg-white dark:bg-gray-800 px-3 py-1 rounded-full shadow-md text-xs font-medium text-[#2C98A0] dark:text-[#4CC8A3]"
-                initial={{ scale: 0 }}
-                animate={{ scale: typingPhase === 2 ? 1 : 0 }}
-                transition={{ delay: typingPhase === 2 ? 1.2 : 0 }}
-              >
-                {avatarOptions[avatarOption].badges[0]}
-              </motion.div>
-              <motion.div 
-                className="absolute -top-4 -right-4 bg-white dark:bg-gray-800 px-3 py-1 rounded-full shadow-md text-xs font-medium text-[#2C98A0] dark:text-[#4CC8A3]"
-                initial={{ scale: 0 }}
-                animate={{ scale: typingPhase === 2 ? 1 : 0 }}
-                transition={{ delay: typingPhase === 2 ? 1.4 : 0 }}
-              >
-                {avatarOptions[avatarOption].badges[1]}
-              </motion.div>
             </div>
-
-            {/* Avatar selector button */}
-            <motion.button
-              onClick={() => setShowAvatarOptions(!showAvatarOptions)}
-              className="absolute -bottom-2 right-6 bg-white dark:bg-gray-800 p-2 rounded-full shadow-lg hover:shadow-xl transition-all"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: typingPhase === 2 ? 1 : 0 }}
-              transition={{ delay: typingPhase === 2 ? 1.6 : 0 }}
+            
+            {/* Floating tech badges */}
+            <motion.div 
+              className="absolute -bottom-4 -left-4 bg-white dark:bg-gray-800 px-3 py-1 rounded-full shadow-md text-xs font-medium text-[#2C98A0] dark:text-[#4CC8A3]"
+              initial={{ scale: 0 }}
+              animate={{ scale: typingPhase === 2 ? 1 : 0 }}
+              transition={{ delay: typingPhase === 2 ? 1.2 : 0 }}
             >
-              <FiCamera className="text-[#2C98A0] dark:text-[#4CC8A3]" />
-            </motion.button>
+              React.js
+            </motion.div>
+            <motion.div 
+              className="absolute -top-4 -right-4 bg-white dark:bg-gray-800 px-3 py-1 rounded-full shadow-md text-xs font-medium text-[#2C98A0] dark:text-[#4CC8A3]"
+              initial={{ scale: 0 }}
+              animate={{ scale: typingPhase === 2 ? 1 : 0 }}
+              transition={{ delay: typingPhase === 2 ? 1.4 : 0 }}
+            >
+              Next.js
+            </motion.div>
           </div>
         </motion.div>
       </div>
-
-      {/* Avatar Options Modal */}
-      {showAvatarOptions && (
-        <motion.div 
-          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-        >
-          <motion.div 
-            className="bg-white dark:bg-gray-800 rounded-xl p-6 w-full max-w-md mx-4"
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-          >
-            <div className="flex justify-between items-center mb-6">
-              <h3 className="text-xl font-bold text-black dark:text-white font-extrabold">Choose Your Avatar</h3>
-              <button 
-                onClick={() => setShowAvatarOptions(false)}
-                className="text-gray-800 hover:text-black dark:text-gray-400 dark:hover:text-gray-200"
-              >
-                <FiX size={24} />
-              </button>
-            </div>
-            
-            <div className="grid grid-cols-2 gap-4">
-              {avatarOptions.map((option) => (
-                <motion.button
-                  key={option.id}
-                  onClick={() => {
-                    setAvatarOption(option.id);
-                    setShowAvatarOptions(false);
-                  }}
-                  className={`flex flex-col items-center p-4 rounded-lg border-2 ${
-                    avatarOption === option.id 
-                      ? 'border-[#2C98A0] bg-[#e6f7f5] dark:bg-gray-700' 
-                      : 'border-gray-200 dark:border-gray-700 hover:border-[#38B2A3] dark:hover:border-[#4CC8A3]'
-                  } transition-all`}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <span className="text-4xl mb-2">{option.emoji}</span>
-                  <span className="text-sm font-medium text-gray-800 dark:text-gray-200">{option.name}</span>
-                </motion.button>
-              ))}
-            </div>
-          </motion.div>
-        </motion.div>
-      )}
       
       {/* Desktop Social links - visible on medium screens and up */}
       <motion.div 
@@ -423,6 +376,7 @@ const Hero = ({ setActiveSection }) => {
             className="text-2xl text-gray-800 dark:text-gray-300 hover:text-[#2C98A0] dark:hover:text-[#4CC8A3] transition-colors"
             whileHover={{ y: -3 }}
             whileTap={{ scale: 0.9 }}
+            aria-label={`Visit ${social.url}`}
           >
             {social.icon}
           </motion.a>
