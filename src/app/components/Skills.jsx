@@ -130,10 +130,10 @@ const Skills = ({ setActiveSection }) => {
                     {category.skills.map((skill, skillIndex) => (
                       <div key={skillIndex}>
                         <div className="flex justify-between mb-1">
-                          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{skill.name}</span>
+                          <span className="text-sm font-medium text-gray-900 dark:text-gray-300">{skill.name}</span>
                           <span className="text-xs text-gray-500 dark:text-gray-400">{skill.level}%</span>
                         </div>
-                        <div className="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-2">
+                        <div className="w-full bg-gray-50 dark:bg-gray-700 rounded-full h-2">
                           <motion.div 
                             initial={{ width: 0 }}
                             whileInView={{ width: `${skill.level}%` }}
@@ -177,11 +177,11 @@ const Skills = ({ setActiveSection }) => {
                     className="group relative"
                   >
                     <div className="absolute -inset-1 bg-gradient-to-r from-[#2C98A0] to-[#4CC8A3] rounded-lg blur opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-                    <div className="relative bg-gray-100 dark:bg-gray-700 p-4 rounded-lg flex flex-col items-center hover:shadow-md transition-shadow">
+                    <div className="relative bg-gray-50 dark:bg-gray-700 p-4 rounded-lg flex flex-col items-center hover:shadow-md transition-shadow">
                       <div className="w-10 h-10 text-2xl mb-2 flex items-center justify-center">
                         {tech.icon}
                       </div>
-                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{tech.name}</span>
+                      <span className="text-sm font-medium text-gray-900 dark:text-gray-300">{tech.name}</span>
                     </div>
                   </motion.div>
                 ))}

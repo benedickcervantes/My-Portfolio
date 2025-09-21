@@ -27,7 +27,7 @@ const Contact = ({ setActiveSection }) => {
   };
 
   return (
-    <section id="contact" className="py-20 bg-gray-100 dark:bg-gray-800/50 relative overflow-hidden">
+    <section id="contact" className="py-20 bg-gray-50 dark:bg-gray-800/50 relative overflow-hidden">
       {/* Background elements */}
       <motion.div
         initial={{ opacity: 0 }}
@@ -183,14 +183,14 @@ const Contact = ({ setActiveSection }) => {
                     transition={{ delay: 0.1 }}
                     viewport={{ once: true }}
                   >
-                    <label htmlFor="name" className="block mb-2 font-medium text-gray-700 dark:text-gray-300">Your Name</label>
+                    <label htmlFor="name" className="block mb-2 font-medium text-gray-900 dark:text-gray-300">Your Name</label>
                     <input 
                       type="text" 
                       id="name" 
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 focus:ring-2 focus:ring-[#2C98A0] focus:border-transparent transition-all text-gray-700 dark:text-gray-300"
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:ring-2 focus:ring-[#2C98A0] focus:border-transparent transition-all text-gray-900 dark:text-gray-300"
                       placeholder="Full Name"
                       required
                     />
@@ -202,14 +202,14 @@ const Contact = ({ setActiveSection }) => {
                     transition={{ delay: 0.2 }}
                     viewport={{ once: true }}
                   >
-                    <label htmlFor="email" className="block mb-2 font-medium text-gray-700 dark:text-gray-300">Your Email</label>
+                    <label htmlFor="email" className="block mb-2 font-medium text-gray-900 dark:text-gray-300">Your Email</label>
                     <input 
                       type="email" 
                       id="email" 
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 focus:ring-2 focus:ring-[#2C98A0] focus:border-transparent transition-all text-gray-700 dark:text-gray-300"
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:ring-2 focus:ring-[#2C98A0] focus:border-transparent transition-all text-gray-900 dark:text-gray-300"
                       placeholder="your@email.com"
                       required
                     />
@@ -222,14 +222,14 @@ const Contact = ({ setActiveSection }) => {
                   transition={{ delay: 0.3 }}
                   viewport={{ once: true }}
                 >
-                  <label htmlFor="subject" className="block mb-2 font-medium text-gray-700 dark:text-gray-300">Subject</label>
+                  <label htmlFor="subject" className="block mb-2 font-medium text-gray-900 dark:text-gray-300">Subject</label>
                   <input 
                     type="text" 
                     id="subject" 
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 focus:ring-2 focus:ring-[#2C98A0] focus:border-transparent transition-all text-gray-700 dark:text-gray-300"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:ring-2 focus:ring-[#2C98A0] focus:border-transparent transition-all text-gray-900 dark:text-gray-300"
                     placeholder="What's this about?"
                     required
                   />
@@ -241,14 +241,14 @@ const Contact = ({ setActiveSection }) => {
                   transition={{ delay: 0.4 }}
                   viewport={{ once: true }}
                 >
-                  <label htmlFor="message" className="block mb-2 font-medium text-gray-700 dark:text-gray-300">Your Message</label>
+                  <label htmlFor="message" className="block mb-2 font-medium text-gray-900 dark:text-gray-300">Your Message</label>
                   <textarea 
                     id="message" 
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
                     rows="2" 
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 focus:ring-2 focus:ring-[#2C98A0] focus:border-transparent transition-all text-gray-700 dark:text-gray-300"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:ring-2 focus:ring-[#2C98A0] focus:border-transparent transition-all text-gray-900 dark:text-gray-300"
                     placeholder="Hi Benedick, I'd like to talk about..."
                     required
                   ></textarea>

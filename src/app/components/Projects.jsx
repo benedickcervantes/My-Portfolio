@@ -65,7 +65,7 @@ const Projects = ({ setActiveSection }) => {
   ];
 
   return (
-    <section id="projects" className="py-20 bg-gray-100 dark:bg-gray-800/50 relative overflow-hidden">
+    <section id="projects" className="py-20 bg-gray-50 dark:bg-gray-800/50 relative overflow-hidden">
       {/* Background elements */}
       <motion.div
         initial={{ opacity: 0 }}
@@ -149,7 +149,7 @@ const Projects = ({ setActiveSection }) => {
                         whileInView={{ scale: 1 }}
                         transition={{ duration: 0.3, delay: 0.2 + tagIndex * 0.05 }}
                         viewport={{ once: true }}
-                        className="inline-block px-3 py-1 bg-gray-100 dark:bg-gray-700 text-sm rounded-full text-gray-700 dark:text-gray-300"
+                        className="inline-block px-3 py-1 bg-gray-100 dark:bg-gray-700 text-sm rounded-full text-gray-900 dark:text-gray-300"
                       >
                         {tag}
                       </motion.span>

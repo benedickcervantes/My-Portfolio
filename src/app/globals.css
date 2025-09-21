@@ -1,8 +1,34 @@
 @import "tailwindcss";
 
 :root {
+  /* Light mode colors (default) */
   --background: #ffffff;
   --foreground: #171717;
+  --card: #ffffff;
+  --card-foreground: #171717;
+  --popover: #ffffff;
+  --popover-foreground: #171717;
+  --primary: #2C98A0;
+  --primary-foreground: #ffffff;
+  --secondary: #f1f5f9;
+  --secondary-foreground: #0f172a;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  --accent: #e6f7f5;
+  --accent-foreground: #0f172a;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #2C98A0;
+  
+  /* Portfolio specific colors */
+  --text-primary: #1f2937;
+  --text-secondary: #6b7280;
+  --text-muted: #9ca3af;
+  --surface: #ffffff;
+  --surface-elevated: #f9fafb;
+  --overlay: rgba(0, 0, 0, 0.1);
 }
 
 @theme inline {
@@ -14,13 +40,338 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
+    /* Dark mode colors */
     --background: #0a0a0a;
     --foreground: #ededed;
+    --card: #1f2937;
+    --card-foreground: #ededed;
+    --popover: #1f2937;
+    --popover-foreground: #ededed;
+    --primary: #4CC8A3;
+    --primary-foreground: #0a0a0a;
+    --secondary: #1f2937;
+    --secondary-foreground: #ededed;
+    --muted: #374151;
+    --muted-foreground: #9ca3af;
+    --accent: #1a3a3f;
+    --accent-foreground: #ededed;
+    --destructive: #ef4444;
+    --destructive-foreground: #ffffff;
+    --border: #374151;
+    --input: #374151;
+    --ring: #4CC8A3;
+    
+    /* Portfolio specific colors */
+    --text-primary: #f9fafb;
+    --text-secondary: #d1d5db;
+    --text-muted: #9ca3af;
+    --surface: #111827;
+    --surface-elevated: #1f2937;
+    --overlay: rgba(255, 255, 255, 0.1);
   }
+}
+
+/* Apply dark mode when .dark class is present */
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --card: #1f2937;
+  --card-foreground: #ededed;
+  --popover: #1f2937;
+  --popover-foreground: #ededed;
+  --primary: #4CC8A3;
+  --primary-foreground: #0a0a0a;
+  --secondary: #1f2937;
+  --secondary-foreground: #ededed;
+  --muted: #374151;
+  --muted-foreground: #9ca3af;
+  --accent: #1a3a3f;
+  --accent-foreground: #ededed;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #374151;
+  --input: #374151;
+  --ring: #4CC8A3;
+  
+  /* Portfolio specific colors */
+  --text-primary: #f9fafb;
+  --text-secondary: #d1d5db;
+  --text-muted: #9ca3af;
+  --surface: #111827;
+  --surface-elevated: #1f2937;
+  --overlay: rgba(255, 255, 255, 0.1);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+/* Ensure smooth transitions for theme changes */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Better scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--muted);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #38B2A3;
+}
+
+/* Focus states for accessibility */
+*:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* Force pure black text for name in light mode */
+.name-text-light {
+  color: #000000 !important;
+  text-shadow: none !important;
+  filter: none !important;
+  -webkit-text-stroke: none !important;
+}
+
+.dark .name-text-light {
+  color: #ffffff !important;
+}
+
+/* Additional robust styling for name text */
+h1 .name-text-light,
+span.name-text-light {
+  color: #000000 !important;
+  text-shadow: none !important;
+  filter: none !important;
+  -webkit-text-stroke: none !important;
+  -webkit-text-fill-color: #000000 !important;
+}
+
+.dark h1 .name-text-light,
+.dark span.name-text-light {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+/* Robust hamburger menu styling */
+.hamburger-line {
+  background-color: #000000 !important;
+}
+
+.dark .hamburger-line {
+  background-color: #ffffff !important;
+}
+
+.hamburger-line:hover {
+  background-color: #2C98A0 !important;
+}
+
+.dark .hamburger-line:hover {
+  background-color: #4CC8A3 !important;
+}
+
+/* Ultra robust hamburger menu styling */
+.hamburger-line {
+  background-color: #000000 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.dark .hamburger-line {
+  background-color: #ffffff !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.hamburger-line:hover {
+  background-color: #2C98A0 !important;
+}
+
+.dark .hamburger-line:hover {
+  background-color: #4CC8A3 !important;
+}
+
+/* Force visibility for all hamburger elements */
+.hamburger-line * {
+  background-color: inherit !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Prevent unwanted link behavior on hamburger button */
+.hamburger-button {
+  text-decoration: none !important;
+  cursor: pointer !important;
+  border: none !important;
+  outline: none !important;
+  background: none !important;
+}
+
+.hamburger-button:hover {
+  text-decoration: none !important;
+}
+
+.hamburger-button:focus {
+  outline: none !important;
+  text-decoration: none !important;
+}
+
+.hamburger-button:active {
+  text-decoration: none !important;
+}
+
+/* Ensure middle line completely disappears when menu is open */
+.hamburger-line.middle-line {
+  transition: opacity 0.3s ease, scale 0.3s ease !important;
+}
+
+.hamburger-line.middle-line.hidden {
+  opacity: 0 !important;
+  scale: 0 !important;
+  visibility: hidden !important;
+}
+
+/* Ultra aggressive middle line hiding */
+.hamburger-line.middle-line[data-state="open"] {
+  opacity: 0 !important;
+  transform: scale(0) !important;
+  visibility: hidden !important;
+  display: none !important;
+}
+
+/* Force middle line to be completely invisible when menu is open */
+.menu-open .hamburger-line.middle-line {
+  opacity: 0 !important;
+  transform: scale(0) !important;
+  visibility: hidden !important;
+  display: none !important;
+}
+
+/* Robust text readability classes for light mode */
+.text-readable-light {
+  color: #000000 !important;
+}
+
+.dark .text-readable-light {
+  color: #d1d5db !important;
+}
+
+.text-readable-secondary-light {
+  color: #374151 !important;
+}
+
+.dark .text-readable-secondary-light {
+  color: #9ca3af !important;
+}
+
+.text-readable-muted-light {
+  color: #4b5563 !important;
+}
+
+.dark .text-readable-muted-light {
+  color: #6b7280 !important;
+}
+
+/* Force all gray text to be readable in light mode */
+.text-gray-600 {
+  color: #374151 !important;
+}
+
+.dark .text-gray-600 {
+  color: #d1d5db !important;
+}
+
+.text-gray-500 {
+  color: #4b5563 !important;
+}
+
+.dark .text-gray-500 {
+  color: #9ca3af !important;
+}
+
+.text-gray-700 {
+  color: #374151 !important;
+}
+
+.dark .text-gray-700 {
+  color: #d1d5db !important;
+}
+
+.text-gray-900 {
+  color: #000000 !important;
+}
+
+.dark .text-gray-900 {
+  color: #f9fafb !important;
+}
+
+
+/* Robust text readability classes for light mode */
+.text-readable-light {
+  color: #000000 !important;
+}
+
+.dark .text-readable-light {
+  color: #d1d5db !important;
+}
+
+.text-readable-secondary-light {
+  color: #374151 !important;
+}
+
+.dark .text-readable-secondary-light {
+  color: #9ca3af !important;
+}
+
+.text-readable-muted-light {
+  color: #4b5563 !important;
+}
+
+.dark .text-readable-muted-light {
+  color: #6b7280 !important;
+}
+
+/* Force all gray text to be readable in light mode */
+.text-gray-600 {
+  color: #374151 !important;
+}
+
+.dark .text-gray-600 {
+  color: #d1d5db !important;
+}
+
+.text-gray-500 {
+  color: #4b5563 !important;
+}
+
+.dark .text-gray-500 {
+  color: #9ca3af !important;
+}
+
+.text-gray-700 {
+  color: #374151 !important;
+}
+
+.dark .text-gray-700 {
+  color: #d1d5db !important;
+}
+
+.text-gray-900 {
+  color: #000000 !important;
+}
+
+.dark .text-gray-900 {
+  color: #f9fafb !important;
 }

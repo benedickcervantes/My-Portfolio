@@ -150,7 +150,7 @@ const Hero = ({ setActiveSection }) => {
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-4 leading-tight min-h-[1.5em]">
             {displayedName && (
               <>
-                <span className="text-gray-800 dark:text-white">{firstName} </span>
+                <span className="name-text-light font-extrabold">{firstName} </span>
                 {lastName && (
                   <span className="text-[#2C98A0] dark:text-[#4CC8A3]">{lastName}</span>
                 )}
@@ -165,7 +165,7 @@ const Hero = ({ setActiveSection }) => {
             )}
           </h1>
           
-          <div className="text-2xl md:text-3xl font-semibold mb-6 text-gray-600 dark:text-gray-300 min-h-[3rem] flex items-center">
+          <div className="text-2xl md:text-3xl font-semibold mb-6 text-gray-800 dark:text-gray-300 min-h-[3rem] flex items-center">
             {typingPhase === 2 && (
               <motion.div
                 key={currentRole}
@@ -181,7 +181,7 @@ const Hero = ({ setActiveSection }) => {
           </div>
           
           <motion.p 
-            className="text-lg mb-8 text-gray-600 dark:text-gray-300 max-w-lg"
+            className="text-lg mb-8 text-gray-800 dark:text-gray-300 max-w-lg"
             initial={{ opacity: 0 }}
             animate={{ opacity: typingPhase === 2 ? 1 : 0 }}
             transition={{ delay: typingPhase === 2 ? 0.6 : 0 }}
@@ -260,7 +260,7 @@ const Hero = ({ setActiveSection }) => {
                 href={social.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-2xl text-gray-600 dark:text-gray-300 hover:text-[#2C98A0] dark:hover:text-[#4CC8A3] transition-colors"
+                className="text-2xl text-gray-800 dark:text-gray-300 hover:text-[#2C98A0] dark:hover:text-[#4CC8A3] transition-colors"
                 whileHover={{ y: -3 }}
                 whileTap={{ scale: 0.9 }}
               >
@@ -373,10 +373,10 @@ const Hero = ({ setActiveSection }) => {
             animate={{ scale: 1, opacity: 1 }}
           >
             <div className="flex justify-between items-center mb-6">
-              <h3 className="text-xl font-bold text-gray-800 dark:text-white">Choose Your Avatar</h3>
+              <h3 className="text-xl font-bold text-black dark:text-white font-extrabold">Choose Your Avatar</h3>
               <button 
                 onClick={() => setShowAvatarOptions(false)}
-                className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                className="text-gray-800 hover:text-black dark:text-gray-400 dark:hover:text-gray-200"
               >
                 <FiX size={24} />
               </button>
@@ -399,7 +399,7 @@ const Hero = ({ setActiveSection }) => {
                   whileTap={{ scale: 0.95 }}
                 >
                   <span className="text-4xl mb-2">{option.emoji}</span>
-                  <span className="text-sm font-medium text-gray-700 dark:text-gray-200">{option.name}</span>
+                  <span className="text-sm font-medium text-gray-800 dark:text-gray-200">{option.name}</span>
                 </motion.button>
               ))}
             </div>
@@ -420,7 +420,7 @@ const Hero = ({ setActiveSection }) => {
             href={social.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-2xl text-gray-600 dark:text-gray-300 hover:text-[#2C98A0] dark:hover:text-[#4CC8A3] transition-colors"
+            className="text-2xl text-gray-800 dark:text-gray-300 hover:text-[#2C98A0] dark:hover:text-[#4CC8A3] transition-colors"
             whileHover={{ y: -3 }}
             whileTap={{ scale: 0.9 }}
           >

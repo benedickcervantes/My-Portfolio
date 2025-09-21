@@ -80,7 +80,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="py-12 bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-300 relative overflow-hidden border-t border-gray-200 dark:border-gray-800">
+    <footer className="py-12 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-300 relative overflow-hidden border-t border-gray-200 dark:border-gray-800">
       {/* Background elements - removed dynamic opacity to prevent hydration mismatch */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -left-20 -bottom-20 w-64 h-64 rounded-full bg-[#2C98A0] opacity-5 filter blur-3xl dark:opacity-[0.03]"></div>
@@ -152,7 +152,7 @@ const Footer = () => {
             >
               Benedick Cervantes
             </a>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
+            <p className="text-sm text-gray-700 dark:text-gray-400">
               © {currentYear} All Rights Reserved
             </p>
           </motion.div>
@@ -165,7 +165,7 @@ const Footer = () => {
             viewport={{ once: true }}
             className="mt-8 pt-8 border-t border-gray-300 dark:border-gray-700 text-center w-full"
           >
-            <p className="text-sm text-gray-600 dark:text-gray-400">
+            <p className="text-sm text-gray-700 dark:text-gray-400">
               Designed and built with <span className="text-[#2C98A0] dark:text-[#4CC8A3]">❤️</span> using Next.js
             </p>
             <p className="text-xs mt-2 text-gray-500 dark:text-gray-500">

@@ -61,7 +61,7 @@ const Header = ({ darkMode = true, setDarkMode, activeSection, setActiveSection 
   };
 
   return (
-    <header className={`fixed w-full z-50 transition-all duration-500 ${isScrolled ? 'py-2 shadow-lg' : 'py-4'} ${darkMode ? 'bg-gray-900' : 'bg-white'}`}>
+    <header className={`fixed w-full z-50 transition-all duration-500 ${isScrolled ? 'py-2 shadow-lg' : 'py-4'} ${darkMode ? 'bg-gray-900' : 'bg-white border-b border-gray-200'}`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           {/* Logo */}
@@ -76,12 +76,12 @@ const Header = ({ darkMode = true, setDarkMode, activeSection, setActiveSection 
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <span className="bg-gradient-to-r from-[#2C98A0] via-[#38B2A3] to-[#4CC8A3] bg-clip-text text-transparent">
+            <span className="text-black dark:bg-gradient-to-r dark:from-[#2C98A0] dark:via-[#38B2A3] dark:to-[#4CC8A3] dark:bg-clip-text dark:text-transparent">
               <span className="hidden sm:inline">My Portfolio</span>
               <span className="sm:hidden">BC</span>
             </span>
             <motion.span 
-              className="ml-2 text-xs bg-[#2C98A0] text-white px-2 py-1 rounded-full"
+              className="ml-2 text-xs px-2 py-1 rounded-full text-white bg-black dark:bg-gradient-to-r dark:from-[#2C98A0] dark:via-[#38B2A3] dark:to-[#4CC8A3] dark:text-white"
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
@@ -103,7 +103,7 @@ const Header = ({ darkMode = true, setDarkMode, activeSection, setActiveSection 
                   onClick={() => scrollToSection(link.id)}
                   className={`relative px-4 py-2 transition-all flex items-center gap-1 ${activeSection === link.id 
                     ? 'text-[#2C98A0] dark:text-[#4CC8A3] font-medium' 
-                    : 'text-gray-700 hover:text-[#38B2A3] dark:text-gray-300 dark:hover:text-[#4CC8A3]'}`}
+                    : 'text-black hover:text-[#38B2A3] dark:text-gray-300 dark:hover:text-[#4CC8A3]'}`}
                   aria-current={activeSection === link.id ? 'page' : undefined}
                 >
                   {link.icon}
@@ -124,7 +124,7 @@ const Header = ({ darkMode = true, setDarkMode, activeSection, setActiveSection 
             ))}
             
             {/* Enhanced Dark Mode Toggle - Default to dark */}
-            <motion.button
+            <motion.button type="button"
               onClick={() => setDarkMode(!darkMode)}
               className={`relative w-14 h-8 rounded-full p-1 flex items-center ${darkMode ? 'justify-end bg-gray-700' : 'justify-start bg-gray-300'}`}
               aria-label={`Switch to ${darkMode ? 'light' : 'dark'} mode`}
@@ -140,9 +140,9 @@ const Header = ({ darkMode = true, setDarkMode, activeSection, setActiveSection 
                 }}
               >
                 {darkMode ? (
-                  <FiSun className="w-4 h-4 text-gray-800" />
+                  <FiSun className="w-4 h-4 text-black" />
                 ) : (
-                  <FiMoon className="w-4 h-4 text-gray-600" />
+                  <FiMoon className="w-4 h-4 text-gray-800" />
                 )}
               </motion.div>
             </motion.button>
@@ -151,7 +151,7 @@ const Header = ({ darkMode = true, setDarkMode, activeSection, setActiveSection 
           {/* Mobile Menu Button */}
           <div className="flex md:hidden items-center space-x-4">
             {/* Enhanced Mobile Dark Mode Toggle - Default to dark */}
-            <motion.button
+            <motion.button type="button"
               onClick={() => setDarkMode(!darkMode)}
               className={`relative w-12 h-6 rounded-full p-1 flex items-center ${darkMode ? 'justify-end bg-gray-700' : 'justify-start bg-gray-300'}`}
               aria-label={`Switch to ${darkMode ? 'light' : 'dark'} mode`}
@@ -167,22 +167,40 @@ const Header = ({ darkMode = true, setDarkMode, activeSection, setActiveSection 
                 }}
               >
                 {darkMode ? (
-                  <FiSun className="w-3 h-3 text-gray-800" />
+                  <FiSun className="w-3 h-3 text-black" />
                 ) : (
-                  <FiMoon className="w-3 h-3 text-gray-600" />
+                  <FiMoon className="w-3 h-3 text-gray-800" />
                 )}
               </motion.div>
             </motion.button>
             
-            <motion.button
-              onClick={toggleMenu}
-              className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+            <motion.button type="button"
+              onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleMenu(); }}
+              className={`p-2 transition-colors group hamburger-button ${isMenuOpen ? "menu-open" : ""}`}
               aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
-              {isMenuOpen ? <FiX className="w-6 h-6" /> : <FiMenu className="w-6 h-6" />}
-            </motion.button>
+              <div className="w-6 h-6 flex flex-col justify-center items-center">
+                  <motion.span
+                    className="block w-6 h-0.5 group-hover:h-1 transition-all duration-200 mb-1.5 origin-center hamburger-line"
+                    animate={isMenuOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                    style={{ backgroundColor: darkMode ? "white" : "black" }}
+                  />
+                  <motion.span
+                    className="block w-6 h-0.5 group-hover:h-1 transition-all duration-200 mb-1.5 hamburger-line middle-line"
+                    animate={isMenuOpen ? { opacity: 0, scale: 0 } : { opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.3 }}
+                    style={{ backgroundColor: darkMode ? "white" : "black" }}
+                  />
+                  <motion.span
+                    className="block w-6 h-0.5 group-hover:h-1 transition-all duration-200 origin-center hamburger-line"
+                    animate={isMenuOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                    style={{ backgroundColor: darkMode ? "white" : "black" }}
+                  />
+                </div>            </motion.button>
           </div>
         </div>
       </div>
@@ -198,15 +216,15 @@ const Header = ({ darkMode = true, setDarkMode, activeSection, setActiveSection 
             transition={{ duration: 0.3 }}
             style={{ top: '80px' }}
           >
-            <div className={`absolute inset-0 ${darkMode ? 'bg-gray-900' : 'bg-white'}`}></div>
+            <div className={`absolute inset-0 ${darkMode ? 'bg-gray-900' : 'bg-white border-b border-gray-200'}`}></div>
             <nav className="relative flex flex-col items-center space-y-4 py-6 px-4">
               {navLinks.map((link, index) => (
-                <motion.button
+                <motion.button type="button"
                   key={link.id}
                   onClick={() => scrollToSection(link.id)}
                   className={`w-full text-lg px-6 py-4 rounded-lg transition-all flex items-center ${activeSection === link.id 
                     ? 'bg-[#e6f7f5] text-[#2C98A0] dark:bg-[#1a3a3f] dark:text-[#4CC8A3] font-medium' 
-                    : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'}`}
+                    : 'text-black hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'}`}
                   aria-current={activeSection === link.id ? 'page' : undefined}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -215,7 +233,7 @@ const Header = ({ darkMode = true, setDarkMode, activeSection, setActiveSection 
                   whileTap={{ scale: 0.98 }}
                 >
                   <div className="flex items-center gap-3">
-                    <span className={`${activeSection === link.id ? 'text-[#2C98A0] dark:text-[#4CC8A3]' : 'text-gray-500 dark:text-gray-400'}`}>
+                    <span className={`${activeSection === link.id ? 'text-[#2C98A0] dark:text-[#4CC8A3]' : 'text-gray-800 dark:text-gray-400'}`}>
                       {link.icon}
                     </span>
                     {link.label}
