@@ -43,7 +43,7 @@ const About = ({ setActiveSection }) => {
           viewport={{ once: true, margin: "-100px" }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
             My <span className="text-[#2C98A0] dark:text-[#4CC8A3]">Story</span>
           </h2>
           <motion.div
@@ -53,7 +53,7 @@ const About = ({ setActiveSection }) => {
             viewport={{ once: true }}
             className="w-24 h-1 bg-[#2C98A0] dark:bg-[#4CC8A3] mx-auto mb-6 transform origin-left"
           />
-          <p className="max-w-2xl mx-auto text-lg text-gray-600 dark:text-gray-300">
+          <p className="max-w-2xl mx-auto text-lg text-gray-700 dark:text-gray-200">
             The journey of a passionate developer creating meaningful digital experiences
           </p>
         </motion.div>
@@ -65,15 +65,15 @@ const About = ({ setActiveSection }) => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700"
+            className="bg-white/80 dark:bg-gray-700/60 p-8 rounded-xl shadow-sm/30 border border-gray-200 dark:border-gray-600"
           >
-            <h3 className="text-3xl font-bold mb-6">
+            <h3 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
               Professional <span className="text-[#2C98A0] dark:text-[#4CC8A3]">Journey</span>
             </h3>
             
             <div className="relative">
               {/* Timeline */}
-              <div className="absolute left-8 top-0 h-full w-0.5 bg-gray-200 dark:bg-gray-700"></div>
+              <div className="absolute left-8 top-0 h-full w-0.5 bg-gray-200 dark:bg-gray-600"></div>
               
               {milestones.map((milestone, index) => (
                 <motion.div
@@ -84,10 +84,10 @@ const About = ({ setActiveSection }) => {
                   viewport={{ once: true }}
                   className="relative pl-16 pb-8"
                 >
-                  <div className="absolute left-0 top-0 w-6 h-6 rounded-full bg-[#2C98A0] dark:bg-[#4CC8A3] border-4 border-white dark:border-gray-800"></div>
+                  <div className="absolute left-0 top-0 w-6 h-6 rounded-full bg-[#2C98A0] dark:bg-[#4CC8A3] border-4 border-white dark:border-gray-700"></div>
                   <div className="text-sm font-medium text-[#2C98A0] dark:text-[#4CC8A3]">{milestone.year}</div>
-                  <h4 className="text-xl font-semibold mt-1">{milestone.title}</h4>
-                  <p className="text-gray-600 dark:text-gray-300 mt-2">{milestone.description}</p>
+                  <h4 className="text-xl font-semibold mt-1 text-gray-900 dark:text-white">{milestone.title}</h4>
+                  <p className="text-gray-700 dark:text-gray-200 mt-2">{milestone.description}</p>
                 </motion.div>
               ))}
             </div>
@@ -99,9 +99,9 @@ const About = ({ setActiveSection }) => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
-            className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700"
+            className="bg-white/80 dark:bg-gray-700/60 p-8 rounded-xl shadow-sm/30 border border-gray-200 dark:border-gray-600"
           >
-            <h3 className="text-3xl font-bold mb-6">
+            <h3 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
               Development <span className="text-[#2C98A0] dark:text-[#4CC8A3]">Values</span>
             </h3>
             
@@ -113,13 +113,13 @@ const About = ({ setActiveSection }) => {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 + index * 0.1 }}
                   viewport={{ once: true }}
-                  className="p-6 bg-gray-100 dark:bg-gray-700/50 rounded-lg"
+                  className="p-6 bg-white/90 dark:bg-gray-600/50 rounded-lg border border-gray-100 dark:border-gray-500"
                 >
                   <div className="p-3 bg-[#e6f7f5] dark:bg-[#1a3a3f] rounded-full text-[#2C98A0] dark:text-[#4CC8A3] w-max mb-4">
                     {value.icon}
                   </div>
-                  <h4 className="text-xl font-semibold mb-2">{value.title}</h4>
-                  <p className="text-gray-600 dark:text-gray-300">{value.description}</p>
+                  <h4 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">{value.title}</h4>
+                  <p className="text-gray-700 dark:text-gray-200">{value.description}</p>
                 </motion.div>
               ))}
             </div>
@@ -131,28 +131,28 @@ const About = ({ setActiveSection }) => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
             viewport={{ once: true }}
-            className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700"
+            className="bg-white/80 dark:bg-gray-700/60 p-8 rounded-xl shadow-sm/30 border border-gray-200 dark:border-gray-600"
           >
-            <h3 className="text-3xl font-bold mb-6">
+            <h3 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
               By The <span className="text-[#2C98A0] dark:text-[#4CC8A3]">Numbers</span>
             </h3>
             
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               <div className="text-center">
                 <div className="text-4xl font-bold text-[#2C98A0] dark:text-[#4CC8A3] mb-2">5+</div>
-                <div className="text-gray-600 dark:text-gray-300">Years Experience</div>
+                <div className="text-gray-700 dark:text-gray-200">Years Experience</div>
               </div>
               <div className="text-center">
                 <div className="text-4xl font-bold text-[#2C98A0] dark:text-[#4CC8A3] mb-2">50+</div>
-                <div className="text-gray-600 dark:text-gray-300">Projects Completed</div>
+                <div className="text-gray-700 dark:text-gray-200">Projects Completed</div>
               </div>
               <div className="text-center">
                 <div className="text-4xl font-bold text-[#2C98A0] dark:text-[#4CC8A3] mb-2">20+</div>
-                <div className="text-gray-600 dark:text-gray-300">Technologies Used</div>
+                <div className="text-gray-700 dark:text-gray-200">Technologies Used</div>
               </div>
               <div className="text-center">
                 <div className="text-4xl font-bold text-[#2C98A0] dark:text-[#4CC8A3] mb-2">100%</div>
-                <div className="text-gray-600 dark:text-gray-300">Client Satisfaction</div>
+                <div className="text-gray-700 dark:text-gray-200">Client Satisfaction</div>
               </div>
             </div>
           </motion.div>

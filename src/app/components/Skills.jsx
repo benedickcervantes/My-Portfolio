@@ -85,7 +85,7 @@ const Skills = ({ setActiveSection }) => {
           viewport={{ once: true, margin: "-100px" }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
             My <span className="text-[#2C98A0] dark:text-[#4CC8A3]">Skills</span>
           </h2>
           <motion.div
@@ -95,7 +95,7 @@ const Skills = ({ setActiveSection }) => {
             viewport={{ once: true }}
             className="w-24 h-1 bg-[#2C98A0] dark:bg-[#4CC8A3] mx-auto mb-6 transform origin-left"
           />
-          <p className="max-w-2xl mx-auto text-lg text-gray-600 dark:text-gray-300">
+          <p className="max-w-2xl mx-auto text-lg text-gray-700 dark:text-gray-200">
             The tools, technologies, and expertise I've mastered to create exceptional digital experiences
           </p>
         </motion.div>
@@ -117,23 +117,23 @@ const Skills = ({ setActiveSection }) => {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: catIndex * 0.1 }}
                   viewport={{ once: true }}
-                  className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700"
+                  className="bg-white/90 dark:bg-gray-700/60 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-600"
                 >
                   <div className="flex items-center gap-3 mb-4">
                     <div className="p-2 bg-[#e6f7f5] dark:bg-[#1a3a3f] rounded-lg text-[#2C98A0] dark:text-[#4CC8A3]">
                       {category.icon}
                     </div>
-                    <h3 className="text-xl font-semibold">{category.title}</h3>
+                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{category.title}</h3>
                   </div>
                   
                   <div className="space-y-4">
                     {category.skills.map((skill, skillIndex) => (
                       <div key={skillIndex}>
                         <div className="flex justify-between mb-1">
-                          <span className="text-sm font-medium text-gray-900 dark:text-gray-300">{skill.name}</span>
-                          <span className="text-xs text-gray-500 dark:text-gray-400">{skill.level}%</span>
+                          <span className="text-sm font-medium text-gray-900 dark:text-gray-200">{skill.name}</span>
+                          <span className="text-xs text-gray-600 dark:text-gray-300">{skill.level}%</span>
                         </div>
-                        <div className="w-full bg-gray-50 dark:bg-gray-700 rounded-full h-2">
+                        <div className="w-full bg-gray-100 dark:bg-gray-600 rounded-full h-2">
                           <motion.div 
                             initial={{ width: 0 }}
                             whileInView={{ width: `${skill.level}%` }}
@@ -158,12 +158,12 @@ const Skills = ({ setActiveSection }) => {
             viewport={{ once: true }}
             className="lg:w-1/2"
           >
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 h-full">
+            <div className="bg-white/90 dark:bg-gray-700/60 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-600 h-full">
               <div className="flex items-center gap-3 mb-6">
                 <div className="p-2 bg-[#e6f7f5] dark:bg-[#1a3a3f] rounded-lg text-[#2C98A0] dark:text-[#4CC8A3]">
                   <FiLayers className="text-2xl" />
                 </div>
-                <h3 className="text-xl font-semibold">Technologies I Use</h3>
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Technologies I Use</h3>
               </div>
               
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
@@ -177,11 +177,11 @@ const Skills = ({ setActiveSection }) => {
                     className="group relative"
                   >
                     <div className="absolute -inset-1 bg-gradient-to-r from-[#2C98A0] to-[#4CC8A3] rounded-lg blur opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-                    <div className="relative bg-gray-50 dark:bg-gray-700 p-4 rounded-lg flex flex-col items-center hover:shadow-md transition-shadow">
+                    <div className="relative bg-gray-50/80 dark:bg-gray-600/50 p-4 rounded-lg flex flex-col items-center hover:shadow-md transition-shadow">
                       <div className="w-10 h-10 text-2xl mb-2 flex items-center justify-center">
                         {tech.icon}
                       </div>
-                      <span className="text-sm font-medium text-gray-900 dark:text-gray-300">{tech.name}</span>
+                      <span className="text-sm font-medium text-gray-900 dark:text-gray-200">{tech.name}</span>
                     </div>
                   </motion.div>
                 ))}

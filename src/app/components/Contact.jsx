@@ -27,7 +27,7 @@ const Contact = ({ setActiveSection }) => {
   };
 
   return (
-    <section id="contact" className="py-20 bg-gray-50 dark:bg-gray-800/50 relative overflow-hidden">
+    <section id="contact" className="py-20 bg-gray-50/30 dark:bg-gray-800/30 relative overflow-hidden">
       {/* Background elements */}
       <motion.div
         initial={{ opacity: 0 }}
@@ -52,7 +52,7 @@ const Contact = ({ setActiveSection }) => {
           viewport={{ once: true, margin: "-100px" }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
             Get In <span className="text-[#2C98A0] dark:text-[#4CC8A3]">Touch</span>
           </h2>
           <motion.div
@@ -62,7 +62,7 @@ const Contact = ({ setActiveSection }) => {
             viewport={{ once: true }}
             className="w-24 h-1 bg-[#2C98A0] dark:bg-[#4CC8A3] mx-auto mb-6 transform origin-left"
           />
-          <p className="max-w-2xl mx-auto text-lg text-gray-600 dark:text-gray-300">
+          <p className="max-w-2xl mx-auto text-lg text-gray-700 dark:text-gray-200">
             Have a project in mind or want to collaborate? I'd love to hear from you!
           </p>
         </motion.div>
@@ -75,8 +75,8 @@ const Contact = ({ setActiveSection }) => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
-              <h3 className="text-2xl font-bold mb-8">Contact Information</h3>
+            <div className="bg-white/90 dark:bg-gray-700/60 p-8 rounded-xl shadow-sm border border-gray-200 dark:border-gray-600">
+              <h3 className="text-2xl font-bold mb-8 text-gray-900 dark:text-white">Contact Information</h3>
               
               <div className="space-y-6">
                 <motion.div 
@@ -90,10 +90,10 @@ const Contact = ({ setActiveSection }) => {
                     <FiMail className="text-xl" />
                   </div>
                   <div>
-                    <h4 className="font-medium text-gray-500 dark:text-gray-400 mb-1">Email</h4>
+                    <h4 className="font-medium text-gray-600 dark:text-gray-300 mb-1">Email</h4>
                     <a 
                       href="mailto:benedickcervantes@gmail.com" 
-                      className="hover:text-[#2C98A0] dark:hover:text-[#4CC8A3] transition-colors"
+                      className="text-gray-700 dark:text-gray-200 hover:text-[#2C98A0] dark:hover:text-[#4CC8A3] transition-colors"
                     >
                       benedickcervantes@gmail.com
                     </a>
@@ -111,8 +111,8 @@ const Contact = ({ setActiveSection }) => {
                     <FiMapPin className="text-xl" />
                   </div>
                   <div>
-                    <h4 className="font-medium text-gray-500 dark:text-gray-400 mb-1">Location</h4>
-                    <p>San Juan City, Philippines</p>
+                    <h4 className="font-medium text-gray-600 dark:text-gray-300 mb-1">Location</h4>
+                    <p className="text-gray-700 dark:text-gray-200">San Juan City, Philippines</p>
                   </div>
                 </motion.div>
                 
@@ -127,15 +127,15 @@ const Contact = ({ setActiveSection }) => {
                     <FiPhone className="text-xl" />
                   </div>
                   <div>
-                    <h4 className="font-medium text-gray-500 dark:text-gray-400 mb-1">Phone</h4>
-                    <p>+63 (917) 843-2759</p>
-                    <p>+63 (917) 149-3410</p>
+                    <h4 className="font-medium text-gray-600 dark:text-gray-300 mb-1">Phone</h4>
+                    <p className="text-gray-700 dark:text-gray-200">+63 (917) 843-2759</p>
+                    <p className="text-gray-700 dark:text-gray-200">+63 (917) 149-3410</p>
                   </div>
                 </motion.div>
               </div>
               
-              <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
-                <h4 className="text-xl font-bold mb-6">Follow Me</h4>
+              <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-600">
+                <h4 className="text-xl font-bold mb-6 text-gray-900 dark:text-white">Follow Me</h4>
                 <div className="flex gap-4">
                   {[
                     { icon: <FiGithub />, url: "#", name: "GitHub" },
@@ -148,7 +148,7 @@ const Contact = ({ setActiveSection }) => {
                       href={social.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-3 bg-gray-100 dark:bg-gray-700 rounded-full hover:bg-[#e6f7f5] dark:hover:bg-[#1a3a3f] transition-colors text-gray-600 dark:text-gray-300 hover:text-[#2C98A0] dark:hover:text-[#4CC8A3]"
+                      className="p-3 bg-gray-100/80 dark:bg-gray-600/50 rounded-full hover:bg-[#e6f7f5] dark:hover:bg-[#1a3a3f] transition-colors text-gray-700 dark:text-gray-200 hover:text-[#2C98A0] dark:hover:text-[#4CC8A3]"
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.4 + index * 0.1 }}
@@ -172,8 +172,8 @@ const Contact = ({ setActiveSection }) => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 h-full">
-              <h3 className="text-2xl font-bold mb-8">Send Me a Message</h3>
+            <div className="bg-white/90 dark:bg-gray-700/60 p-8 rounded-xl shadow-sm border border-gray-200 dark:border-gray-600 h-full">
+              <h3 className="text-2xl font-bold mb-8 text-gray-900 dark:text-white">Send Me a Message</h3>
               
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -183,14 +183,14 @@ const Contact = ({ setActiveSection }) => {
                     transition={{ delay: 0.1 }}
                     viewport={{ once: true }}
                   >
-                    <label htmlFor="name" className="block mb-2 font-medium text-gray-900 dark:text-gray-300">Your Name</label>
+                    <label htmlFor="name" className="block mb-2 font-medium text-gray-900 dark:text-gray-200">Your Name</label>
                     <input 
                       type="text" 
                       id="name" 
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:ring-2 focus:ring-[#2C98A0] focus:border-transparent transition-all text-gray-900 dark:text-gray-300"
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-500 bg-white/80 dark:bg-gray-600/50 focus:ring-2 focus:ring-[#2C98A0] focus:border-transparent transition-all text-gray-900 dark:text-gray-200"
                       placeholder="Full Name"
                       required
                     />
@@ -202,14 +202,14 @@ const Contact = ({ setActiveSection }) => {
                     transition={{ delay: 0.2 }}
                     viewport={{ once: true }}
                   >
-                    <label htmlFor="email" className="block mb-2 font-medium text-gray-900 dark:text-gray-300">Your Email</label>
+                    <label htmlFor="email" className="block mb-2 font-medium text-gray-900 dark:text-gray-200">Your Email</label>
                     <input 
                       type="email" 
                       id="email" 
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:ring-2 focus:ring-[#2C98A0] focus:border-transparent transition-all text-gray-900 dark:text-gray-300"
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-500 bg-white/80 dark:bg-gray-600/50 focus:ring-2 focus:ring-[#2C98A0] focus:border-transparent transition-all text-gray-900 dark:text-gray-200"
                       placeholder="your@email.com"
                       required
                     />
@@ -222,14 +222,14 @@ const Contact = ({ setActiveSection }) => {
                   transition={{ delay: 0.3 }}
                   viewport={{ once: true }}
                 >
-                  <label htmlFor="subject" className="block mb-2 font-medium text-gray-900 dark:text-gray-300">Subject</label>
+                  <label htmlFor="subject" className="block mb-2 font-medium text-gray-900 dark:text-gray-200">Subject</label>
                   <input 
                     type="text" 
                     id="subject" 
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:ring-2 focus:ring-[#2C98A0] focus:border-transparent transition-all text-gray-900 dark:text-gray-300"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-500 bg-white/80 dark:bg-gray-600/50 focus:ring-2 focus:ring-[#2C98A0] focus:border-transparent transition-all text-gray-900 dark:text-gray-200"
                     placeholder="What's this about?"
                     required
                   />
@@ -241,14 +241,14 @@ const Contact = ({ setActiveSection }) => {
                   transition={{ delay: 0.4 }}
                   viewport={{ once: true }}
                 >
-                  <label htmlFor="message" className="block mb-2 font-medium text-gray-900 dark:text-gray-300">Your Message</label>
+                  <label htmlFor="message" className="block mb-2 font-medium text-gray-900 dark:text-gray-200">Your Message</label>
                   <textarea 
                     id="message" 
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
                     rows="2" 
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:ring-2 focus:ring-[#2C98A0] focus:border-transparent transition-all text-gray-900 dark:text-gray-300"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-500 bg-white/80 dark:bg-gray-600/50 focus:ring-2 focus:ring-[#2C98A0] focus:border-transparent transition-all text-gray-900 dark:text-gray-200"
                     placeholder="Hi Benedick, I'd like to talk about..."
                     required
                   ></textarea>
