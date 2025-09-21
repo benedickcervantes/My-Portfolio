@@ -103,7 +103,7 @@ const Header = ({ darkMode = true, setDarkMode, activeSection, setActiveSection 
                   onClick={() => scrollToSection(link.id)}
                   className={`relative px-4 py-2 transition-all flex items-center gap-1 ${activeSection === link.id 
                     ? 'text-[#2C98A0] dark:text-[#4CC8A3] font-medium' 
-                    : 'text-black hover:text-[#38B2A3] dark:text-gray-300 dark:hover:text-[#4CC8A3]'}`}
+                    : 'text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-[#4CC8A3]'}`}
                   aria-current={activeSection === link.id ? 'page' : undefined}
                 >
                   {link.icon}
@@ -224,7 +224,7 @@ const Header = ({ darkMode = true, setDarkMode, activeSection, setActiveSection 
                   onClick={() => scrollToSection(link.id)}
                   className={`w-full text-lg px-6 py-4 rounded-lg transition-all flex items-center ${activeSection === link.id 
                     ? 'bg-[#e6f7f5] text-[#2C98A0] dark:bg-[#1a3a3f] dark:text-[#4CC8A3] font-medium' 
-                    : 'text-black hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'}`}
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'}`}
                   aria-current={activeSection === link.id ? 'page' : undefined}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -233,7 +233,7 @@ const Header = ({ darkMode = true, setDarkMode, activeSection, setActiveSection 
                   whileTap={{ scale: 0.98 }}
                 >
                   <div className="flex items-center gap-3">
-                    <span className={`${activeSection === link.id ? 'text-[#2C98A0] dark:text-[#4CC8A3]' : 'text-gray-800 dark:text-gray-400'}`}>
+                    <span className={`${activeSection === link.id ? 'text-[#2C98A0] dark:text-[#4CC8A3]' : 'text-gray-600 dark:text-gray-400'}`}>
                       {link.icon}
                     </span>
                     {link.label}

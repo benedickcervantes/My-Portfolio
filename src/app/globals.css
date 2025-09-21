@@ -203,175 +203,76 @@ span.name-text-light {
   background-color: #4CC8A3 !important;
 }
 
-/* Force visibility for all hamburger elements */
-.hamburger-line * {
-  background-color: inherit !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-}
-
-/* Prevent unwanted link behavior on hamburger button */
-.hamburger-button {
-  text-decoration: none !important;
-  cursor: pointer !important;
-  border: none !important;
-  outline: none !important;
-  background: none !important;
-}
-
-.hamburger-button:hover {
+.hero-social-icon:hover {
+  color: #2C98A0 !important;
   text-decoration: none !important;
 }
 
-.hamburger-button:focus {
-  outline: none !important;
-  text-decoration: none !important;
-}
-
-.hamburger-button:active {
-  text-decoration: none !important;
-}
-
-/* Ensure middle line completely disappears when menu is open */
-.hamburger-line.middle-line {
-  transition: opacity 0.3s ease, scale 0.3s ease !important;
-}
-
-.hamburger-line.middle-line.hidden {
-  opacity: 0 !important;
-  scale: 0 !important;
-  visibility: hidden !important;
-}
-
-/* Ultra aggressive middle line hiding */
-.hamburger-line.middle-line[data-state="open"] {
-  opacity: 0 !important;
-  transform: scale(0) !important;
-  visibility: hidden !important;
-  display: none !important;
-}
-
-/* Force middle line to be completely invisible when menu is open */
-.menu-open .hamburger-line.middle-line {
-  opacity: 0 !important;
-  transform: scale(0) !important;
-  visibility: hidden !important;
-  display: none !important;
-}
-
-/* Robust text readability classes for light mode */
-.text-readable-light {
-  color: #000000 !important;
-}
-
-.dark .text-readable-light {
+.dark .hero-social-icon {
   color: #d1d5db !important;
 }
 
+.dark .hero-social-icon:hover {
+  color: #4CC8A3 !important;
+}
+
+/* Ensure React Icons are properly styled */
+.hero-social-icon svg {
+  width: 1.5rem !important;
+  height: 1.5rem !important;
+  color: inherit !important;
+  fill: none !important;
+  stroke: currentColor !important;
+  stroke-width: 2 !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+}
+
+.dark .hero-role-text {
+  color: #d1d5db !important;
+}
+
+/* Text readability classes */
+.text-readable-light {
+  color: #000000 !important;
+}
+.dark .text-readable-light {
+  color: #d1d5db !important;
+}
 .text-readable-secondary-light {
   color: #374151 !important;
 }
-
 .dark .text-readable-secondary-light {
   color: #9ca3af !important;
 }
-
 .text-readable-muted-light {
   color: #4b5563 !important;
 }
-
 .dark .text-readable-muted-light {
   color: #6b7280 !important;
 }
-
 /* Force all gray text to be readable in light mode */
 .text-gray-600 {
   color: #374151 !important;
 }
-
 .dark .text-gray-600 {
   color: #d1d5db !important;
 }
-
 .text-gray-500 {
   color: #4b5563 !important;
 }
-
 .dark .text-gray-500 {
   color: #9ca3af !important;
 }
-
 .text-gray-700 {
   color: #374151 !important;
 }
-
 .dark .text-gray-700 {
   color: #d1d5db !important;
 }
-
 .text-gray-900 {
   color: #000000 !important;
 }
-
-.dark .text-gray-900 {
-  color: #f9fafb !important;
-}
-
-
-/* Robust text readability classes for light mode */
-.text-readable-light {
-  color: #000000 !important;
-}
-
-.dark .text-readable-light {
-  color: #d1d5db !important;
-}
-
-.text-readable-secondary-light {
-  color: #374151 !important;
-}
-
-.dark .text-readable-secondary-light {
-  color: #9ca3af !important;
-}
-
-.text-readable-muted-light {
-  color: #4b5563 !important;
-}
-
-.dark .text-readable-muted-light {
-  color: #6b7280 !important;
-}
-
-/* Force all gray text to be readable in light mode */
-.text-gray-600 {
-  color: #374151 !important;
-}
-
-.dark .text-gray-600 {
-  color: #d1d5db !important;
-}
-
-.text-gray-500 {
-  color: #4b5563 !important;
-}
-
-.dark .text-gray-500 {
-  color: #9ca3af !important;
-}
-
-.text-gray-700 {
-  color: #374151 !important;
-}
-
-.dark .text-gray-700 {
-  color: #d1d5db !important;
-}
-
-.text-gray-900 {
-  color: #000000 !important;
-}
-
 .dark .text-gray-900 {
   color: #f9fafb !important;
 }
