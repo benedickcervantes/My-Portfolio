@@ -1,20 +1,54 @@
 'use client';
 import { motion } from 'framer-motion';
-import { FiDownload, FiAward, FiCode, FiLayers, FiUsers, FiGlobe } from 'react-icons/fi';
+import { FiDownload, FiAward, FiCode, FiLayers, FiUsers, FiGlobe, FiBriefcase, FiShield, FiTrendingUp } from 'react-icons/fi';
 
 const About = ({ setActiveSection }) => {
   const milestones = [
-    { year: '2018', title: 'Started Coding Journey', description: 'Built first website using HTML/CSS' },
-    { year: '2019', title: 'First Freelance Project', description: 'Developed e-commerce site for local business' },
-    { year: '2020', title: 'Full-Stack Specialization', description: 'Mastered React, Node.js, and databases' },
-    { year: '2022', title: 'UI/UX Certification', description: 'Completed advanced design training' },
-    { year: '2023', title: 'Open Source Contributions', description: 'Published 3 popular React components' }
+    { 
+      year: '2016-2021', 
+      title: 'IT Supervisor', 
+      company: 'Philsurv Geodetic Services',
+      location: 'Mandaluyong City',
+      description: 'Network Engineering, System Administration, Technical Support, Web Analytics, Digital Marketing, Asset Management, and IT Supervisory works. Optimized hardware infrastructure with strategic equipment upgrades, reducing maintenance costs.',
+      icon: <FiShield className="text-xl" />
+    },
+    { 
+      year: '2021-2025', 
+      title: 'Business Founder', 
+      company: 'Blue Switch PC',
+      location: 'San Juan City',
+      description: 'Established successful business by identifying market needs and developing innovative solutions. Managed Sales & Marketing, Technical Support, Social Media, and developed strong partnerships for growth opportunities.',
+      icon: <FiTrendingUp className="text-xl" />
+    },
+    { 
+      year: 'Feb-Sep 2025', 
+      title: 'System Developer', 
+      company: 'Inspire Holdings Inc.',
+      location: 'Taguig City',
+      description: 'Conducted usability tests, collaborated with stakeholders, designed database solutions, implemented new systems and enhancements, and enhanced system functionality by identifying and rectifying software bugs.',
+      icon: <FiCode className="text-xl" />
+    },
+    { 
+      year: 'Sep 2025-Present', 
+      title: 'IT Consultant (Part-Time)', 
+      company: 'Federal Pioneer Development Corporation',
+      location: 'Mandaluyong City',
+      description: 'Strategic IT planning, project leadership, custom software development, client advisory services, cybersecurity frameworks, and operational support with retainer-based maintenance.',
+      icon: <FiBriefcase className="text-xl" />
+    }
   ];
 
   const values = [
-    { icon: <FiCode className="text-2xl" />, title: 'Clean Code', description: 'Readable, maintainable, and efficient' },
-    { icon: <FiUsers className="text-2xl" />, title: 'User-Centric', description: 'Design with the end-user in mind' },
-    { icon: <FiGlobe className="text-2xl" />, title: 'Accessibility', description: 'Build for everyone' }
+    { icon: <FiCode className="text-2xl" />, title: 'Strategic Development', description: 'End-to-end system implementation and custom solutions' },
+    { icon: <FiUsers className="text-2xl" />, title: 'Client-Centric', description: 'Trusted technical advisor with comprehensive support' },
+    { icon: <FiShield className="text-2xl" />, title: 'Security First', description: 'Robust cybersecurity frameworks and compliance' }
+  ];
+
+  const achievements = [
+    { number: '9+', label: 'Years Experience', description: 'From IT Supervisor to Strategic Consultant' },
+    { number: '4', label: 'Major Roles', description: 'Technical, Entrepreneurial, Development, Consulting' },
+    { number: '100%', label: 'Business Success', description: 'Founded and grew Blue Switch PC' },
+    { number: '50+', label: 'Projects Delivered', description: 'Custom solutions and system implementations' }
   ];
 
   return (
@@ -44,7 +78,7 @@ const About = ({ setActiveSection }) => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
-            My <span className="text-[#2C98A0] dark:text-[#4CC8A3]">Story</span>
+            My <span className="text-[#2C98A0] dark:text-[#4CC8A3]">Journey</span>
           </h2>
           <motion.div
             initial={{ scaleX: 0 }}
@@ -54,7 +88,7 @@ const About = ({ setActiveSection }) => {
             className="w-24 h-1 bg-[#2C98A0] dark:bg-[#4CC8A3] mx-auto mb-6 transform origin-left"
           />
           <p className="max-w-2xl mx-auto text-lg text-gray-700 dark:text-gray-200">
-            The journey of a passionate developer creating meaningful digital experiences
+            From IT Supervisor to Strategic Consultant - A journey of technical excellence and business innovation
           </p>
         </motion.div>
         
@@ -68,7 +102,7 @@ const About = ({ setActiveSection }) => {
             className="bg-white/80 dark:bg-gray-700/60 p-8 rounded-xl shadow-sm/30 border border-gray-200 dark:border-gray-600"
           >
             <h3 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
-              Professional <span className="text-[#2C98A0] dark:text-[#4CC8A3]">Journey</span>
+              Professional <span className="text-[#2C98A0] dark:text-[#4CC8A3]">Experience</span>
             </h3>
             
             <div className="relative">
@@ -78,15 +112,18 @@ const About = ({ setActiveSection }) => {
               {milestones.map((milestone, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, x: index % 2 === 0 ? 50 : -50 }}
+                  initial={{ opacity: 0, x: 50 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   viewport={{ once: true }}
                   className="relative pl-16 pb-8"
                 >
-                  <div className="absolute left-0 top-0 w-6 h-6 rounded-full bg-[#2C98A0] dark:bg-[#4CC8A3] border-4 border-white dark:border-gray-700"></div>
+                  <div className="absolute left-0 top-0 w-6 h-6 rounded-full bg-[#2C98A0] dark:bg-[#4CC8A3] border-4 border-white dark:border-gray-700 flex items-center justify-center">
+                    {milestone.icon}
+                  </div>
                   <div className="text-sm font-medium text-[#2C98A0] dark:text-[#4CC8A3]">{milestone.year}</div>
                   <h4 className="text-xl font-semibold mt-1 text-gray-900 dark:text-white">{milestone.title}</h4>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">{milestone.company} • {milestone.location}</p>
                   <p className="text-gray-700 dark:text-gray-200 mt-2">{milestone.description}</p>
                 </motion.div>
               ))}
@@ -102,7 +139,7 @@ const About = ({ setActiveSection }) => {
             className="bg-white/80 dark:bg-gray-700/60 p-8 rounded-xl shadow-sm/30 border border-gray-200 dark:border-gray-600"
           >
             <h3 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
-              Development <span className="text-[#2C98A0] dark:text-[#4CC8A3]">Values</span>
+              Professional <span className="text-[#2C98A0] dark:text-[#4CC8A3]">Values</span>
             </h3>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -134,26 +171,24 @@ const About = ({ setActiveSection }) => {
             className="bg-white/80 dark:bg-gray-700/60 p-8 rounded-xl shadow-sm/30 border border-gray-200 dark:border-gray-600"
           >
             <h3 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
-              By The <span className="text-[#2C98A0] dark:text-[#4CC8A3]">Numbers</span>
+              Career <span className="text-[#2C98A0] dark:text-[#4CC8A3]">Highlights</span>
             </h3>
             
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              <div className="text-center">
-                <div className="text-4xl font-bold text-[#2C98A0] dark:text-[#4CC8A3] mb-2">5+</div>
-                <div className="text-gray-700 dark:text-gray-200">Years Experience</div>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold text-[#2C98A0] dark:text-[#4CC8A3] mb-2">50+</div>
-                <div className="text-gray-700 dark:text-gray-200">Projects Completed</div>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold text-[#2C98A0] dark:text-[#4CC8A3] mb-2">20+</div>
-                <div className="text-gray-700 dark:text-gray-200">Technologies Used</div>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold text-[#2C98A0] dark:text-[#4CC8A3] mb-2">100%</div>
-                <div className="text-gray-700 dark:text-gray-200">Client Satisfaction</div>
-              </div>
+              {achievements.map((achievement, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 + index * 0.1 }}
+                  viewport={{ once: true }}
+                  className="text-center p-4"
+                >
+                  <div className="text-4xl font-bold text-[#2C98A0] dark:text-[#4CC8A3] mb-2">{achievement.number}</div>
+                  <div className="text-gray-700 dark:text-gray-200 font-medium">{achievement.label}</div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">{achievement.description}</div>
+                </motion.div>
+              ))}
             </div>
           </motion.div>
 
