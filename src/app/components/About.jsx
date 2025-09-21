@@ -113,7 +113,7 @@ const About = ({ setActiveSection }) => {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 + index * 0.1 }}
                   viewport={{ once: true }}
-                  className="p-6 bg-gray-50 dark:bg-gray-700/50 rounded-lg"
+                  className="p-6 bg-gray-100 dark:bg-gray-700/50 rounded-lg"
                 >
                   <div className="p-3 bg-[#e6f7f5] dark:bg-[#1a3a3f] rounded-full text-[#2C98A0] dark:text-[#4CC8A3] w-max mb-4">
                     {value.icon}
