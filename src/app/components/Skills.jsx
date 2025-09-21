@@ -48,15 +48,15 @@ const Skills = ({ setActiveSection }) => {
     { name: "React", icon: "⚛️" },
     { name: "TypeScript", icon: "📝" },
     { name: "Next.js", icon: "⏭️" },
-    { name: "GraphQL", icon: "📊" },
     { name: "Node.js", icon: "🟢" },
-    { name: "Express", icon: "🚂" },
     { name: "MongoDB", icon: "🍃" },
     { name: "Firebase", icon: "🔥" },
-    { name: "Tailwind", icon: "🎨" },
-    { name: "Figma", icon: "✏️" },
-    { name: "Git", icon: "🐙" },
-    { name: "Docker", icon: "🐳" },
+    { name: "Git", icon: "📚" },
+    { name: "Figma", icon: "🎨" },
+    { name: "Tailwind CSS", icon: "💨" },
+    { name: "JavaScript", icon: "⚡" },
+    { name: "HTML", icon: "🌐" },
+    { name: "CSS", icon: "🎭" }
   ];
 
   return (
@@ -67,14 +67,14 @@ const Skills = ({ setActiveSection }) => {
         whileInView={{ opacity: 0.05 }}
         viewport={{ once: true }}
         transition={{ duration: 1 }}
-        className="absolute -left-20 top-1/3 w-64 h-64 rounded-full bg-[#2C98A0] filter blur-3xl"
+        className="absolute -right-20 -top-20 w-64 h-64 rounded-full bg-[#2C98A0] filter blur-3xl"
       />
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 0.05 }}
         viewport={{ once: true }}
         transition={{ duration: 1, delay: 0.3 }}
-        className="absolute -right-20 bottom-1/4 w-64 h-64 rounded-full bg-[#4CC8A3] filter blur-3xl"
+        className="absolute -left-20 bottom-20 w-64 h-64 rounded-full bg-[#4CC8A3] filter blur-3xl"
       />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -96,99 +96,86 @@ const Skills = ({ setActiveSection }) => {
             className="w-24 h-1 bg-[#2C98A0] dark:bg-[#4CC8A3] mx-auto mb-6 transform origin-left"
           />
           <p className="max-w-2xl mx-auto text-lg text-gray-700 dark:text-gray-200">
-            The tools, technologies, and expertise I've mastered to create exceptional digital experiences
+            A comprehensive set of technical skills and tools I use to bring ideas to life
           </p>
         </motion.div>
-        
-        <div className="flex flex-col lg:flex-row gap-12">
-          {/* Skills Progress */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="lg:w-1/2"
-          >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {skillCategories.map((category, catIndex) => (
-                <motion.div
-                  key={catIndex}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: catIndex * 0.1 }}
-                  viewport={{ once: true }}
-                  className="bg-white/90 dark:bg-gray-700/60 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-600"
-                >
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="p-2 bg-[#e6f7f5] dark:bg-[#1a3a3f] rounded-lg text-[#2C98A0] dark:text-[#4CC8A3]">
-                      {category.icon}
-                    </div>
-                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{category.title}</h3>
-                  </div>
-                  
-                  <div className="space-y-4">
-                    {category.skills.map((skill, skillIndex) => (
-                      <div key={skillIndex}>
-                        <div className="flex justify-between mb-1">
-                          <span className="text-sm font-medium text-gray-900 dark:text-gray-200">{skill.name}</span>
-                          <span className="text-xs text-gray-600 dark:text-gray-300">{skill.level}%</span>
-                        </div>
-                        <div className="w-full bg-gray-100 dark:bg-gray-600 rounded-full h-2">
-                          <motion.div 
-                            initial={{ width: 0 }}
-                            whileInView={{ width: `${skill.level}%` }}
-                            transition={{ duration: 1, delay: 0.2 + skillIndex * 0.05 }}
-                            viewport={{ once: true }}
-                            className="h-2 rounded-full bg-gradient-to-r from-[#2C98A0] to-[#4CC8A3]"
-                          />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-          
-          {/* Technologies Grid */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="lg:w-1/2"
-          >
-            <div className="bg-white/90 dark:bg-gray-700/60 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-600 h-full">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="p-2 bg-[#e6f7f5] dark:bg-[#1a3a3f] rounded-lg text-[#2C98A0] dark:text-[#4CC8A3]">
-                  <FiLayers className="text-2xl" />
+
+        {/* Skill Categories */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+          {skillCategories.map((category, categoryIndex) => (
+            <motion.div
+              key={categoryIndex}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: categoryIndex * 0.1 }}
+              viewport={{ once: true }}
+              className="bg-white/90 dark:bg-gray-700/60 p-8 rounded-xl shadow-sm/30 border border-gray-200 dark:border-gray-600"
+            >
+              <div className="flex items-center mb-6">
+                <div className="p-3 bg-[#e6f7f5] dark:bg-[#1a3a3f] rounded-full text-[#2C98A0] dark:text-[#4CC8A3] mr-4">
+                  {category.icon}
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Technologies I Use</h3>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white">{category.title}</h3>
               </div>
               
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                {technologies.map((tech, index) => (
+              <div className="space-y-4">
+                {category.skills.map((skill, skillIndex) => (
                   <motion.div
-                    key={index}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.3, delay: index * 0.05 }}
+                    key={skillIndex}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.4, delay: categoryIndex * 0.1 + skillIndex * 0.05 }}
                     viewport={{ once: true }}
-                    className="group relative"
+                    className="space-y-2"
                   >
-                    <div className="absolute -inset-1 bg-gradient-to-r from-[#2C98A0] to-[#4CC8A3] rounded-lg blur opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-                    <div className="relative bg-gray-50/80 dark:bg-gray-600/50 p-4 rounded-lg flex flex-col items-center hover:shadow-md transition-shadow">
-                      <div className="w-10 h-10 text-2xl mb-2 flex items-center justify-center">
-                        {tech.icon}
-                      </div>
-                      <span className="text-sm font-medium text-gray-900 dark:text-gray-200">{tech.name}</span>
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-900 dark:text-gray-200 font-medium">{skill.name}</span>
+                      <span className="text-gray-600 dark:text-gray-300 text-sm">{skill.level}%</span>
+                    </div>
+                    <div className="w-full bg-gray-100 dark:bg-gray-600 rounded-full h-2">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        whileInView={{ width: `${skill.level}%` }}
+                        transition={{ duration: 1, delay: categoryIndex * 0.1 + skillIndex * 0.1 }}
+                        viewport={{ once: true }}
+                        className="bg-gradient-to-r from-[#2C98A0] to-[#4CC8A3] h-2 rounded-full"
+                      />
                     </div>
                   </motion.div>
                 ))}
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          ))}
         </div>
+
+        {/* Technologies */}
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          viewport={{ once: true }}
+          className="bg-white/90 dark:bg-gray-700/60 p-8 rounded-xl shadow-sm/30 border border-gray-200 dark:border-gray-600"
+        >
+          <h3 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
+            Technologies & <span className="text-[#2C98A0] dark:text-[#4CC8A3]">Tools</span>
+          </h3>
+          
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {technologies.map((tech, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4, delay: 0.4 + index * 0.05 }}
+                viewport={{ once: true }}
+                className="flex items-center p-4 bg-gray-50/80 dark:bg-gray-600/50 rounded-lg border border-gray-100 dark:border-gray-500 hover:bg-gray-100/80 dark:hover:bg-gray-600/70 transition-colors"
+              >
+                <span className="text-2xl mr-3">{tech.icon}</span>
+                <span className="text-gray-900 dark:text-gray-200 font-medium">{tech.name}</span>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
   );
