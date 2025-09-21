@@ -59,13 +59,13 @@ const Projects = ({ setActiveSection }) => {
       tags: ["TypeScript", "WebSockets", "Node.js"],
       github: "#",
       live: "#",
-      image: "👨‍💻",
+      image: "👨‍��",
       stats: { stars: 178, forks: 52 }
     },
   ];
 
   return (
-    <section id="projects" className="py-20 bg-gray-50 dark:bg-gray-800/50 relative overflow-hidden">
+    <section id="projects" className="py-20 bg-gray-50/30 dark:bg-gray-800/30 relative overflow-hidden">
       {/* Background elements */}
       <motion.div
         initial={{ opacity: 0 }}
@@ -90,7 +90,7 @@ const Projects = ({ setActiveSection }) => {
           viewport={{ once: true, margin: "-100px" }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
             My <span className="text-[#2C98A0] dark:text-[#4CC8A3]">Projects</span>
           </h2>
           <motion.div
@@ -100,7 +100,7 @@ const Projects = ({ setActiveSection }) => {
             viewport={{ once: true }}
             className="w-24 h-1 bg-[#2C98A0] dark:bg-[#4CC8A3] mx-auto mb-6 transform origin-left"
           />
-          <p className="max-w-2xl mx-auto text-lg text-gray-600 dark:text-gray-300">
+          <p className="max-w-2xl mx-auto text-lg text-gray-700 dark:text-gray-200">
             Here are some of my recent projects. Each one was built to solve a specific problem or explore new technologies.
           </p>
         </motion.div>
@@ -118,8 +118,8 @@ const Projects = ({ setActiveSection }) => {
               onMouseLeave={() => setHoveredProject(null)}
             >
               <div className="absolute -inset-1 bg-gradient-to-r from-[#2C98A0] to-[#4CC8A3] rounded-2xl blur opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-              <div className="relative h-full bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700">
-                <div className="h-48 bg-gradient-to-br from-[#e6f7f5] to-[#d1f2ef] dark:from-gray-700 dark:to-gray-900 flex items-center justify-center text-6xl relative overflow-hidden">
+              <div className="relative h-full bg-white/90 dark:bg-gray-700/60 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-600">
+                <div className="h-48 bg-gradient-to-br from-[#e6f7f5] to-[#d1f2ef] dark:from-gray-600 dark:to-gray-800 flex items-center justify-center text-6xl relative overflow-hidden">
                   {project.image}
                   <motion.div 
                     className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4"
@@ -136,10 +136,10 @@ const Projects = ({ setActiveSection }) => {
                   </motion.div>
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-bold mb-2 group-hover:text-[#2C98A0] dark:group-hover:text-[#4CC8A3] transition-colors">
+                  <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white group-hover:text-[#2C98A0] dark:group-hover:text-[#4CC8A3] transition-colors">
                     {project.title}
                   </h3>
-                  <p className="text-gray-600 dark:text-gray-300 mb-4">{project.description}</p>
+                  <p className="text-gray-700 dark:text-gray-200 mb-4">{project.description}</p>
                   
                   <div className="flex flex-wrap gap-2 mb-6">
                     {project.tags.map((tag, tagIndex) => (
@@ -149,7 +149,7 @@ const Projects = ({ setActiveSection }) => {
                         whileInView={{ scale: 1 }}
                         transition={{ duration: 0.3, delay: 0.2 + tagIndex * 0.05 }}
                         viewport={{ once: true }}
-                        className="inline-block px-3 py-1 bg-gray-100 dark:bg-gray-700 text-sm rounded-full text-gray-900 dark:text-gray-300"
+                        className="inline-block px-3 py-1 bg-gray-100/80 dark:bg-gray-600/60 text-sm rounded-full text-gray-900 dark:text-gray-200"
                       >
                         {tag}
                       </motion.span>
@@ -163,7 +163,7 @@ const Projects = ({ setActiveSection }) => {
                       href={project.github} 
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center text-gray-600 dark:text-gray-300 hover:text-[#2C98A0] dark:hover:text-[#4CC8A3] transition-colors"
+                      className="flex items-center text-gray-700 dark:text-gray-200 hover:text-[#2C98A0] dark:hover:text-[#4CC8A3] transition-colors"
                     >
                       <FiGithub className="mr-2" /> Code
                     </motion.a>
@@ -173,7 +173,7 @@ const Projects = ({ setActiveSection }) => {
                       href={project.live} 
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center text-gray-600 dark:text-gray-300 hover:text-[#2C98A0] dark:hover:text-[#4CC8A3] transition-colors"
+                      className="flex items-center text-gray-700 dark:text-gray-200 hover:text-[#2C98A0] dark:hover:text-[#4CC8A3] transition-colors"
                     >
                       <FiExternalLink className="mr-2" /> Live Demo
                     </motion.a>

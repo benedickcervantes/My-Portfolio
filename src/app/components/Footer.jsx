@@ -3,13 +3,13 @@ import { motion, useAnimation } from 'framer-motion';
 import { FiArrowUp } from 'react-icons/fi';
 import { useEffect, useState } from 'react';
 
-const Footer = () => {
+const Footer = ({ setActiveSection }) => {
   const [isVisible, setIsVisible] = useState(false);
   const controls = useAnimation();
 
   // Get current year safely (won't cause hydration mismatch)
   const currentYear = new Date().getFullYear();
-  const lastUpdated = 'July 2023'; // Static date to avoid hydration issues
+  const lastUpdated = 'September 2025'; // Static date to avoid hydration issues
 
   const navLinks = [
     { name: "Home", href: "#home" },
@@ -80,7 +80,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="py-12 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-300 relative overflow-hidden border-t border-gray-200 dark:border-gray-800">
+    <footer className="py-12 bg-gray-50 dark:bg-gray-900 text-white relative overflow-hidden border-t border-gray-200 dark:border-gray-800">
       {/* Background elements - removed dynamic opacity to prevent hydration mismatch */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -left-20 -bottom-20 w-64 h-64 rounded-full bg-[#2C98A0] opacity-5 filter blur-3xl dark:opacity-[0.03]"></div>
@@ -124,7 +124,7 @@ const Footer = () => {
                   const sectionId = link.href.substring(1);
                   scrollToSection(sectionId);
                 }}
-                className="hover:text-[#2C98A0] dark:hover:text-[#4CC8A3] transition-colors relative group"
+                className="text-white hover:text-[#2C98A0] dark:hover:text-[#4CC8A3] transition-colors relative group"
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -152,7 +152,7 @@ const Footer = () => {
             >
               Benedick Cervantes
             </a>
-            <p className="text-sm text-gray-700 dark:text-gray-400">
+            <p className="text-sm text-white">
               © {currentYear} All Rights Reserved
             </p>
           </motion.div>
@@ -165,10 +165,10 @@ const Footer = () => {
             viewport={{ once: true }}
             className="mt-8 pt-8 border-t border-gray-300 dark:border-gray-700 text-center w-full"
           >
-            <p className="text-sm text-gray-700 dark:text-gray-400">
+            <p className="text-sm text-white">
               Designed and built with <span className="text-[#2C98A0] dark:text-[#4CC8A3]">❤️</span> using Next.js
             </p>
-            <p className="text-xs mt-2 text-gray-500 dark:text-gray-500">
+            <p className="text-xs mt-2 text-white">
               Last updated: {lastUpdated}
             </p>
           </motion.div>
