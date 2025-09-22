@@ -1,10 +1,13 @@
 'use client';
 import { motion } from 'framer-motion';
-import { FiMail, FiMapPin, FiPhone, FiSend, FiGithub, FiLinkedin, FiTwitter, FiDribbble } from 'react-icons/fi';
+import { FiMail, FiMapPin, FiPhone, FiSend, FiGithub, FiLinkedin, FiTwitter, FiDribbble, FiCheck, FiX } from 'react-icons/fi';
 import { useState } from 'react';
+import emailjs from '@emailjs/browser';
 
 const Contact = ({ setActiveSection }) => {
   const [isButtonHovered, setIsButtonHovered] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null); // 'success', 'error', null
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -12,6 +15,15 @@ const Contact = ({ setActiveSection }) => {
     message: ''
   });
 
+  // EmailJS Configuration
+  const EMAILJS_SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+  const EMAILJS_TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+  const EMAILJS_PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+
+  // Validate environment variables
+  if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
+    console.error('EmailJS configuration is missing. Please check your .env.local file.');
+  }
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -20,10 +32,49 @@ const Contact = ({ setActiveSection }) => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission
-    console.log('Form submitted:', formData);
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    try {
+      // Initialize EmailJS
+      emailjs.init(EMAILJS_PUBLIC_KEY);
+
+      // Prepare template parameters
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        subject: formData.subject,
+        message: formData.message,
+        to_name: 'Benedick Cervantes',
+        reply_to: formData.email,
+      };
+
+      // Send email
+      const response = await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        templateParams
+      );
+
+      if (response.status === 200) {
+        setSubmitStatus('success');
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: ''
+        });
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (error) {
+      console.error('EmailJS Error:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -75,10 +126,10 @@ const Contact = ({ setActiveSection }) => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <div className="bg-white/90 dark:bg-gray-700/60 p-8 rounded-xl shadow-sm border border-gray-200 dark:border-gray-600">
+            <div className="bg-white/90 dark:bg-gray-700/60 p-8 rounded-xl shadow-sm border border-gray-200 dark:border-gray-600 h-full flex flex-col">
               <h3 className="text-2xl font-bold mb-8 text-gray-900 dark:text-white">Contact Information</h3>
               
-              <div className="space-y-6">
+              <div className="space-y-6 flex-1">
                 <motion.div 
                   className="flex items-start gap-4"
                   initial={{ opacity: 0, y: 20 }}
@@ -138,10 +189,10 @@ const Contact = ({ setActiveSection }) => {
                 <h4 className="text-xl font-bold mb-6 text-gray-900 dark:text-white">Follow Me</h4>
                 <div className="flex gap-4">
                   {[
-                    { icon: <FiGithub />, url: "#", name: "GitHub" },
-                    { icon: <FiLinkedin />, url: "#", name: "LinkedIn" },
-                    { icon: <FiTwitter />, url: "#", name: "Twitter" },
-                    { icon: <FiDribbble />, url: "#", name: "Dribbble" },
+                    { icon: <FiGithub />, url: "https://github.com/benedickcervantes", name: "GitHub" },
+                    { icon: <FiLinkedin />, url: "https://linkedin.com/in/benedickcervantes", name: "LinkedIn" },
+                    { icon: <FiTwitter />, url: "https://twitter.com/benedickcervantes", name: "Twitter" },
+                    { icon: <FiDribbble />, url: "https://dribbble.com/benedickcervantes", name: "Dribbble" },
                   ].map((social, index) => (
                     <motion.a
                       key={index}
@@ -172,10 +223,37 @@ const Contact = ({ setActiveSection }) => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <div className="bg-white/90 dark:bg-gray-700/60 p-8 rounded-xl shadow-sm border border-gray-200 dark:border-gray-600 h-full">
+            <div className="bg-white/90 dark:bg-gray-700/60 p-8 rounded-xl shadow-sm border border-gray-200 dark:border-gray-600 h-full flex flex-col">
               <h3 className="text-2xl font-bold mb-8 text-gray-900 dark:text-white">Send Me a Message</h3>
               
-              <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Status Messages */}
+              {submitStatus === 'success' && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mb-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg flex items-center gap-3"
+                >
+                  <FiCheck className="text-green-600 dark:text-green-400 text-xl" />
+                  <p className="text-green-700 dark:text-green-300 font-medium">
+                    Message sent successfully! I'll get back to you soon.
+                  </p>
+                </motion.div>
+              )}
+              
+              {submitStatus === 'error' && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg flex items-center gap-3"
+                >
+                  <FiX className="text-red-600 dark:text-red-400 text-xl" />
+                  <p className="text-red-700 dark:text-red-300 font-medium">
+                    Failed to send message. Please try again or contact me directly.
+                  </p>
+                </motion.div>
+              )}
+              
+              <form onSubmit={handleSubmit} className="space-y-6 flex-1 flex flex-col">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -193,6 +271,7 @@ const Contact = ({ setActiveSection }) => {
                       className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-500 bg-white/80 dark:bg-gray-600/50 focus:ring-2 focus:ring-[#2C98A0] focus:border-transparent transition-all text-gray-900 dark:text-gray-200"
                       placeholder="Full Name"
                       required
+                      disabled={isSubmitting}
                     />
                   </motion.div>
                   
@@ -212,6 +291,7 @@ const Contact = ({ setActiveSection }) => {
                       className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-500 bg-white/80 dark:bg-gray-600/50 focus:ring-2 focus:ring-[#2C98A0] focus:border-transparent transition-all text-gray-900 dark:text-gray-200"
                       placeholder="your@email.com"
                       required
+                      disabled={isSubmitting}
                     />
                   </motion.div>
                 </div>
@@ -232,6 +312,7 @@ const Contact = ({ setActiveSection }) => {
                     className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-500 bg-white/80 dark:bg-gray-600/50 focus:ring-2 focus:ring-[#2C98A0] focus:border-transparent transition-all text-gray-900 dark:text-gray-200"
                     placeholder="What's this about?"
                     required
+                    disabled={isSubmitting}
                   />
                 </motion.div>
                 
@@ -247,18 +328,20 @@ const Contact = ({ setActiveSection }) => {
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    rows="2" 
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-500 bg-white/80 dark:bg-gray-600/50 focus:ring-2 focus:ring-[#2C98A0] focus:border-transparent transition-all text-gray-900 dark:text-gray-200"
+                    rows="4" 
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-500 bg-white/80 dark:bg-gray-600/50 focus:ring-2 focus:ring-[#2C98A0] focus:border-transparent transition-all text-gray-900 dark:text-gray-200 resize-none flex-1"
                     placeholder="Hi Benedick, I'd like to talk about..."
                     required
+                    disabled={isSubmitting}
                   ></textarea>
                 </motion.div>
                 
                 <motion.button
                   type="submit"
-                  className="group relative w-full px-6 py-3.5 bg-gradient-to-r from-[#2C98A0] to-[#4CC8A3] text-white rounded-lg font-medium overflow-hidden flex items-center justify-center gap-2 shadow-[0_4px_20px_-5px_rgba(44,152,160,0.5)] hover:shadow-[0_4px_25px_-2px_rgba(44,152,160,0.6)]"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                  disabled={isSubmitting}
+                  className="group relative w-full px-6 py-3.5 bg-gradient-to-r from-[#2C98A0] to-[#4CC8A3] text-white rounded-lg font-medium overflow-hidden flex items-center justify-center gap-2 shadow-[0_4px_20px_-5px_rgba(44,152,160,0.5)] hover:shadow-[0_4px_25px_-2px_rgba(44,152,160,0.6)] disabled:opacity-50 disabled:cursor-not-allowed"
+                  whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+                  whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
                   onHoverStart={() => setIsButtonHovered(true)}
                   onHoverEnd={() => setIsButtonHovered(false)}
                   initial={{ opacity: 0, y: 20 }}
@@ -267,13 +350,22 @@ const Contact = ({ setActiveSection }) => {
                   viewport={{ once: true }}
                 >
                   <span className="relative z-10 flex items-center">
-                    Send Message <FiSend className="ml-2 transition-transform group-hover:translate-x-1" />
+                    {isSubmitting ? (
+                      <>
+                        <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent mr-2"></div>
+                        Sending...
+                      </>
+                    ) : (
+                      <>
+                        Send Message <FiSend className="ml-2 transition-transform group-hover:translate-x-1" />
+                      </>
+                    )}
                   </span>
                   <motion.span
                     className="absolute inset-0 bg-gradient-to-r from-[#2C98A0] to-[#38B2A3] opacity-0 group-hover:opacity-100 transition-opacity"
                     initial={{ opacity: 0 }}
                   />
-                  {isButtonHovered && (
+                  {isButtonHovered && !isSubmitting && (
                     <>
                       <motion.span
                         className="absolute top-1/4 left-1/4 w-2 h-2 bg-white rounded-full opacity-70"
