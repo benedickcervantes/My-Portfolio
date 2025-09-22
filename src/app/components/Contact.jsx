@@ -41,14 +41,33 @@ const Contact = ({ setActiveSection }) => {
       // Initialize EmailJS
       emailjs.init(EMAILJS_PUBLIC_KEY);
 
+      // Create a comprehensive message that includes all form data
+      const fullMessage = `
+Name: ${formData.name}
+Email: ${formData.email}
+Subject: ${formData.subject}
+
+Message:
+${formData.message}
+
+---
+This message was sent from your portfolio contact form.
+Reply directly to this email to respond to ${formData.name}.
+      `.trim();
+
       // Prepare template parameters
       const templateParams = {
         from_name: formData.name,
         from_email: formData.email,
-        subject: formData.subject,
-        message: formData.message,
+        subject: `Portfolio Contact: ${formData.subject}`,
+        message: fullMessage,
         to_name: 'Benedick Cervantes',
         reply_to: formData.email,
+        // Additional parameters for better template flexibility
+        sender_name: formData.name,
+        sender_email: formData.email,
+        original_subject: formData.subject,
+        original_message: formData.message,
       };
 
       // Send email
