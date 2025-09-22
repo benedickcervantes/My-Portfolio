@@ -2,6 +2,7 @@
 import { motion } from 'framer-motion';
 import { FiGithub, FiExternalLink, FiStar, FiGitBranch, FiArrowRight, FiUsers, FiShield, FiBarChart, FiGlobe, FiHome, FiCalendar } from 'react-icons/fi';
 import { useState } from 'react';
+import Image from 'next/image';
 
 const Projects = ({ setActiveSection }) => {
   const [hoveredProject, setHoveredProject] = useState(null);
@@ -14,7 +15,7 @@ const Projects = ({ setActiveSection }) => {
       tags: ["Next.js 14", "Firebase", "Tailwind CSS", "Real-time", "Role-based Access"],
       github: "https://github.com/benedickcervantes/helpdeskticketingsystem.git",
       live: "https://helpdeskticketingsystem.vercel.app/",
-      image: "🎫",
+      image: "/images/FCDC.png",
       stats: { stars: 0, forks: 0 },
       features: [
         "Multi-role Dashboard System",
@@ -31,7 +32,7 @@ const Projects = ({ setActiveSection }) => {
       tags: ["Next.js", "React.js", "Tailwind CSS", "Firebase", "Vercel"],
       github: "https://github.com/AmuroBrian/inspire-hub.git",
       live: "https://inspire-hub-sigma.vercel.app/",
-      image: "🏢",
+      image: "/images/inspirehub.png",
       stats: { stars: 0, forks: 0 },
       features: [
         "Office/Room/Desk Reservation System",
@@ -48,7 +49,7 @@ const Projects = ({ setActiveSection }) => {
       tags: ["WordPress", "PHP", "MySQL", "HTML", "CSS", "Corporate"],
       github: "https://wordpress.com/",
       live: "https://inspireholdings.ph/",
-      image: "🏢",
+      image: "/images/holdingsinc.png",
       stats: { stars: 0, forks: 0 },
       features: [
         "Member Management System",
@@ -65,7 +66,7 @@ const Projects = ({ setActiveSection }) => {
       tags: ["Next.js", "React.js", "Tailwind CSS", "Firebase", "Vercel"],
       github: "https://github.com/AmuroBrian/inspiregroup.git",
       live: "https://inspire-asset.com",
-      image: "🚀",
+      image: "/images/inspireasset.png",
       stats: { stars: 0, forks: 0 },
       features: [
         "High Performance & Scalability",
@@ -197,17 +198,27 @@ const Projects = ({ setActiveSection }) => {
               onMouseLeave={() => setHoveredProject(null)}
             >
               {/* Project Image/Icon */}
-              <div className="relative h-48 bg-gradient-to-br dark:from-gray-600 dark:to-gray-800 overflow-hidden">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-6xl opacity-20 group-hover:opacity-30 transition-opacity">
-                    {project.image}
+              <div className="relative h-48 bg-gray-100 dark:bg-gray-800 overflow-hidden">
+                {project.image.startsWith('/') ? (
+                  <Image 
+                    src={project.image} 
+                    alt={project.title} 
+                    fill 
+                    className="object-contain opacity-80 group-hover:opacity-100 transition-opacity" 
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                ) : (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="text-6xl opacity-20 group-hover:opacity-30 transition-opacity">
+                      {project.image}
+                    </div>
                   </div>
-                </div>
+                )}
                 <div className="absolute top-4 right-4 p-2 bg-white/20 dark:bg-gray-800/20 rounded-lg backdrop-blur-sm">
                   {project.icon}
                 </div>
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"
+                  className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: hoveredProject === index ? 1 : 0 }}
                   transition={{ duration: 0.3 }}
