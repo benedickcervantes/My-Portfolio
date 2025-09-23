@@ -123,15 +123,16 @@ const Header = ({ darkMode = true, setDarkMode, activeSection, setActiveSection 
               </div>
             ))}
             
-            {/* Enhanced Dark Mode Toggle - Default to dark */}
+            {/* Enhanced Dark Mode Toggle - Desktop */}
             <motion.button type="button"
               onClick={() => setDarkMode(!darkMode)}
-              className={`relative w-14 h-8 rounded-full p-1 flex items-center ${darkMode ? 'justify-end bg-gray-700' : 'justify-start bg-gray-300'}`}
+              className={`relative w-14 h-8 rounded-full p-1 flex items-center transition-all duration-300 ${darkMode ? 'justify-end bg-gray-700' : 'justify-start bg-gray-300'}`}
               aria-label={`Switch to ${darkMode ? 'light' : 'dark'} mode`}
               whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.05 }}
             >
               <motion.div
-                className={`absolute w-6 h-6 rounded-full shadow-md flex items-center justify-center ${darkMode ? 'bg-[#4CC8A3]' : 'bg-white'}`}
+                className={`absolute w-6 h-6 rounded-full shadow-md flex items-center justify-center transition-all duration-300 ${darkMode ? 'bg-[#4CC8A3]' : 'bg-white'}`}
                 layout
                 transition={{
                   type: "spring",
@@ -149,16 +150,17 @@ const Header = ({ darkMode = true, setDarkMode, activeSection, setActiveSection 
           </nav>
           
           {/* Mobile Menu Button */}
-          <div className="flex md:hidden items-center space-x-4">
-            {/* Enhanced Mobile Dark Mode Toggle - Default to dark */}
+          <div className="flex md:hidden items-center space-x-3">
+            {/* Enhanced Mobile Dark Mode Toggle - Consistent with Desktop */}
             <motion.button type="button"
               onClick={() => setDarkMode(!darkMode)}
-              className={`relative w-12 h-6 rounded-full p-1 flex items-center ${darkMode ? 'justify-end bg-gray-700' : 'justify-start bg-gray-300'}`}
+              className={`relative w-14 h-8 rounded-full p-1 flex items-center transition-all duration-300 ${darkMode ? 'justify-end bg-gray-700' : 'justify-start bg-gray-300'}`}
               aria-label={`Switch to ${darkMode ? 'light' : 'dark'} mode`}
               whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.05 }}
             >
               <motion.div
-                className={`absolute w-5 h-5 rounded-full shadow-md flex items-center justify-center ${darkMode ? 'bg-[#4CC8A3]' : 'bg-white'}`}
+                className={`absolute w-6 h-6 rounded-full shadow-md flex items-center justify-center transition-all duration-300 ${darkMode ? 'bg-[#4CC8A3]' : 'bg-white'}`}
                 layout
                 transition={{
                   type: "spring",
@@ -167,9 +169,9 @@ const Header = ({ darkMode = true, setDarkMode, activeSection, setActiveSection 
                 }}
               >
                 {darkMode ? (
-                  <FiSun className="w-3 h-3 text-black" />
+                  <FiSun className="w-4 h-4 text-black" />
                 ) : (
-                  <FiMoon className="w-3 h-3 text-gray-800" />
+                  <FiMoon className="w-4 h-4 text-gray-800" />
                 )}
               </motion.div>
             </motion.button>
