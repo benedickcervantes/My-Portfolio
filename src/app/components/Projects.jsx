@@ -1,12 +1,13 @@
 'use client';
 import { motion } from 'framer-motion';
-import { FiGithub, FiExternalLink, FiStar, FiGitBranch, FiArrowRight, FiUsers, FiShield, FiBarChart, FiGlobe, FiHome, FiCalendar } from 'react-icons/fi';
+import { FiGithub, FiExternalLink, FiStar, FiGitBranch, FiArrowRight, FiUsers, FiShield, FiBarChart, FiGlobe, FiHome, FiCalendar, FiCode, FiZap, FiTrendingUp, FiEye, FiHeart } from 'react-icons/fi';
 import { useState } from 'react';
 import Image from 'next/image';
 
 const Projects = ({ setActiveSection }) => {
   const [hoveredProject, setHoveredProject] = useState(null);
   const [isButtonHovered, setIsButtonHovered] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState('All');
 
   const projects = [
     {
@@ -24,7 +25,10 @@ const Projects = ({ setActiveSection }) => {
         "Firebase Authentication",
         "Professional Design System"
       ],
-      icon: <FiUsers className="text-2xl" />
+      icon: <FiUsers className="text-2xl" />,
+      category: "Enterprise",
+      status: "Live",
+      year: "2024"
     },
     {
       title: "Inspire Hub - Co-working Space Platform",
@@ -41,7 +45,10 @@ const Projects = ({ setActiveSection }) => {
         "Professional Co-working Platform",
         "Responsive Design & Mobile-First"
       ],
-      icon: <FiCalendar className="text-2xl" />
+      icon: <FiCalendar className="text-2xl" />,
+      category: "Web App",
+      status: "Live",
+      year: "2024"
     },
     {
       title: "Inspire Holdings - Corporate Website",
@@ -58,7 +65,10 @@ const Projects = ({ setActiveSection }) => {
         "Multi-location Business Support",
         "Professional Corporate Design"
       ],
-      icon: <FiHome className="text-2xl" />
+      icon: <FiHome className="text-2xl" />,
+      category: "Corporate",
+      status: "Live",
+      year: "2023"
     },
     {
       title: "Inspire Asset - Dynamic Web Platform",
@@ -75,11 +85,14 @@ const Projects = ({ setActiveSection }) => {
         "Firebase Database Integration",
         "Vercel Deployment"
       ],
-      icon: <FiGlobe className="text-2xl" />
+      icon: <FiGlobe className="text-2xl" />,
+      category: "Web App",
+      status: "Live",
+      year: "2024"
     },
     {
       title: "E-Commerce Platform",
-      description: "A full-featured e-commerce platform with product listings, cart functionality, and secure checkout.",
+      description: "A full-featured e-commerce platform with product listings, cart functionality, and secure checkout. Built with modern technologies for optimal performance and user experience.",
       tags: ["React", "Node.js", "MongoDB", "Stripe"],
       github: "#",
       live: "#",
@@ -91,11 +104,14 @@ const Projects = ({ setActiveSection }) => {
         "Secure Payments",
         "User Authentication"
       ],
-      icon: <FiExternalLink className="text-2xl" />
+      icon: <FiBarChart className="text-2xl" />,
+      category: "E-commerce",
+      status: "In Development",
+      year: "2024"
     },
     {
       title: "Task Management App",
-      description: "A productivity application for managing tasks with drag-and-drop functionality and team collaboration.",
+      description: "A productivity application for managing tasks with drag-and-drop functionality and team collaboration. Features real-time updates and intuitive user interface.",
       tags: ["React", "Firebase", "Tailwind CSS"],
       github: "#",
       live: "#",
@@ -107,41 +123,18 @@ const Projects = ({ setActiveSection }) => {
         "Real-time Updates",
         "Task Prioritization"
       ],
-      icon: <FiBarChart className="text-2xl" />
-    },
-    {
-      title: "Weather Dashboard",
-      description: "Real-time weather information with 5-day forecast and location-based recommendations.",
-      tags: ["JavaScript", "API Integration", "CSS3"],
-      github: "#",
-      live: "#",
-      image: "☀️",
-      stats: { stars: 56, forks: 18 },
-      features: [
-        "Real-time Weather Data",
-        "5-Day Forecast",
-        "Location Services",
-        "Responsive Design"
-      ],
-      icon: <FiExternalLink className="text-2xl" />
-    },
-    {
-      title: "AI Recipe Generator",
-      description: "Machine learning powered recipe suggestion engine based on available ingredients.",
-      tags: ["Python", "TensorFlow", "Flask"],
-      github: "#",
-      live: "#",
-      image: "🍳",
-      stats: { stars: 210, forks: 67 },
-      features: [
-        "AI-Powered Suggestions",
-        "Ingredient Recognition",
-        "Nutritional Analysis",
-        "Recipe Database"
-      ],
-      icon: <FiShield className="text-2xl" />
+      icon: <FiTrendingUp className="text-2xl" />,
+      category: "Productivity",
+      status: "In Development",
+      year: "2024"
     }
   ];
+
+  const categories = ['All', 'Enterprise', 'Web App', 'Corporate', 'E-commerce', 'Productivity'];
+  
+  const filteredProjects = selectedCategory === 'All' 
+    ? projects 
+    : projects.filter(project => project.category === selectedCategory);
 
   return (
     <section id="projects" className="py-20 relative overflow-hidden bg-gray-50/30 dark:bg-gray-800/30">
@@ -184,9 +177,37 @@ const Projects = ({ setActiveSection }) => {
           </p>
         </motion.div>
 
+        {/* Category Filter */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          viewport={{ once: true }}
+          className="flex flex-wrap justify-center gap-3 mb-12"
+        >
+          {categories.map((category) => (
+            <motion.button
+              key={category}
+              onClick={() => setSelectedCategory(category)}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                selectedCategory === category
+                  ? 'bg-[#2C98A0] dark:bg-[#4CC8A3] text-white shadow-lg'
+                  : 'bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600 border border-gray-200 dark:border-gray-600'
+              }`}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {category}
+            </motion.button>
+          ))}
+        </motion.div>
+
         {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          layout
+        >
+          {filteredProjects.map((project, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 50 }}
@@ -196,6 +217,7 @@ const Projects = ({ setActiveSection }) => {
               className="group relative bg-white/90 dark:bg-gray-700/60 rounded-xl shadow-sm/30 border border-gray-200 dark:border-gray-600 overflow-hidden hover:shadow-xl transition-all duration-300"
               onMouseEnter={() => setHoveredProject(index)}
               onMouseLeave={() => setHoveredProject(null)}
+              whileHover={{ y: -5 }}
             >
               {/* Project Image/Icon */}
               <div className="relative h-48 bg-gray-100 dark:bg-gray-800 overflow-hidden">
@@ -204,21 +226,41 @@ const Projects = ({ setActiveSection }) => {
                     src={project.image} 
                     alt={project.title} 
                     fill 
-                    className="object-contain opacity-80 group-hover:opacity-100 transition-opacity" 
+                    className="object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-500" 
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                 ) : (
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-6xl opacity-20 group-hover:opacity-30 transition-opacity">
+                    <div className="text-6xl opacity-20 group-hover:opacity-30 transition-opacity duration-500">
                       {project.image}
                     </div>
                   </div>
                 )}
-                <div className="absolute top-4 right-4 p-2 bg-white/20 dark:bg-gray-800/20 rounded-lg backdrop-blur-sm">
+                
+                {/* Status Badge */}
+                <div className="absolute top-4 left-4">
+                  <span className={`px-2 py-1 text-xs font-medium rounded-full ${
+                    project.status === 'Live' 
+                      ? 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400'
+                      : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400'
+                  }`}>
+                    {project.status}
+                  </span>
+                </div>
+                
+                {/* Year Badge */}
+                <div className="absolute top-4 right-4">
+                  <span className="px-2 py-1 text-xs font-medium rounded-full bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200">
+                    {project.year}
+                  </span>
+                </div>
+                
+                <div className="absolute bottom-4 right-4 p-2 bg-white/20 dark:bg-gray-800/20 rounded-lg backdrop-blur-sm">
                   {project.icon}
                 </div>
+                
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent"
+                  className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: hoveredProject === index ? 1 : 0 }}
                   transition={{ duration: 0.3 }}
@@ -306,7 +348,7 @@ const Projects = ({ setActiveSection }) => {
               </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* CTA Section */}
         <motion.div

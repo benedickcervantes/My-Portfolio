@@ -1,15 +1,15 @@
 'use client';
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
-import { FiGithub, FiLinkedin, FiTwitter, FiMail, FiFacebook, FiArrowRight, FiCamera, FiX, FiSend, FiBriefcase } from 'react-icons/fi';
+import { FiGithub, FiLinkedin, FiTwitter, FiMail, FiFacebook, FiArrowRight, FiCamera, FiX, FiSend, FiBriefcase, FiCode, FiZap } from 'react-icons/fi';
 import Image from 'next/image';
 
 const Hero = ({ setActiveSection }) => {
   const socialLinks = [
-    { icon: <FiGithub />, url: 'https://github.com/benedickcervantes' },
-    { icon: <FiLinkedin />, url: 'https://www.linkedin.com/in/benedick-cervantes-1375a9111/' },
-    { icon: <FiFacebook />, url: 'https://www.facebook.com/Benedick.Cervantes/' },
-    { icon: <FiMail />, url: 'mailto:example@email.com' },
+    { icon: <FiGithub />, url: 'https://github.com/benedickcervantes', label: 'GitHub' },
+    { icon: <FiLinkedin />, url: 'https://www.linkedin.com/in/benedick-cervantes-1375a9111/', label: 'LinkedIn' },
+    { icon: <FiFacebook />, url: 'https://www.facebook.com/Benedick.Cervantes/', label: 'Facebook' },
+    { icon: <FiMail />, url: 'mailto:benedickcervantes@gmail.com', label: 'Email' },
   ];
 
   const [currentRole, setCurrentRole] = useState(0);
@@ -18,6 +18,7 @@ const Hero = ({ setActiveSection }) => {
   const [typingPhase, setTypingPhase] = useState(0);
   const [avatarOption, setAvatarOption] = useState(0);
   const [showAvatarOptions, setShowAvatarOptions] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   
   const greeting = "Hi there, I'm";
   const fullName = "Benedick Cervantes";
@@ -29,37 +30,46 @@ const Hero = ({ setActiveSection }) => {
     'Problem Solver'
   ];
 
-  // Avatar options with different styles
+  // Enhanced avatar options with different styles
   const avatarOptions = [
     {
       id: 0,
       name: "Developer",
       emoji: "👨‍💻",
       color: "from-[#2C98A0] to-[#4CC8A3]",
-      badges: ["React.js", "Node.js"]
+      badges: ["React.js", "Node.js", "Next.js"]
     },
     {
       id: 1,
       name: "Designer",
       emoji: "🎨",
       color: "from-[#38B2A3] to-[#4CC8A3]",
-      badges: ["Figma", "UI/UX"]
+      badges: ["Figma", "UI/UX", "Prototyping"]
     },
     {
       id: 2,
       name: "Consultant",
       emoji: "📊",
       color: "from-[#2C98A0] to-[#38B2A3]",
-      badges: ["IT Strategy", "Solutions"]
+      badges: ["IT Strategy", "Solutions", "Architecture"]
     },
     {
       id: 3,
       name: "Professional",
       emoji: "👔",
       color: "from-[#2C98A0] via-[#38B2A3] to-[#4CC8A3]",
-      badges: ["Leadership", "Management"]
+      badges: ["Leadership", "Management", "Innovation"]
     }
   ];
+
+  // Mouse tracking for interactive effects
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
 
   // Function to handle smooth scrolling to sections
   const scrollToSection = (sectionId) => {
@@ -73,7 +83,7 @@ const Hero = ({ setActiveSection }) => {
     }
   };
 
-  // Typing effect controller
+  // Enhanced typing effect controller
   useEffect(() => {
     let timeout;
     
@@ -98,13 +108,13 @@ const Hero = ({ setActiveSection }) => {
     return () => clearTimeout(timeout);
   }, [typingPhase, displayedGreeting, displayedName]);
 
-  // Role rotation effect
+  // Enhanced role rotation effect
   useEffect(() => {
     if (typingPhase < 2) return;
     
     const interval = setInterval(() => {
       setCurrentRole((prev) => (prev + 1) % roles.length);
-    }, 2000);
+    }, 2500);
     return () => clearInterval(interval);
   }, [typingPhase]);
 
@@ -113,31 +123,61 @@ const Hero = ({ setActiveSection }) => {
 
   return (
     <section id="home" className="min-h-screen flex items-center pt-20 relative overflow-hidden">
-      {/* Background elements */}
+      {/* Enhanced Background elements with mouse interaction */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
           initial={{ opacity: 0 }}
-          animate={{ opacity: typingPhase >= 1 ? 0.05 : 0 }}
+          animate={{ 
+            opacity: typingPhase >= 1 ? 0.05 : 0,
+            x: (mousePosition.x - window.innerWidth / 2) * 0.01,
+            y: (mousePosition.y - window.innerHeight / 2) * 0.01
+          }}
           transition={{ delay: 1, duration: 1 }}
           className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-[#2C98A0] filter blur-3xl"
         />
         <motion.div
           initial={{ opacity: 0 }}
-          animate={{ opacity: typingPhase >= 1 ? 0.05 : 0 }}
+          animate={{ 
+            opacity: typingPhase >= 1 ? 0.05 : 0,
+            x: (mousePosition.x - window.innerWidth / 2) * -0.01,
+            y: (mousePosition.y - window.innerHeight / 2) * -0.01
+          }}
           transition={{ delay: 1.2, duration: 1 }}
           className="absolute bottom-1/4 right-1/4 w-64 h-64 rounded-full bg-[#4CC8A3] filter blur-3xl"
+        />
+        
+        {/* Additional floating elements */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ 
+            opacity: typingPhase >= 2 ? 0.03 : 0,
+            scale: typingPhase >= 2 ? 1 : 0,
+            rotate: [0, 360]
+          }}
+          transition={{ 
+            delay: 2,
+            duration: 20,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+          className="absolute top-1/3 right-1/3 w-32 h-32 rounded-full bg-gradient-to-r from-[#2C98A0] to-[#4CC8A3] filter blur-2xl"
         />
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-0 flex flex-col md:flex-row items-center justify-between gap-12">
-        {/* Content */}
+        {/* Enhanced Content */}
         <motion.div 
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
           className="md:w-1/2 flex flex-col"
         >
-          <div className="text-sm font-mono text-[#2C98A0] dark:text-[#4CC8A3] mb-4 h-6">
+          <motion.div 
+            className="text-sm font-mono text-[#2C98A0] dark:text-[#4CC8A3] mb-4 h-6 flex items-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+          >
             {displayedGreeting}
             {typingPhase === 0 && (
               <motion.span
@@ -146,14 +186,26 @@ const Hero = ({ setActiveSection }) => {
                 transition={{ repeat: Infinity, duration: 1 }}
               />
             )}
-          </div>
+          </motion.div>
           
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-4 leading-tight min-h-[1.5em]">
+          <motion.h1 
+            className="text-5xl md:text-6xl lg:text-7xl font-bold mb-4 leading-tight min-h-[1.5em]"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+          >
             {displayedName && (
               <>
                 <span className="name-text-light font-extrabold">{firstName} </span>
                 {lastName && (
-                  <span className="text-[#2C98A0] dark:text-[#4CC8A3]">{lastName}</span>
+                  <motion.span 
+                    className="text-[#2C98A0] dark:text-[#4CC8A3]"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.6, type: "spring", stiffness: 200 }}
+                  >
+                    {lastName}
+                  </motion.span>
                 )}
                 {typingPhase === 1 && (
                   <motion.span
@@ -164,34 +216,39 @@ const Hero = ({ setActiveSection }) => {
                 )}
               </>
             )}
-          </h1>
+          </motion.h1>
           
-          <div className="text-2xl md:text-3xl font-semibold mb-6 text-gray-800 dark:text-gray-300 min-h-[3rem] flex items-center">
+          <motion.div 
+            className="text-2xl md:text-3xl font-semibold mb-6 text-gray-800 dark:text-gray-300 min-h-[3rem] flex items-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8 }}
+          >
             {typingPhase === 2 && (
               <motion.div
                 key={currentRole}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.5 }}
+                initial={{ opacity: 0, y: 10, scale: 0.9 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -10, scale: 0.9 }}
+                transition={{ duration: 0.5, type: "spring", stiffness: 300 }}
                 className="absolute"
               >
                 <TypewriterEffect text={roles[currentRole]} speed={50} />
               </motion.div>
             )}
-          </div>
+          </motion.div>
           
           <motion.p 
-            className="text-lg mb-8 text-gray-800 dark:text-gray-300 max-w-lg"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: typingPhase === 2 ? 1 : 0 }}
+            className="text-lg mb-8 text-gray-800 dark:text-gray-300 max-w-lg leading-relaxed"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: typingPhase === 2 ? 1 : 0, y: typingPhase === 2 ? 0 : 20 }}
             transition={{ delay: typingPhase === 2 ? 0.6 : 0 }}
           >
             I craft exceptional digital experiences with modern technologies and clean, user-centric design principles.
             Passionate about creating solutions that are both beautiful and functional.
           </motion.p>
           
-          {/* Buttons with consistent sizing and glow effects */}
+          {/* Enhanced Buttons with better animations */}
           <motion.div 
             className="flex flex-col sm:flex-row gap-4 flex-wrap"
             initial={{ opacity: 0, y: 20 }}
@@ -248,7 +305,7 @@ const Hero = ({ setActiveSection }) => {
             </motion.a>
           </motion.div>
 
-          {/* Mobile Social links - visible on small screens */}
+          {/* Enhanced Mobile Social links */}
           <motion.div 
             className="flex md:hidden justify-center space-x-6 mt-8"
             initial={{ opacity: 0, y: 20 }}
@@ -261,18 +318,21 @@ const Hero = ({ setActiveSection }) => {
                 href={social.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-2xl text-gray-800 dark:text-gray-300 hover:text-[#2C98A0] dark:hover:text-[#4CC8A3] transition-colors"
-                whileHover={{ y: -3 }}
+                className="text-2xl text-gray-800 dark:text-gray-300 hover:text-[#2C98A0] dark:hover:text-[#4CC8A3] transition-colors group"
+                whileHover={{ y: -3, scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
-                aria-label={`Visit ${social.url}`}
+                aria-label={social.label}
+                title={social.label}
               >
-                {social.icon}
+                <span className="group-hover:drop-shadow-lg transition-all duration-300">
+                  {social.icon}
+                </span>
               </motion.a>
             ))}
           </motion.div>
         </motion.div>
         
-        {/* Professional Photo */}
+        {/* Enhanced Professional Photo */}
         <motion.div 
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: typingPhase === 2 ? 1 : 0, y: typingPhase === 2 ? 0 : 50 }}
@@ -280,15 +340,16 @@ const Hero = ({ setActiveSection }) => {
           className="md:w-1/2 flex justify-center relative"
         >
           <div className="relative w-72 h-72 md:w-80 md:h-80 lg:w-96 lg:h-96">
-            {/* Glow effects */}
+            {/* Enhanced Glow effects */}
             <motion.div 
               className="absolute inset-0 bg-gradient-to-br from-[#2C98A0] to-[#4CC8A3] rounded-full opacity-20 blur-xl"
               animate={{
                 scale: [1, 1.05, 1],
-                opacity: [0.2, 0.3, 0.2]
+                opacity: [0.2, 0.3, 0.2],
+                rotate: [0, 180, 360]
               }}
               transition={{
-                duration: 4,
+                duration: 8,
                 repeat: Infinity,
                 ease: "easeInOut"
               }}
@@ -297,31 +358,35 @@ const Hero = ({ setActiveSection }) => {
               className="absolute inset-0 bg-gradient-to-br from-[#2C98A0] to-[#4CC8A3] rounded-full opacity-10 blur-xl"
               animate={{
                 scale: [1, 1.1, 1],
-                opacity: [0.1, 0.2, 0.1]
+                opacity: [0.1, 0.2, 0.1],
+                rotate: [360, 180, 0]
               }}
               transition={{
-                duration: 5,
+                duration: 10,
                 repeat: Infinity,
                 ease: "easeInOut",
                 delay: 1
               }}
             />
             
-            {/* Professional Photo Container */}
-            <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-white dark:border-gray-700 shadow-2xl">
+            {/* Enhanced Professional Photo Container */}
+            <motion.div 
+              className="relative w-full h-full rounded-full overflow-hidden border-4 border-white dark:border-gray-700 shadow-2xl"
+              whileHover={{ scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
               <Image
                 src="/images/developer-photo.png"
                 alt="Benedick Cervantes - Full Stack Developer"
                 fill
-                className="object-cover"
+                className="object-cover transition-transform duration-500 hover:scale-105"
                 priority
                 onError={(e) => {
-                  // Fallback to a placeholder if image doesn't exist
                   e.target.style.display = 'none';
                   e.target.nextSibling.style.display = 'flex';
                 }}
               />
-              {/* Fallback content if image doesn't exist */}
+              {/* Enhanced Fallback content */}
               <div className="w-full h-full bg-gradient-to-br from-[#e6f7f5] to-[#d1f2ef] dark:from-gray-800 dark:to-gray-900 flex items-center justify-center" style={{ display: 'none' }}>
                 <motion.div
                   animate={{ 
@@ -337,30 +402,50 @@ const Hero = ({ setActiveSection }) => {
                   <span className="text-6xl md:text-7xl">👨‍💻</span>
                 </motion.div>
               </div>
-            </div>
+            </motion.div>
             
-            {/* Floating tech badges */}
+            {/* Enhanced Floating tech badges */}
             <motion.div 
-              className="absolute -bottom-4 -left-4 bg-white dark:bg-gray-800 px-3 py-1 rounded-full shadow-md text-xs font-medium text-[#2C98A0] dark:text-[#4CC8A3]"
-              initial={{ scale: 0 }}
-              animate={{ scale: typingPhase === 2 ? 1 : 0 }}
-              transition={{ delay: typingPhase === 2 ? 1.2 : 0 }}
+              className="absolute -bottom-4 -left-4 bg-white dark:bg-gray-800 px-3 py-1 rounded-full shadow-md text-xs font-medium text-[#2C98A0] dark:text-[#4CC8A3] border border-gray-200 dark:border-gray-600"
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: typingPhase === 2 ? 1 : 0, opacity: typingPhase === 2 ? 1 : 0 }}
+              transition={{ delay: typingPhase === 2 ? 1.2 : 0, type: "spring", stiffness: 300 }}
+              whileHover={{ scale: 1.05, y: -2 }}
             >
-              React.js
+              <div className="flex items-center gap-1">
+                <FiCode className="w-3 h-3" />
+                React.js
+              </div>
             </motion.div>
             <motion.div 
-              className="absolute -top-4 -right-4 bg-white dark:bg-gray-800 px-3 py-1 rounded-full shadow-md text-xs font-medium text-[#2C98A0] dark:text-[#4CC8A3]"
-              initial={{ scale: 0 }}
-              animate={{ scale: typingPhase === 2 ? 1 : 0 }}
-              transition={{ delay: typingPhase === 2 ? 1.4 : 0 }}
+              className="absolute -top-4 -right-4 bg-white dark:bg-gray-800 px-3 py-1 rounded-full shadow-md text-xs font-medium text-[#2C98A0] dark:text-[#4CC8A3] border border-gray-200 dark:border-gray-600"
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: typingPhase === 2 ? 1 : 0, opacity: typingPhase === 2 ? 1 : 0 }}
+              transition={{ delay: typingPhase === 2 ? 1.4 : 0, type: "spring", stiffness: 300 }}
+              whileHover={{ scale: 1.05, y: -2 }}
             >
-              Next.js
+              <div className="flex items-center gap-1">
+                <FiZap className="w-3 h-3" />
+                Next.js
+              </div>
+            </motion.div>
+            <motion.div 
+              className="absolute top-1/2 -right-8 bg-white dark:bg-gray-800 px-3 py-1 rounded-full shadow-md text-xs font-medium text-[#2C98A0] dark:text-[#4CC8A3] border border-gray-200 dark:border-gray-600"
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: typingPhase === 2 ? 1 : 0, opacity: typingPhase === 2 ? 1 : 0 }}
+              transition={{ delay: typingPhase === 2 ? 1.6 : 0, type: "spring", stiffness: 300 }}
+              whileHover={{ scale: 1.05, x: -2 }}
+            >
+              <div className="flex items-center gap-1">
+                <FiCode className="w-3 h-3" />
+                Node.js
+              </div>
             </motion.div>
           </div>
         </motion.div>
       </div>
       
-      {/* Desktop Social links - visible on medium screens and up */}
+      {/* Enhanced Desktop Social links */}
       <motion.div 
         className="hidden md:flex fixed left-8 bottom-8 flex-col items-center space-y-6"
         initial={{ opacity: 0, y: 20 }}
@@ -373,12 +458,19 @@ const Hero = ({ setActiveSection }) => {
             href={social.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-2xl text-gray-800 dark:text-gray-300 hover:text-[#2C98A0] dark:hover:text-[#4CC8A3] transition-colors"
-            whileHover={{ y: -3 }}
+            className="text-2xl text-gray-800 dark:text-gray-300 hover:text-[#2C98A0] dark:hover:text-[#4CC8A3] transition-colors group relative"
+            whileHover={{ y: -3, scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            aria-label={`Visit ${social.url}`}
+            aria-label={social.label}
+            title={social.label}
           >
-            {social.icon}
+            <span className="group-hover:drop-shadow-lg transition-all duration-300">
+              {social.icon}
+            </span>
+            {/* Tooltip */}
+            <div className="absolute left-full ml-3 px-2 py-1 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none">
+              {social.label}
+            </div>
           </motion.a>
         ))}
         <motion.div 
@@ -392,7 +484,7 @@ const Hero = ({ setActiveSection }) => {
   );
 };
 
-// Typewriter effect component for roles
+// Enhanced Typewriter effect component for roles
 const TypewriterEffect = ({ text, speed = 30 }) => {
   const [displayedText, setDisplayedText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -408,7 +500,16 @@ const TypewriterEffect = ({ text, speed = 30 }) => {
     }
   }, [currentIndex, text, speed]);
 
-  return <span>{displayedText}</span>;
+  return (
+    <span className="relative">
+      {displayedText}
+      <motion.span
+        className="inline-block w-0.5 h-8 bg-[#2C98A0] dark:bg-[#4CC8A3] ml-1"
+        animate={{ opacity: [0, 1, 0] }}
+        transition={{ repeat: Infinity, duration: 1 }}
+      />
+    </span>
+  );
 };
 
 export default Hero;
