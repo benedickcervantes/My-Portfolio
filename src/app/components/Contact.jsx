@@ -17,6 +17,7 @@ const Contact = ({ setActiveSection }) => {
   const [formErrors, setFormErrors] = useState({});
   const [isFormValid, setIsFormValid] = useState(false);
   const [isEmailJSConfigured, setIsEmailJSConfigured] = useState(false);
+  const [touchedFields, setTouchedFields] = useState({});
 
   // Check if EmailJS is configured
   useEffect(() => {
@@ -33,7 +34,40 @@ const Contact = ({ setActiveSection }) => {
     }
   }, []);
 
-  // Form validation
+  // Real-time form validation
+  useEffect(() => {
+    const errors = {};
+    
+    if (!formData.name.trim()) {
+      errors.name = 'Name is required';
+    } else if (formData.name.trim().length < 2) {
+      errors.name = 'Name must be at least 2 characters';
+    }
+    
+    if (!formData.email.trim()) {
+      errors.email = 'Email is required';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      errors.email = 'Please enter a valid email address';
+    }
+    
+    if (!formData.subject.trim()) {
+      errors.subject = 'Subject is required';
+    } else if (formData.subject.trim().length < 5) {
+      errors.subject = 'Subject must be at least 5 characters';
+    }
+    
+    if (!formData.message.trim()) {
+      errors.message = 'Message is required';
+    } else if (formData.message.trim().length < 10) {
+      errors.message = 'Message must be at least 10 characters';
+    }
+    
+    setFormErrors(errors);
+    const isValid = Object.keys(errors).length === 0;
+    setIsFormValid(isValid);
+  }, [formData]);
+
+  // Form validation function (for submission)
   const validateForm = () => {
     const errors = {};
     
@@ -74,17 +108,32 @@ const Contact = ({ setActiveSection }) => {
       [name]: value
     }));
     
-    // Clear error when user starts typing
-    if (formErrors[name]) {
-      setFormErrors(prev => ({
-        ...prev,
-        [name]: ''
-      }));
-    }
+    // Mark field as touched when user starts typing
+    setTouchedFields(prev => ({
+      ...prev,
+      [name]: true
+    }));
+  };
+
+  const handleBlur = (e) => {
+    const { name } = e.target;
+    // Mark field as touched when user leaves the field
+    setTouchedFields(prev => ({
+      ...prev,
+      [name]: true
+    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Mark all fields as touched when submitting
+    setTouchedFields({
+      name: true,
+      email: true,
+      subject: true,
+      message: true
+    });
     
     if (!validateForm()) {
       return;
@@ -95,16 +144,35 @@ const Contact = ({ setActiveSection }) => {
 
     try {
       if (isEmailJSConfigured) {
-        // Send email using EmailJS
+        // Send email using EmailJS with updated template parameters
         const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
         const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
         const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
 
+        // Get current time
+        const getCurrentTime = () => {
+          return new Date().toLocaleString('en-US', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            timeZoneName: 'short'
+          });
+        };
+
         const templateParams = {
-          from_name: formData.name,
-          from_email: formData.email,
+          // Template variables matching your HTML template
+          name: formData.name,
+          email: formData.email,
           subject: formData.subject,
           message: formData.message,
+          time: getCurrentTime(),
+          
+          // Additional EmailJS variables
+          from_name: formData.name,
+          from_email: formData.email,
           to_email: 'benedickcervantes@gmail.com',
           reply_to: formData.email
         };
@@ -126,6 +194,7 @@ const Contact = ({ setActiveSection }) => {
           });
           setFormErrors({});
           setIsFormValid(false);
+          setTouchedFields({});
         } else {
           throw new Error('Failed to send email');
         }
@@ -142,6 +211,7 @@ const Contact = ({ setActiveSection }) => {
         });
         setFormErrors({});
         setIsFormValid(false);
+        setTouchedFields({});
         
         // Open email client with pre-filled content
         const emailSubject = encodeURIComponent(formData.subject);
@@ -378,19 +448,20 @@ const Contact = ({ setActiveSection }) => {
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      className={`w-full px-4 py-3 rounded-lg border transition-all text-gray-900 dark:text-gray-200 ${
-                        formErrors.name 
-                          ? 'border-red-300 dark:border-red-600 bg-red-50/50 dark:bg-red-900/10' 
-                          : 'border-gray-300 dark:border-gray-500 bg-white/80 dark:bg-gray-600/50 focus:ring-2 focus:ring-[#2C98A0] focus:border-transparent'
-                      }`}
+                      onBlur={handleBlur}
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-500 bg-white/80 dark:bg-gray-600/50 focus:ring-2 focus:ring-[#2C98A0] focus:border-transparent transition-all text-gray-900 dark:text-gray-200"
                       placeholder="Full Name"
                       disabled={isSubmitting}
                     />
-                    {formErrors.name && (
-                      <p className="text-red-600 dark:text-red-400 text-sm mt-1 flex items-center">
+                    {touchedFields.name && formErrors.name && (
+                      <motion.p 
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="text-red-600 dark:text-red-400 text-sm mt-1 flex items-center"
+                      >
                         <FiAlertCircle className="w-4 h-4 mr-1" />
                         {formErrors.name}
-                      </p>
+                      </motion.p>
                     )}
                   </motion.div>
                   
@@ -410,19 +481,20 @@ const Contact = ({ setActiveSection }) => {
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      className={`w-full px-4 py-3 rounded-lg border transition-all text-gray-900 dark:text-gray-200 ${
-                        formErrors.email 
-                          ? 'border-red-300 dark:border-red-600 bg-red-50/50 dark:bg-red-900/10' 
-                          : 'border-gray-300 dark:border-gray-500 bg-white/80 dark:bg-gray-600/50 focus:ring-2 focus:ring-[#2C98A0] focus:border-transparent'
-                      }`}
+                      onBlur={handleBlur}
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-500 bg-white/80 dark:bg-gray-600/50 focus:ring-2 focus:ring-[#2C98A0] focus:border-transparent transition-all text-gray-900 dark:text-gray-200"
                       placeholder="your@email.com"
                       disabled={isSubmitting}
                     />
-                    {formErrors.email && (
-                      <p className="text-red-600 dark:text-red-400 text-sm mt-1 flex items-center">
+                    {touchedFields.email && formErrors.email && (
+                      <motion.p 
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="text-red-600 dark:text-red-400 text-sm mt-1 flex items-center"
+                      >
                         <FiAlertCircle className="w-4 h-4 mr-1" />
                         {formErrors.email}
-                      </p>
+                      </motion.p>
                     )}
                   </motion.div>
                 </div>
@@ -443,19 +515,20 @@ const Contact = ({ setActiveSection }) => {
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
-                    className={`w-full px-4 py-3 rounded-lg border transition-all text-gray-900 dark:text-gray-200 ${
-                      formErrors.subject 
-                        ? 'border-red-300 dark:border-red-600 bg-red-50/50 dark:bg-red-900/10' 
-                        : 'border-gray-300 dark:border-gray-500 bg-white/80 dark:bg-gray-600/50 focus:ring-2 focus:ring-[#2C98A0] focus:border-transparent'
-                    }`}
+                    onBlur={handleBlur}
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-500 bg-white/80 dark:bg-gray-600/50 focus:ring-2 focus:ring-[#2C98A0] focus:border-transparent transition-all text-gray-900 dark:text-gray-200"
                     placeholder="What's this about?"
                     disabled={isSubmitting}
                   />
-                  {formErrors.subject && (
-                    <p className="text-red-600 dark:text-red-400 text-sm mt-1 flex items-center">
+                  {touchedFields.subject && formErrors.subject && (
+                    <motion.p 
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="text-red-600 dark:text-red-400 text-sm mt-1 flex items-center"
+                    >
                       <FiAlertCircle className="w-4 h-4 mr-1" />
                       {formErrors.subject}
-                    </p>
+                    </motion.p>
                   )}
                 </motion.div>
                 
@@ -475,20 +548,21 @@ const Contact = ({ setActiveSection }) => {
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
+                    onBlur={handleBlur}
                     rows="4" 
-                    className={`w-full px-4 py-3 rounded-lg border transition-all text-gray-900 dark:text-gray-200 resize-none flex-1 ${
-                      formErrors.message 
-                        ? 'border-red-300 dark:border-red-600 bg-red-50/50 dark:bg-red-900/10' 
-                        : 'border-gray-300 dark:border-gray-500 bg-white/80 dark:bg-gray-600/50 focus:ring-2 focus:ring-[#2C98A0] focus:border-transparent'
-                    }`}
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-500 bg-white/80 dark:bg-gray-600/50 focus:ring-2 focus:ring-[#2C98A0] focus:border-transparent transition-all text-gray-900 dark:text-gray-200 resize-none flex-1"
                     placeholder="Hi Benedick, I'd like to talk about..."
                     disabled={isSubmitting}
                   ></textarea>
-                  {formErrors.message && (
-                    <p className="text-red-600 dark:text-red-400 text-sm mt-1 flex items-center">
+                  {touchedFields.message && formErrors.message && (
+                    <motion.p 
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="text-red-600 dark:text-red-400 text-sm mt-1 flex items-center"
+                    >
                       <FiAlertCircle className="w-4 h-4 mr-1" />
                       {formErrors.message}
-                    </p>
+                    </motion.p>
                   )}
                 </motion.div>
                 
