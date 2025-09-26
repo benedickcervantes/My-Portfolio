@@ -1,6 +1,6 @@
 'use client';
 import { motion } from 'framer-motion';
-import { FiGithub, FiExternalLink, FiStar, FiGitBranch, FiArrowRight, FiUsers, FiShield, FiBarChart, FiGlobe, FiHome, FiCalendar, FiCode, FiZap, FiTrendingUp, FiEye, FiHeart, FiShoppingCart, FiTruck } from 'react-icons/fi';
+import { FiGithub, FiExternalLink, FiStar, FiGitBranch, FiArrowRight, FiUsers, FiShield, FiBarChart, FiGlobe, FiHome, FiCalendar, FiCode, FiZap, FiTrendingUp, FiEye, FiHeart } from 'react-icons/fi';
 import { useState } from 'react';
 import Image from 'next/image';
 
@@ -91,46 +91,6 @@ const Projects = ({ setActiveSection }) => {
       year: "2024"
     },
     {
-      title: "POS System In Development",
-      description: "A modern cross-platform Point of Sale system built with Flutter for retail businesses. Features inventory management, sales tracking, and customer management with native mobile performance and offline capabilities.",
-      tags: ["Flutter", "Dart", "Firebase", "SQLite", "Cross-platform"],
-      github: "#",
-      live: "#",
-      image: "💳",
-      stats: { stars: 0, forks: 0 },
-      features: [
-        "Inventory Management",
-        "Sales Tracking & Analytics",
-        "Customer Management",
-        "Offline Sync",
-        "Payment Processing"
-      ],
-      icon: <FiShoppingCart className="text-2xl" />,
-      category: "Business",
-      status: "In Development",
-      year: "2024"
-    },
-    {
-      title: "Trucking System - In Development",
-      description: "A comprehensive trucking and logistics management system featuring route optimization, fleet tracking, and delivery management. Designed to streamline transportation operations with modern web technologies.",
-      tags: ["Next.js", "React", "Firebase", "GPS Integration", "Real-time"],
-      github: "#",
-      live: "#",
-      image: "🚛",
-      stats: { stars: 0, forks: 0 },
-      features: [
-        "Fleet Management",
-        "Route Optimization",
-        "Real-time GPS Tracking",
-        "Delivery Scheduling",
-        "Driver Management"
-      ],
-      icon: <FiTruck className="text-2xl" />,
-      category: "Logistics",
-      status: "In Development",
-      year: "2024"
-    },
-    {
       title: "E-Commerce Platform",
       description: "A full-featured e-commerce platform with product listings, cart functionality, and secure checkout. Built with modern technologies for optimal performance and user experience.",
       tags: ["React", "Node.js", "MongoDB", "Stripe"],
@@ -160,7 +120,7 @@ const Projects = ({ setActiveSection }) => {
       features: [
         "Drag & Drop Interface",
         "Team Collaboration",
-        "Offline Sync",
+        "Real-time Updates",
         "Task Prioritization"
       ],
       icon: <FiTrendingUp className="text-2xl" />,
@@ -170,7 +130,7 @@ const Projects = ({ setActiveSection }) => {
     }
   ];
 
-  const categories = ['All', 'Enterprise', 'Web App', 'Corporate', 'Business', 'Logistics', 'E-commerce', 'Productivity'];
+  const categories = ['All', 'Enterprise', 'Web App', 'Corporate', 'E-commerce', 'Productivity'];
   
   const filteredProjects = selectedCategory === 'All' 
     ? projects 
