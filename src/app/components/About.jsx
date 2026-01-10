@@ -23,8 +23,8 @@ const About = ({ setActiveSection }) => {
       achievements: ['Business Establishment', 'Market Expansion', 'Partnership Development']
     },
     { 
-      year: 'Feb-Sep 2025', 
-      title: 'System Developer', 
+      year: 'Feb 2025 - Present', 
+      title: 'System Developer Team Lead', 
       company: 'Inspire Holdings Inc.',
       location: 'Taguig City',
       description: 'Conducted usability tests, collaborated with stakeholders, designed database solutions, implemented new systems and enhancements, and enhanced system functionality by identifying and rectifying software bugs.',
@@ -87,7 +87,7 @@ const About = ({ setActiveSection }) => {
   // Download handler function
   const handleDownloadResume = () => {
     const link = document.createElement("a");
-    link.href = "/pdf/Resume - Cervantes, Benedick L Updated V2.pdf";
+    link.href = "/pdf/Cervantes, Benedick L.pdf";
     link.download = "Benedick_Cervantes_Resume.pdf";
     document.body.appendChild(link);
     link.click();

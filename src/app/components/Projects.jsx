@@ -28,7 +28,7 @@ const Projects = ({ setActiveSection }) => {
       icon: <FiUsers className="text-2xl" />,
       category: "Enterprise",
       status: "Live",
-      year: "2024"
+      year: "2025"
     },
     {
       title: "Inspire Hub - Co-working Space Platform",
@@ -48,7 +48,7 @@ const Projects = ({ setActiveSection }) => {
       icon: <FiCalendar className="text-2xl" />,
       category: "Web App",
       status: "Live",
-      year: "2024"
+      year: "2025"
     },
     {
       title: "Inspire Holdings - Corporate Website",
@@ -68,7 +68,7 @@ const Projects = ({ setActiveSection }) => {
       icon: <FiHome className="text-2xl" />,
       category: "Corporate",
       status: "Live",
-      year: "2023"
+      year: "2025"
     },
     {
       title: "Inspire Asset - Dynamic Web Platform",
@@ -88,7 +88,7 @@ const Projects = ({ setActiveSection }) => {
       icon: <FiGlobe className="text-2xl" />,
       category: "Web App",
       status: "Live",
-      year: "2024"
+      year: "2025"
     },
     {
       title: "POS System In Development",
@@ -108,27 +108,27 @@ const Projects = ({ setActiveSection }) => {
       icon: <FiShoppingCart className="text-2xl" />,
       category: "Business",
       status: "In Development",
-      year: "2024"
+      year: "2026"
     },
     {
-      title: "Trucking System - In Development",
-      description: "A comprehensive trucking and logistics management system featuring route optimization, fleet tracking, and delivery management. Designed to streamline transportation operations with modern web technologies.",
-      tags: ["Next.js", "React", "Firebase", "GPS Integration", "Real-time"],
-      github: "#",
-      live: "#",
-      image: "🚛",
+      title: "Inspire Loopwork - All-in-One Collaboration SaaS Platform",
+      description: "A comprehensive SaaS platform designed to streamline daily office operations with 14 powerful tools in one place. Features project management with Gantt charts, real-time collaboration, workflow automation, document management, video conferencing, and more. Built with Next.js 15, React 19, Firebase, and Supabase for modern, scalable enterprise solutions.",
+      tags: ["Next.js 15", "React 19", "Firebase", "Supabase", "Tailwind CSS", "Material-UI", "Real-time"],
+      github: "https://github.com/jjgonzaga07/loopwork-saas.git",
+      live: "http://www.inspire-loopwork.com/",
+      image: "/images/Loopwork Dashboard.png",
       stats: { stars: 0, forks: 0 },
       features: [
-        "Fleet Management",
-        "Route Optimization",
-        "Real-time GPS Tracking",
-        "Delivery Scheduling",
-        "Driver Management"
+        "14 Essential Tools (Schedule, Timecard, Todo, Documents, etc.)",
+        "Project Management with Gantt Charts & Workload Dashboard",
+        "Real-time Collaboration & Video Conferencing (ChatZoom)",
+        "Workflow Automation & Form Builder (AppEasy)",
+        "Advanced Analytics & Reporting Dashboard"
       ],
-      icon: <FiTruck className="text-2xl" />,
-      category: "Logistics",
-      status: "In Development",
-      year: "2024"
+      icon: <FiGlobe className="text-2xl" />,
+      category: "Enterprise",
+      status: "Live",
+      year: "2025"
     },
     {
       title: "E-Commerce Platform",
@@ -147,7 +147,7 @@ const Projects = ({ setActiveSection }) => {
       icon: <FiBarChart className="text-2xl" />,
       category: "E-commerce",
       status: "In Development",
-      year: "2024"
+      year: "2026"
     },
     {
       title: "Task Management App",
@@ -166,7 +166,7 @@ const Projects = ({ setActiveSection }) => {
       icon: <FiTrendingUp className="text-2xl" />,
       category: "Productivity",
       status: "In Development",
-      year: "2024"
+      year: "2026"
     }
   ];
 
