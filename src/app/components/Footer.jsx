@@ -9,7 +9,7 @@ const Footer = ({ setActiveSection }) => {
 
   // Get current year safely (won't cause hydration mismatch)
   const currentYear = new Date().getFullYear();
-  const lastUpdated = 'September 2025'; // Static date to avoid hydration issues
+  const lastUpdated = 'June 2026'; // Static date to avoid hydration issues
 
   const navLinks = [
     { name: "Home", href: "#home" },

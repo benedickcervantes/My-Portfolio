@@ -1,5 +1,5 @@
-// Service Worker for Portfolio PWA
-const CACHE_NAME = 'portfolio-v1';
+// Service Worker for Portfolio PWA (production only)
+const CACHE_NAME = 'portfolio-v2';
 const urlsToCache = [
   '/',
   '/images/developer-photo.png',
@@ -13,6 +13,7 @@ const urlsToCache = [
 
 // Install event
 self.addEventListener('install', function(event) {
+  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(function(cache) {
@@ -21,29 +22,38 @@ self.addEventListener('install', function(event) {
   );
 });
 
-// Fetch event
+// Fetch event — network-first for pages, cache-first for static assets
 self.addEventListener('fetch', function(event) {
+  if (event.request.mode === 'navigate') {
+    event.respondWith(
+      fetch(event.request).catch(function() {
+        return caches.match('/');
+      })
+    );
+    return;
+  }
+
   event.respondWith(
-    caches.match(event.request)
-      .then(function(response) {
-        // Return cached version or fetch from network
-        return response || fetch(event.request);
-      }
-    )
+    caches.match(event.request).then(function(response) {
+      return response || fetch(event.request);
+    })
   );
 });
 
 // Activate event
 self.addEventListener('activate', function(event) {
   event.waitUntil(
-    caches.keys().then(function(cacheNames) {
-      return Promise.all(
-        cacheNames.map(function(cacheName) {
-          if (cacheName !== CACHE_NAME) {
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    })
+    Promise.all([
+      self.clients.claim(),
+      caches.keys().then(function(cacheNames) {
+        return Promise.all(
+          cacheNames.map(function(cacheName) {
+            if (cacheName !== CACHE_NAME) {
+              return caches.delete(cacheName);
+            }
+          })
+        );
+      })
+    ])
   );
 });
