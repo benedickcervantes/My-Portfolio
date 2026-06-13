@@ -15,9 +15,15 @@ export default function Home() {
   const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
-    // Only run on client side after hydration
-    const savedMode = localStorage.getItem('darkMode');
-    const initialMode = savedMode ? JSON.parse(savedMode) : true;
+    let initialMode = true;
+    try {
+      const savedMode = localStorage.getItem('darkMode');
+      if (savedMode !== null) {
+        initialMode = JSON.parse(savedMode);
+      }
+    } catch {
+      localStorage.removeItem('darkMode');
+    }
     setDarkMode(initialMode);
   }, []);
 

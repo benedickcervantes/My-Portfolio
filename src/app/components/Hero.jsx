@@ -305,9 +305,9 @@ const Hero = ({ setActiveSection }) => {
             </motion.a>
           </motion.div>
 
-          {/* Enhanced Mobile Social links */}
+          {/* Social links — horizontal on mobile & smaller laptops */}
           <motion.div 
-            className="flex md:hidden justify-center space-x-6 mt-8"
+            className="flex xl:hidden justify-center space-x-6 mt-8"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: typingPhase === 2 ? 1 : 0, y: typingPhase === 2 ? 0 : 20 }}
             transition={{ delay: typingPhase === 2 ? 1.6 : 0 }}
@@ -445,9 +445,9 @@ const Hero = ({ setActiveSection }) => {
         </motion.div>
       </div>
       
-      {/* Enhanced Desktop Social links */}
+      {/* Desktop social sidebar — only on wide screens (1280px+) */}
       <motion.div 
-        className="hidden md:flex fixed left-8 bottom-8 flex-col items-center space-y-6"
+        className="hidden xl:flex fixed left-6 2xl:left-10 bottom-0 pb-10 flex-col items-center space-y-5 z-10 pointer-events-none"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: typingPhase === 2 ? 1 : 0, y: typingPhase === 2 ? 0 : 20 }}
         transition={{ delay: typingPhase === 2 ? 1.6 : 0 }}
@@ -458,7 +458,7 @@ const Hero = ({ setActiveSection }) => {
             href={social.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-2xl text-gray-800 dark:text-gray-300 hover:text-[#2C98A0] dark:hover:text-[#4CC8A3] transition-colors group relative"
+            className="text-xl 2xl:text-2xl text-gray-800 dark:text-gray-300 hover:text-[#2C98A0] dark:hover:text-[#4CC8A3] transition-colors group relative pointer-events-auto"
             whileHover={{ y: -3, scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             aria-label={social.label}
@@ -474,7 +474,7 @@ const Hero = ({ setActiveSection }) => {
           </motion.a>
         ))}
         <motion.div 
-          className="w-px h-24 bg-gradient-to-b from-[#2C98A0] to-[#4CC8A3]"
+          className="w-px h-16 2xl:h-24 bg-gradient-to-b from-[#2C98A0] to-[#4CC8A3] pointer-events-none"
           initial={{ scaleY: 0 }}
           animate={{ scaleY: typingPhase === 2 ? 1 : 0 }}
           transition={{ duration: 0.5, delay: typingPhase === 2 ? 1.8 : 0 }}
