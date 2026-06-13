@@ -555,11 +555,26 @@ span.name-text-light {
   }
 }
 
+a.project-card-action {
+  box-sizing: border-box;
+  height: 2.5rem;
+  max-height: 2.5rem;
+  min-height: 2.5rem;
+  min-width: 0;
+}
+
 /* Enhanced touch targets for mobile */
 @media (hover: none) and (pointer: coarse) {
   button, a, input, select, textarea {
     min-height: 44px;
     min-width: 44px;
+  }
+
+  a.project-card-action {
+    min-height: 2.5rem;
+    min-width: 0;
+    height: 2.5rem;
+    max-height: 2.5rem;
   }
 }
 

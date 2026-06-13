@@ -1,8 +1,11 @@
 'use client';
 import { motion } from 'framer-motion';
-import { FiGithub, FiExternalLink, FiStar, FiGitBranch, FiArrowRight, FiUsers, FiShield, FiBarChart, FiGlobe, FiHome, FiCalendar, FiCode, FiZap, FiTrendingUp, FiEye, FiHeart, FiShoppingCart, FiTruck } from 'react-icons/fi';
+import { FiGithub, FiExternalLink, FiStar, FiGitBranch, FiArrowRight, FiUsers, FiBarChart, FiGlobe, FiHome, FiCalendar, FiSmartphone } from 'react-icons/fi';
 import { useState } from 'react';
 import Image from 'next/image';
+
+const projectActionButtonClass =
+  'project-card-action flex h-10 w-full items-center justify-center gap-2 whitespace-nowrap rounded-lg px-3 text-sm font-medium leading-none transition-colors';
 
 const Projects = ({ setActiveSection }) => {
   const [hoveredProject, setHoveredProject] = useState(null);
@@ -10,6 +13,48 @@ const Projects = ({ setActiveSection }) => {
   const [selectedCategory, setSelectedCategory] = useState('All');
 
   const projects = [
+    {
+      title: "Inspire Wallet",
+      description: "Full fintech platform — cross-platform mobile app for investment tracking, stocks, forex, and transactions. Powered by a NestJS backend on AWS (SevenIWalletBackend) and an admin dashboard (inspireadmin2) for operations and analytics. Live on Google Play and the App Store.",
+      tags: ["Expo", "React Native", "TypeScript", "NestJS", "AWS", "FinTech"],
+      github: "https://github.com/EngrBrianDev/InspirewalletV3.git",
+      live: "https://apps.apple.com/ph/app/inspire-wallet/id6642689775",
+      image: "/images/IW Sreenshot.png",
+      imageBg: "bg-[#F05A28]",
+      stats: { stars: 0, forks: 0 },
+      features: [
+        "Investment tracking, stock management & forex converter",
+        "Real-time sync via REST & WebSocket API",
+        "Backend: NestJS · PostgreSQL · Redis · Docker on AWS",
+        "Admin Dashboard: Next.js BFF · RSuite · Electron · Supabase",
+        "Published on Google Play & App Store"
+      ],
+      icon: <FiSmartphone className="text-2xl" />,
+      category: "FinTech",
+      status: "Live",
+      year: "2026"
+    },
+    {
+      title: "I'M Pay",
+      description: "Secure digital wallet built for the Philippines by Inspire Holdings Inc. Create your account, verify your identity, send and receive money with other I'M Pay users, pay via QR codes, and manage your wallet — all in one app. Core wallet services are live now; partner services such as bills payment, mobile load, bank transfer, savings, and lending will roll out in future updates. Powered by a NestJS backend on AWS, admin dashboard, and marketing landing pages. Live on Google Play and the App Store.",
+      tags: ["Expo", "React Native", "TypeScript", "NestJS", "AWS", "FinTech"],
+      github: "https://github.com/EngrBrianDev/iamIwallet.git",
+      live: "https://play.google.com/store/apps/details?id=com.inspire.impay&hl=en",
+      image: "/images/IMPay Screenshot.png",
+      stats: { stars: 0, forks: 0 },
+      features: [
+        "Secure wallet — passcode, Face ID & fingerprint login",
+        "P2P transfers & QR payments — send, receive, and scan to pay",
+        "KYC verification, transaction history & Refer & Earn rewards",
+        "In-app support — Help Center, tickets & customer assistance",
+        "Backend: NestJS · PostgreSQL · Redis · Docker on AWS",
+        "Admin Dashboard · Website landing pages · Google Play & App Store"
+      ],
+      icon: <FiSmartphone className="text-2xl" />,
+      category: "FinTech",
+      status: "Live",
+      year: "2026"
+    },
     {
       title: "FCDC Helpdesk Enterprise IT Support",
       description: "A comprehensive enterprise helpdesk system with role-based dashboards for users, admins, and executives. Features real-time ticket management, advanced analytics, and professional reporting capabilities.",
@@ -91,26 +136,6 @@ const Projects = ({ setActiveSection }) => {
       year: "2025"
     },
     {
-      title: "POS System In Development",
-      description: "A modern cross-platform Point of Sale system built with Flutter for retail businesses. Features inventory management, sales tracking, and customer management with native mobile performance and offline capabilities.",
-      tags: ["Flutter", "Dart", "Firebase", "SQLite", "Cross-platform"],
-      github: "#",
-      live: "#",
-      image: "💳",
-      stats: { stars: 0, forks: 0 },
-      features: [
-        "Inventory Management",
-        "Sales Tracking & Analytics",
-        "Customer Management",
-        "Offline Sync",
-        "Payment Processing"
-      ],
-      icon: <FiShoppingCart className="text-2xl" />,
-      category: "Business",
-      status: "In Development",
-      year: "2026"
-    },
-    {
       title: "Inspire Loopwork - All-in-One Collaboration SaaS Platform",
       description: "A comprehensive SaaS platform designed to streamline daily office operations with 14 powerful tools in one place. Features project management with Gantt charts, real-time collaboration, workflow automation, document management, video conferencing, and more. Built with Next.js 15, React 19, Firebase, and Supabase for modern, scalable enterprise solutions.",
       tags: ["Next.js 15", "React 19", "Firebase", "Supabase", "Tailwind CSS", "Material-UI", "Real-time"],
@@ -129,48 +154,10 @@ const Projects = ({ setActiveSection }) => {
       category: "Enterprise",
       status: "Live",
       year: "2025"
-    },
-    {
-      title: "E-Commerce Platform",
-      description: "A full-featured e-commerce platform with product listings, cart functionality, and secure checkout. Built with modern technologies for optimal performance and user experience.",
-      tags: ["React", "Node.js", "MongoDB", "Stripe"],
-      github: "#",
-      live: "#",
-      image: "🛒",
-      stats: { stars: 128, forks: 42 },
-      features: [
-        "Product Management",
-        "Shopping Cart",
-        "Secure Payments",
-        "User Authentication"
-      ],
-      icon: <FiBarChart className="text-2xl" />,
-      category: "E-commerce",
-      status: "In Development",
-      year: "2026"
-    },
-    {
-      title: "Task Management App",
-      description: "A productivity application for managing tasks with drag-and-drop functionality and team collaboration. Features real-time updates and intuitive user interface.",
-      tags: ["React", "Firebase", "Tailwind CSS"],
-      github: "#",
-      live: "#",
-      image: "✅",
-      stats: { stars: 89, forks: 23 },
-      features: [
-        "Drag & Drop Interface",
-        "Team Collaboration",
-        "Offline Sync",
-        "Task Prioritization"
-      ],
-      icon: <FiTrendingUp className="text-2xl" />,
-      category: "Productivity",
-      status: "In Development",
-      year: "2026"
     }
   ];
 
-  const categories = ['All', 'Enterprise', 'Web App', 'Corporate', 'Business', 'Logistics', 'E-commerce', 'Productivity'];
+  const categories = ['All', 'FinTech', 'Enterprise', 'Web App', 'Corporate'];
   
   const filteredProjects = selectedCategory === 'All' 
     ? projects 
@@ -254,19 +241,19 @@ const Projects = ({ setActiveSection }) => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="group relative bg-white/90 dark:bg-gray-700/60 rounded-xl shadow-sm/30 border border-gray-200 dark:border-gray-600 overflow-hidden hover:shadow-xl transition-all duration-300"
+              className="group relative flex h-full flex-col bg-white/90 dark:bg-gray-700/60 rounded-xl shadow-sm/30 border border-gray-200 dark:border-gray-600 overflow-hidden hover:shadow-xl transition-all duration-300"
               onMouseEnter={() => setHoveredProject(index)}
               onMouseLeave={() => setHoveredProject(null)}
               whileHover={{ y: -5 }}
             >
               {/* Project Image/Icon */}
-              <div className="relative h-48 bg-gray-100 dark:bg-gray-800 overflow-hidden">
+              <div className={`relative aspect-[2/1] w-full overflow-hidden ${project.imageBg || 'bg-gray-100 dark:bg-gray-800'}`}>
                 {project.image.startsWith('/') ? (
                   <Image 
                     src={project.image} 
                     alt={project.title} 
                     fill 
-                    className="object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-500" 
+                    className="object-contain object-center opacity-80 group-hover:opacity-100 transition-opacity duration-500" 
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                 ) : (
@@ -308,7 +295,7 @@ const Projects = ({ setActiveSection }) => {
               </div>
 
               {/* Project Content */}
-              <div className="p-6">
+              <div className="flex flex-1 flex-col p-6">
                 <div className="flex items-start justify-between mb-3">
                   <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-[#2C98A0] dark:group-hover:text-[#4CC8A3] transition-colors">
                     {project.title}
@@ -361,29 +348,25 @@ const Projects = ({ setActiveSection }) => {
                 </div>
 
                 {/* Action Buttons */}
-                <div className="flex space-x-3">
-                  <motion.a
+                <div className="mt-auto grid grid-cols-2 gap-3 pt-4">
+                  <a
                     href={project.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 flex items-center justify-center px-4 py-2 bg-gray-100 dark:bg-gray-600 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-500 transition-colors text-sm font-medium"
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
+                    className={`${projectActionButtonClass} bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500`}
                   >
-                    <FiGithub className="w-4 h-4 mr-2" />
+                    <FiGithub className="h-4 w-4 shrink-0" />
                     Code
-                  </motion.a>
-                  <motion.a
+                  </a>
+                  <a
                     href={project.live}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 flex items-center justify-center px-4 py-2 bg-[#2C98A0] dark:bg-[#4CC8A3] text-white rounded-lg hover:bg-[#38B2A3] dark:hover:bg-[#5DD3B4] transition-colors text-sm font-medium"
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
+                    className={`${projectActionButtonClass} bg-[#2C98A0] text-white hover:bg-[#38B2A3] dark:bg-[#4CC8A3] dark:hover:bg-[#5DD3B4]`}
                   >
-                    <FiExternalLink className="w-4 h-4 mr-2" />
+                    <FiExternalLink className="h-4 w-4 shrink-0" />
                     Live Demo
-                  </motion.a>
+                  </a>
                 </div>
               </div>
             </motion.div>

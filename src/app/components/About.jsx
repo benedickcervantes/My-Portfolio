@@ -24,7 +24,7 @@ const About = ({ setActiveSection }) => {
     },
     { 
       year: 'Feb 2025 - Present', 
-      title: 'System Developer Team Lead', 
+      title: 'Software Developer Team Lead', 
       company: 'Inspire Holdings Inc.',
       location: 'Taguig City',
       description: 'Conducted usability tests, collaborated with stakeholders, designed database solutions, implemented new systems and enhancements, and enhanced system functionality by identifying and rectifying software bugs.',

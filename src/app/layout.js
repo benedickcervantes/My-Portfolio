@@ -90,9 +90,27 @@ export default function RootLayout({ children }) {
                 });
               }
               
-              // Service Worker registration for PWA capabilities
+              // PWA service worker — disabled on localhost to avoid stale dev cache
               if ('serviceWorker' in navigator) {
                 window.addEventListener('load', function() {
+                  var isLocalDev = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+
+                  if (isLocalDev) {
+                    navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                      registrations.forEach(function(registration) {
+                        registration.unregister();
+                      });
+                    });
+                    if ('caches' in window) {
+                      caches.keys().then(function(names) {
+                        names.forEach(function(name) {
+                          caches.delete(name);
+                        });
+                      });
+                    }
+                    return;
+                  }
+
                   navigator.serviceWorker.register('/sw.js')
                     .then(function(registration) {
                       console.log('SW registered: ', registration);
