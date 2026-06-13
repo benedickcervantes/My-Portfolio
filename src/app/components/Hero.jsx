@@ -289,11 +289,9 @@ const Hero = ({ setActiveSection }) => {
               whileHover={{
                 y: -4,
                 scale: 1.02,
-                backgroundColor: "rgba(255, 255, 255, 0.9)",
               }}
               whileTap={{
                 scale: 0.98,
-                backgroundColor: "rgba(255, 255, 255, 0.8)",
               }}
             >
               <span className="relative z-10 flex items-center justify-center gap-2">

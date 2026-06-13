@@ -18,6 +18,38 @@ const Contact = ({ setActiveSection }) => {
   const [isFormValid, setIsFormValid] = useState(false);
   const [isEmailJSConfigured, setIsEmailJSConfigured] = useState(false);
   const [touchedFields, setTouchedFields] = useState({});
+  const [submitViaMailto, setSubmitViaMailto] = useState(false);
+
+  const getEmailJSErrorMessage = (error) => {
+    if (typeof error === 'string') return error;
+    if (error?.text) return error.text;
+    if (error?.message) return error.message;
+    if (error?.status) return `Request failed with status ${error.status}`;
+    return 'Failed to send message';
+  };
+
+  const openMailtoFallback = (data) => {
+    const emailSubject = encodeURIComponent(data.subject);
+    const emailBody = encodeURIComponent(
+      `Name: ${data.name}\nEmail: ${data.email}\n\nMessage:\n${data.message}`
+    );
+    window.open(
+      `mailto:benedickcervantes@gmail.com?subject=${emailSubject}&body=${emailBody}`,
+      '_blank'
+    );
+  };
+
+  const resetForm = () => {
+    setFormData({
+      name: '',
+      email: '',
+      subject: '',
+      message: ''
+    });
+    setFormErrors({});
+    setIsFormValid(false);
+    setTouchedFields({});
+  };
 
   // Check if EmailJS is configured
   useEffect(() => {
@@ -141,17 +173,22 @@ const Contact = ({ setActiveSection }) => {
     
     setIsSubmitting(true);
     setSubmitStatus(null);
+    setSubmitViaMailto(false);
+
+    const submissionData = { ...formData };
 
     try {
       if (isEmailJSConfigured) {
-        // Send email using EmailJS with updated template parameters
         const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
         const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
         const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
 
-        // Get current time
-        const getCurrentTime = () => {
-          return new Date().toLocaleString('en-US', {
+        const templateParams = {
+          name: submissionData.name,
+          email: submissionData.email,
+          subject: submissionData.subject,
+          message: submissionData.message,
+          time: new Date().toLocaleString('en-US', {
             weekday: 'long',
             year: 'numeric',
             month: 'long',
@@ -159,73 +196,32 @@ const Contact = ({ setActiveSection }) => {
             hour: '2-digit',
             minute: '2-digit',
             timeZoneName: 'short'
+          }),
+          from_name: submissionData.name,
+          from_email: submissionData.email,
+          reply_to: submissionData.email
+        };
+
+        try {
+          await emailjs.send(serviceId, templateId, templateParams, {
+            publicKey,
+            blockHeadless: false,
           });
-        };
 
-        const templateParams = {
-          // Template variables matching your HTML template
-          name: formData.name,
-          email: formData.email,
-          subject: formData.subject,
-          message: formData.message,
-          time: getCurrentTime(),
-          
-          // Additional EmailJS variables
-          from_name: formData.name,
-          from_email: formData.email,
-          to_email: 'benedickcervantes@gmail.com',
-          reply_to: formData.email
-        };
-
-        const response = await emailjs.send(
-          serviceId,
-          templateId,
-          templateParams,
-          publicKey
-        );
-
-        if (response.status === 200) {
           setSubmitStatus('success');
-          setFormData({
-            name: '',
-            email: '',
-            subject: '',
-            message: ''
-          });
-          setFormErrors({});
-          setIsFormValid(false);
-          setTouchedFields({});
-        } else {
-          throw new Error('Failed to send email');
+          resetForm();
+          return;
+        } catch (emailError) {
+          console.error('EmailJS error:', getEmailJSErrorMessage(emailError));
         }
-      } else {
-        // Original working behavior - simulate form submission
-        await new Promise(resolve => setTimeout(resolve, 2000)); // Simulate API call
-        
-        setSubmitStatus('success');
-        setFormData({
-          name: '',
-          email: '',
-          subject: '',
-          message: ''
-        });
-        setFormErrors({});
-        setIsFormValid(false);
-        setTouchedFields({});
-        
-        // Open email client with pre-filled content
-        const emailSubject = encodeURIComponent(formData.subject);
-        const emailBody = encodeURIComponent(
-          `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
-        );
-        const mailtoLink = `mailto:benedickcervantes@gmail.com?subject=${emailSubject}&body=${emailBody}`;
-        
-        // Open email client
-        window.open(mailtoLink, '_blank');
       }
-      
+
+      openMailtoFallback(submissionData);
+      setSubmitViaMailto(true);
+      setSubmitStatus('success');
+      resetForm();
     } catch (error) {
-      console.error('Form submission error:', error);
+      console.error('Form submission error:', getEmailJSErrorMessage(error));
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -400,13 +396,14 @@ const Contact = ({ setActiveSection }) => {
                   <FiCheck className="text-green-600 dark:text-green-400 text-xl" />
                   <div>
                     <p className="text-green-700 dark:text-green-300 font-medium">
-                      {isEmailJSConfigured ? 'Message sent successfully!' : 'Thank you for your message!'}
+                      {submitViaMailto || !isEmailJSConfigured
+                        ? 'Thank you for your message!'
+                        : 'Message sent successfully!'}
                     </p>
                     <p className="text-green-600 dark:text-green-400 text-sm mt-1">
-                      {isEmailJSConfigured 
-                        ? "I'll get back to you within 24 hours."
-                        : "I'll get back to you soon. Your email client should open with a pre-filled message."
-                      }
+                      {submitViaMailto || !isEmailJSConfigured
+                        ? "Your email client should open with a pre-filled message. I'll get back to you soon."
+                        : "I'll get back to you within 24 hours."}
                     </p>
                   </div>
                 </motion.div>
