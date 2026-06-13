@@ -14,6 +14,26 @@ const Projects = ({ setActiveSection }) => {
 
   const projects = [
     {
+      title: "Real Estate Website",
+      description: "A modern property listing platform for browsing homes, condos, and commercial spaces. Built with Next.js and Tailwind CSS on the frontend, powered by a Node.js REST API with MySQL and JWT authentication. Currently in active development with a planned 2027 release.",
+      tags: ["Next.js", "Tailwind CSS", "Node.js", "MySQL", "JWT Auth", "REST API"],
+      github: "#",
+      live: "#",
+      image: "🏠",
+      stats: { stars: 0, forks: 0 },
+      features: [
+        "Property listings with photos, pricing & location details",
+        "Search & filter by type, price range & location",
+        "JWT-authenticated user accounts & agent access",
+        "REST API backend with Node.js & MySQL",
+        "Responsive Next.js frontend with Tailwind CSS"
+      ],
+      icon: <FiHome className="text-2xl" />,
+      category: "Web App",
+      status: "Ongoing",
+      year: "2027"
+    },
+    {
       title: "Inspire Wallet",
       description: "Full fintech platform — cross-platform mobile app for investment tracking, stocks, forex, and transactions. Powered by a NestJS backend on AWS (SevenIWalletBackend) and an admin dashboard (inspireadmin2) for operations and analytics. Live on Google Play and the App Store.",
       tags: ["Expo", "React Native", "TypeScript", "NestJS", "AWS", "FinTech"],
@@ -351,18 +371,22 @@ const Projects = ({ setActiveSection }) => {
                 <div className="mt-auto grid grid-cols-2 gap-3 pt-4">
                   <a
                     href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`${projectActionButtonClass} bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500`}
+                    target={project.github === '#' ? undefined : '_blank'}
+                    rel={project.github === '#' ? undefined : 'noopener noreferrer'}
+                    aria-disabled={project.github === '#'}
+                    onClick={(e) => { if (project.github === '#') e.preventDefault(); }}
+                    className={`${projectActionButtonClass} bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500${project.github === '#' ? ' opacity-50 cursor-not-allowed' : ''}`}
                   >
                     <FiGithub className="h-4 w-4 shrink-0" />
                     Code
                   </a>
                   <a
                     href={project.live}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`${projectActionButtonClass} bg-[#2C98A0] text-white hover:bg-[#38B2A3] dark:bg-[#4CC8A3] dark:hover:bg-[#5DD3B4]`}
+                    target={project.live === '#' ? undefined : '_blank'}
+                    rel={project.live === '#' ? undefined : 'noopener noreferrer'}
+                    aria-disabled={project.live === '#'}
+                    onClick={(e) => { if (project.live === '#') e.preventDefault(); }}
+                    className={`${projectActionButtonClass} bg-[#2C98A0] text-white hover:bg-[#38B2A3] dark:bg-[#4CC8A3] dark:hover:bg-[#5DD3B4]${project.live === '#' ? ' opacity-50 cursor-not-allowed' : ''}`}
                   >
                     <FiExternalLink className="h-4 w-4 shrink-0" />
                     Live Demo
