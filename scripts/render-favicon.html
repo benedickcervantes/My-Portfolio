@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+  <head>
+    <style>
+      html, body { margin: 0; padding: 0; background: #000; width: 256px; height: 256px; overflow: hidden; }
+      canvas { display: block; width: 256px; height: 256px; }
+    </style>
+  </head>
+  <body>
+    <canvas id="c" width="256" height="256"></canvas>
+    <script>
+      const canvas = document.getElementById('c');
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = '#000000';
+      ctx.fillRect(0, 0, 256, 256);
+
+      const grad = ctx.createLinearGradient(56, 48, 200, 208);
+      grad.addColorStop(0, '#2C98A0');
+      grad.addColorStop(1, '#4CC8A3');
+
+      ctx.fillStyle = grad;
+      // Smaller type = clear padding on all sides (no clipping in browser tabs)
+      ctx.font = '800 104px Arial Black, Arial, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('<B', 128, 130);
+    </script>
+  </body>
+</html>

@@ -5,8 +5,8 @@
       <stop offset="1" stop-color="#4CC8A3"/>
     </linearGradient>
   </defs>
-  <!-- Match header logo with safe favicon padding -->
-  <svg x="9" y="9" width="46" height="46" viewBox="0 0 64 64">
+  <!-- Nested inset keeps full mark inside favicon canvas -->
+  <svg x="7" y="7" width="50" height="50" viewBox="0 0 64 64">
     <path
       fill="none"
       stroke="#2C98A0"
