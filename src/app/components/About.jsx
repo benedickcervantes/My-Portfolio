@@ -1,319 +1,222 @@
 'use client';
 import { motion } from 'framer-motion';
-import { FiDownload, FiAward, FiCode, FiLayers, FiUsers, FiGlobe, FiBriefcase, FiShield, FiTrendingUp, FiTarget, FiZap, FiStar, FiCheckCircle, FiArrowRight } from 'react-icons/fi';
+import {
+  FiDownload,
+  FiCode,
+  FiUsers,
+  FiShield,
+  FiZap,
+  FiBriefcase,
+  FiTrendingUp,
+} from 'react-icons/fi';
 
-const About = ({ setActiveSection }) => {
+const About = () => {
   const milestones = [
-    { 
-      year: '2016-2021', 
-      title: 'IT Supervisor', 
+    {
+      year: '2016-2021',
+      title: 'IT Supervisor',
       company: 'Philsurv Geodetic Services',
       location: 'Mandaluyong City',
-      description: 'Network Engineering, System Administration, Technical Support, Web Analytics, Digital Marketing, Asset Management, and IT Supervisory works. Optimized hardware infrastructure with strategic equipment upgrades, reducing maintenance costs.',
-      icon: <FiShield className="text-xl" />,
-      achievements: ['Network Infrastructure Optimization', 'Cost Reduction Initiatives', 'Team Leadership']
+      description:
+        'Network Engineering, System Administration, Technical Support, Web Analytics, Digital Marketing, Asset Management, and IT Supervisory works. Optimized hardware infrastructure with strategic equipment upgrades, reducing maintenance costs.',
+      achievements: ['Network Infrastructure Optimization', 'Cost Reduction Initiatives', 'Team Leadership'],
     },
-    { 
-      year: '2021-2025', 
-      title: 'Business Founder', 
+    {
+      year: '2021-2025',
+      title: 'Business Founder',
       company: 'Blue Switch PC',
       location: 'San Juan City',
-      description: 'Established successful business by identifying market needs and developing innovative solutions. Managed Sales & Marketing, Technical Support, Social Media, and developed strong partnerships for growth opportunities.',
-      icon: <FiTrendingUp className="text-xl" />,
-      achievements: ['Business Establishment', 'Market Expansion', 'Partnership Development']
+      description:
+        'Established successful business by identifying market needs and developing innovative solutions. Managed Sales & Marketing, Technical Support, Social Media, and developed strong partnerships for growth opportunities.',
+      achievements: ['Business Establishment', 'Market Expansion', 'Partnership Development'],
     },
-    { 
-      year: 'Feb 2025 - Present', 
-      title: 'Software Developer Team Lead', 
+    {
+      year: 'Feb 2025 - Present',
+      title: 'Software Developer Team Lead',
       company: 'Inspire Holdings Inc.',
       location: 'Taguig City',
-      description: 'Conducted usability tests, collaborated with stakeholders, designed database solutions, implemented new systems and enhancements, and enhanced system functionality by identifying and rectifying software bugs.',
-      icon: <FiCode className="text-xl" />,
-      achievements: ['System Development', 'Database Design', 'Bug Resolution']
+      description:
+        'Conducted usability tests, collaborated with stakeholders, designed database solutions, implemented new systems and enhancements, and enhanced system functionality by identifying and rectifying software bugs.',
+      achievements: ['System Development', 'Database Design', 'Bug Resolution'],
     },
-    { 
-      year: 'Sep 2025-Present', 
-      title: 'IT Consultant (Part-Time)', 
+    {
+      year: 'Sep 2025-Present',
+      title: 'IT Consultant (Part-Time)',
       company: 'Federal Pioneer Development Corporation',
       location: 'Mandaluyong City',
-      description: 'Strategic IT planning, project leadership, custom software development, client advisory services, cybersecurity frameworks, and operational support with retainer-based maintenance.',
-      icon: <FiBriefcase className="text-xl" />,
-      achievements: ['Strategic Planning', 'Custom Development', 'Cybersecurity Implementation']
-    }
+      description:
+        'Strategic IT planning, project leadership, custom software development, client advisory services, cybersecurity frameworks, and operational support with retainer-based maintenance.',
+      achievements: ['Strategic Planning', 'Custom Development', 'Cybersecurity Implementation'],
+    },
   ];
 
   const values = [
-    { 
-      icon: <FiCode className="text-2xl" />, 
-      title: 'Strategic Development', 
+    {
+      icon: <FiCode className="text-xl" />,
+      title: 'Strategic Development',
       description: 'End-to-end system implementation and custom solutions',
-      color: 'from-blue-500 to-blue-600'
     },
-    { 
-      icon: <FiUsers className="text-2xl" />, 
-      title: 'Client-Centric', 
+    {
+      icon: <FiUsers className="text-xl" />,
+      title: 'Client-Centric',
       description: 'Trusted technical advisor with comprehensive support',
-      color: 'from-green-500 to-green-600'
     },
-    { 
-      icon: <FiShield className="text-2xl" />, 
-      title: 'Security First', 
+    {
+      icon: <FiShield className="text-xl" />,
+      title: 'Security First',
       description: 'Robust cybersecurity frameworks and compliance',
-      color: 'from-purple-500 to-purple-600'
     },
-    { 
-      icon: <FiZap className="text-2xl" />, 
-      title: 'Innovation', 
+    {
+      icon: <FiZap className="text-xl" />,
+      title: 'Innovation',
       description: 'Cutting-edge technologies and modern solutions',
-      color: 'from-orange-500 to-orange-600'
-    }
+    },
   ];
 
   const achievements = [
-    { number: '9+', label: 'Years Experience', description: 'From IT Supervisor to Strategic Consultant', icon: <FiAward /> },
-    { number: '4', label: 'Major Roles', description: 'Technical, Entrepreneurial, Development, Consulting', icon: <FiTarget /> },
-    { number: '100%', label: 'Business Success', description: 'Founded and grew Blue Switch PC', icon: <FiTrendingUp /> },
-    { number: '50+', label: 'Projects Delivered', description: 'Custom solutions and system implementations', icon: <FiCheckCircle /> }
+    { number: '9+', label: 'Years Experience' },
+    { number: '4', label: 'Major Roles' },
+    { number: '50+', label: 'Projects Delivered' },
+    { number: '100%', label: 'Business Success' },
   ];
 
-  const certifications = [
-    { name: 'Full Stack Development', issuer: 'Self-Taught', year: '2024', status: 'Active' },
-    { name: 'IT Management', issuer: 'Professional Experience', year: '2016-2025', status: 'Active' },
-    { name: 'Business Development', issuer: 'Entrepreneurial Journey', year: '2021-2025', status: 'Active' },
-    { name: 'System Architecture', issuer: 'Project Experience', year: '2024-2025', status: 'Active' }
-  ];
-
-
-  // Download handler function
   const handleDownloadResume = () => {
-    const link = document.createElement("a");
-    link.href = "/pdf/Cervantes, Benedick L.pdf";
-    link.download = "Benedick_Cervantes_Resume.pdf";
+    const link = document.createElement('a');
+    link.href = '/pdf/Cervantes, Benedick L.pdf';
+    link.download = 'Benedick_Cervantes_Resume.pdf';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
   };
-  return (
-    <section id="about" className="py-20 relative overflow-hidden">
-      {/* Decorative elements */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 0.05 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1 }}
-        className="absolute -right-20 -top-20 w-64 h-64 rounded-full bg-[#2C98A0] filter blur-3xl"
-      />
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 0.05 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1, delay: 0.3 }}
-        className="absolute -left-20 bottom-20 w-64 h-64 rounded-full bg-[#4CC8A3] filter blur-3xl"
-      />
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div 
-          initial={{ opacity: 0, y: 50 }}
+  return (
+    <section id="about" className="section-pad section-atmosphere relative overflow-hidden">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true, margin: "-100px" }}
-          className="text-center mb-16"
+          transition={{ duration: 0.55 }}
+          viewport={{ once: true, margin: '-80px' }}
+          className="text-center mb-14"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
-            My <span className="text-[#2C98A0] dark:text-[#4CC8A3]">Journey</span>
+          <h2 className="section-heading">
+            My <span>Journey</span>
           </h2>
-          <motion.div
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="w-24 h-1 bg-[#2C98A0] dark:bg-[#4CC8A3] mx-auto mb-6 transform origin-left"
-          />
-          <p className="max-w-2xl mx-auto text-lg text-gray-700 dark:text-gray-200">
-            From IT Supervisor to Strategic Consultant - A journey of technical excellence and business innovation
+          <div className="section-underline" />
+          <p className="section-lead">
+            From IT Supervisor to Strategic Consultant — technical excellence and business innovation.
           </p>
         </motion.div>
-        
-        <div className="flex flex-col gap-12">
-          {/* Professional Journey */}
-          <motion.div 
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="bg-white/80 dark:bg-gray-700/60 p-8 rounded-xl shadow-sm/30 border border-gray-200 dark:border-gray-600"
-          >
-            <h3 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
-              Professional <span className="text-[#2C98A0] dark:text-[#4CC8A3]">Experience</span>
-            </h3>
-            
-            <div className="relative">
-              {/* Enhanced Timeline */}
-              <div className="absolute left-8 top-0 h-full w-0.5 bg-gradient-to-b from-[#2C98A0] to-[#4CC8A3]"></div>
-              
-              {milestones.map((milestone, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: 50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="relative pl-16 pb-8"
-                >
-                  <div className="absolute left-0 top-0 w-6 h-6 rounded-full bg-[#2C98A0] dark:bg-[#4CC8A3] border-4 border-white dark:border-gray-700 flex items-center justify-center shadow-lg">
-                    {milestone.icon}
-                  </div>
-                  <div className="text-sm font-medium text-[#2C98A0] dark:text-[#4CC8A3]">{milestone.year}</div>
-                  <h4 className="text-xl font-semibold mt-1 text-gray-900 dark:text-white">{milestone.title}</h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">{milestone.company} • {milestone.location}</p>
-                  <p className="text-gray-700 dark:text-gray-200 mt-2">{milestone.description}</p>
-                  
-                  {/* Achievements */}
-                  <div className="mt-3">
-                    <div className="flex flex-wrap gap-2">
-                      {milestone.achievements.map((achievement, achievementIndex) => (
-                        <span
-                          key={achievementIndex}
-                          className="px-2 py-1 text-xs bg-[#e6f7f5] dark:bg-[#1a3a3f] text-[#2C98A0] dark:text-[#4CC8A3] rounded-full"
-                        >
-                          {achievement}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
 
-          {/* Core Values */}
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="bg-white/80 dark:bg-gray-700/60 p-8 rounded-xl shadow-sm/30 border border-gray-200 dark:border-gray-600"
-          >
-            <h3 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
-              Professional <span className="text-[#2C98A0] dark:text-[#4CC8A3]">Values</span>
-            </h3>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {values.map((value, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 + index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="p-6 bg-white/90 dark:bg-gray-600/50 rounded-lg border border-gray-100 dark:border-gray-500 hover:shadow-lg transition-all duration-300 group"
-                >
-                  <div className={`p-3 bg-gradient-to-r ${value.color} rounded-full text-white w-max mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                    {value.icon}
-                  </div>
-                  <h4 className="text-lg font-semibold mb-2 text-gray-900 dark:text-white">{value.title}</h4>
-                  <p className="text-gray-700 dark:text-gray-200 text-sm">{value.description}</p>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Enhanced Stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            viewport={{ once: true }}
-            className="bg-white/80 dark:bg-gray-700/60 p-8 rounded-xl shadow-sm/30 border border-gray-200 dark:border-gray-600"
-          >
-            <h3 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
-              Career <span className="text-[#2C98A0] dark:text-[#4CC8A3]">Highlights</span>
-            </h3>
-            
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              {achievements.map((achievement, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 + index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="text-center p-4 group"
-                >
-                  <div className="text-4xl font-bold text-[#2C98A0] dark:text-[#4CC8A3] mb-2 group-hover:scale-110 transition-transform duration-300">
-                    {achievement.number}
-                  </div>
-                  <div className="text-gray-700 dark:text-gray-200 font-medium">{achievement.label}</div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">{achievement.description}</div>
-                  <div className="flex justify-center mt-2 text-[#2C98A0] dark:text-[#4CC8A3]">
-                    {achievement.icon}
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Certifications */}
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            viewport={{ once: true }}
-            className="bg-white/80 dark:bg-gray-700/60 p-8 rounded-xl shadow-sm/30 border border-gray-200 dark:border-gray-600"
-          >
-            <h3 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
-              Expertise & <span className="text-[#2C98A0] dark:text-[#4CC8A3]">Certifications</span>
-            </h3>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {certifications.map((cert, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.6 + index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="flex items-center p-4 bg-gray-50/80 dark:bg-gray-600/50 rounded-lg border border-gray-100 dark:border-gray-500"
-                >
-                  <div className="p-2 bg-[#e6f7f5] dark:bg-[#1a3a3f] rounded-full text-[#2C98A0] dark:text-[#4CC8A3] mr-4">
-                    <FiStar className="text-lg" />
-                  </div>
-                  <div className="flex-1">
-                    <h4 className="font-semibold text-gray-900 dark:text-white">{cert.name}</h4>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">{cert.issuer} • {cert.year}</p>
-                  </div>
-                  <span className="px-2 py-1 text-xs bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400 rounded-full">
-                    {cert.status}
-                  </span>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center"
-          >
-            <motion.button
-              onClick={handleDownloadResume}
-              className="group relative px-8 py-4 bg-gradient-to-r from-[#2C98A0] to-[#4CC8A3] text-white rounded-lg font-medium overflow-hidden shadow-[0_4px_20px_-5px_rgba(44,152,160,0.5)] hover:shadow-[0_4px_25px_-2px_rgba(44,152,160,0.6)]"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-16 max-w-4xl mx-auto">
+          {achievements.map((item, index) => (
+            <motion.div
+              key={item.label}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.08 }}
+              viewport={{ once: true }}
+              className="text-center"
             >
-              <span className="relative z-10 flex items-center justify-center gap-2">
-                Download Full Resume <FiDownload className="transition-transform group-hover:translate-y-1" />
-              </span>
-              <motion.span
-                className="absolute inset-0 bg-gradient-to-r from-[#2C98A0] to-[#38B2A3] opacity-0 group-hover:opacity-100 transition-opacity"
-                initial={{ opacity: 0 }}
-              />
-            </motion.button>
-          </motion.div>
+              <div className="font-display text-3xl md:text-4xl font-bold text-[var(--primary)] mb-1">
+                {item.number}
+              </div>
+              <div className="text-sm text-[var(--text-secondary)]">{item.label}</div>
+            </motion.div>
+          ))}
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55 }}
+          viewport={{ once: true }}
+          className="mb-16"
+        >
+          <h3 className="font-display text-2xl font-bold text-[var(--text-primary)] mb-8">
+            Professional <span className="text-[var(--primary)]">Experience</span>
+          </h3>
+
+          <div className="relative max-w-3xl">
+            <div className="absolute left-[7px] top-2 bottom-2 w-px bg-gradient-to-b from-[var(--primary)] to-[var(--primary-light)] opacity-40" />
+
+            {milestones.map((milestone, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.45, delay: index * 0.08 }}
+                viewport={{ once: true }}
+                className="relative pl-10 pb-10 last:pb-0"
+              >
+                <div className="absolute left-0 top-1.5 w-4 h-4 rounded-full bg-[var(--primary)] border-[3px] border-[var(--background)]" />
+                <div className="text-sm font-medium text-[var(--primary)] mb-1">{milestone.year}</div>
+                <h4 className="font-display text-xl font-semibold text-[var(--text-primary)]">
+                  {milestone.title}
+                </h4>
+                <p className="text-sm text-[var(--text-muted)] mb-2 flex items-center gap-1.5">
+                  {index === 1 ? <FiTrendingUp className="w-3.5 h-3.5" /> : <FiBriefcase className="w-3.5 h-3.5" />}
+                  {milestone.company} · {milestone.location}
+                </p>
+                <p className="text-[var(--text-secondary)] leading-relaxed mb-3">
+                  {milestone.description}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {milestone.achievements.map((achievement) => (
+                    <span
+                      key={achievement}
+                      className="text-xs text-[var(--primary)] bg-[var(--accent)] px-2.5 py-1 rounded"
+                    >
+                      {achievement}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55 }}
+          viewport={{ once: true }}
+          className="mb-14"
+        >
+          <h3 className="font-display text-2xl font-bold text-[var(--text-primary)] mb-8 text-center md:text-left">
+            Professional <span className="text-[var(--primary)]">Values</span>
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {values.map((value, index) => (
+              <motion.div
+                key={value.title}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.08 }}
+                viewport={{ once: true }}
+                className="flex flex-col gap-3"
+              >
+                <div className="text-[var(--primary)]">{value.icon}</div>
+                <h4 className="font-semibold text-[var(--text-primary)]">{value.title}</h4>
+                <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
+                  {value.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center"
+        >
+          <button type="button" onClick={handleDownloadResume} className="btn-primary">
+            Download Full Resume
+            <FiDownload className="w-4 h-4" />
+          </button>
+        </motion.div>
       </div>
     </section>
   );
