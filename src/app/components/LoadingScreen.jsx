@@ -1,24 +1,18 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiCode, FiTerminal, FiCpu, FiZap, FiGitBranch, FiServer, 
-         FiDatabase, FiCloud, FiCpu as FiChip, FiBox } from 'react-icons/fi';
+
+const CODE_SNIPPET = `const portfolio = {
+  name: "Ben",
+  role: "Full Stack Developer",
+  stack: ["React", "Next.js", "Node"],
+  status: "ready"
+};`;
 
 const LoadingScreen = ({ isLoading, onComplete }) => {
   const [progress, setProgress] = useState(0);
-  const [currentCode, setCurrentCode] = useState(0);
-  const [currentLine, setCurrentLine] = useState(0);
-  const [isTyping, setIsTyping] = useState(true);
+  const [typedLength, setTypedLength] = useState(0);
   const [isClient, setIsClient] = useState(false);
-
-  const codeSnippets = [
-    `const portfolio = {\n  name: "Benedick",\n  role: "Software Developer",\n  skills: ["React", "Next.js", "Node.js", "TypeScript"],\n  status: "Building amazing experiences"\n};`,
-    `function deployPortfolio() {\n  const code = craftWithCare();\n  const tests = runTestSuite();\n  return deployToCloud(code);\n}`,
-    `class Developer {\n  constructor() {\n    this.passion = "Problem Solving";\n    this.focus = "User Experience";\n  }\n  build() {\n    return "Clean, efficient code";\n  }\n}`,
-    `// Loading awesome content...\nawait import('./portfolio');\nconsole.log("🚀 Ready to inspire!");`
-  ];
-
-  const binaryParticles = ['0', '1', '{', '}', '<', '>', '/', '*', '#', '@'];
 
   useEffect(() => {
     setIsClient(true);
@@ -27,303 +21,183 @@ const LoadingScreen = ({ isLoading, onComplete }) => {
   useEffect(() => {
     if (!isLoading || !isClient) return;
 
-    // Smooth progress animation
-    const progressInterval = setInterval(() => {
-      setProgress(prev => {
-        if (prev >= 100) {
-          clearInterval(progressInterval);
-          setTimeout(() => onComplete(), 800);
-          return 100;
-        }
-        const increment = prev < 80 ? Math.random() * 8 + 4 : Math.random() * 3 + 1;
-        return Math.min(prev + increment, 100);
-      });
-    }, 180);
+    const start = performance.now();
+    const duration = 1800;
+    let frame;
 
-    // Code typing animation
-    const codeInterval = setInterval(() => {
-      setCurrentLine(prev => {
-        if (prev >= codeSnippets[currentCode].length) {
-          setIsTyping(false);
-          setTimeout(() => {
-            setCurrentCode(prev => (prev + 1) % codeSnippets.length);
-            setCurrentLine(0);
-            setIsTyping(true);
-          }, 1500);
-          return prev;
-        }
-        return prev + 1;
-      });
-    }, isTyping ? 30 : 1000);
+    const tick = (now) => {
+      const t = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - t, 3);
+      setProgress(eased * 100);
+      setTypedLength(Math.floor(eased * CODE_SNIPPET.length));
 
-    return () => {
-      clearInterval(progressInterval);
-      clearInterval(codeInterval);
+      if (t < 1) {
+        frame = requestAnimationFrame(tick);
+      } else {
+        setTimeout(() => onComplete(), 250);
+      }
     };
-  }, [isLoading, onComplete, isClient, currentCode, isTyping]);
 
-  if (!isClient) {
-    return null;
-  }
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [isLoading, onComplete, isClient]);
+
+  if (!isClient) return null;
+
+  const typedCode = CODE_SNIPPET.slice(0, typedLength);
+  const statusLabel =
+    progress < 35
+      ? 'compiling modules...'
+      : progress < 70
+        ? 'bundling assets...'
+        : progress < 95
+          ? 'optimizing build...'
+          : 'deploy ready';
 
   return (
     <AnimatePresence>
       {isLoading && (
         <motion.div
           initial={{ opacity: 1 }}
-          exit={{ 
-            opacity: 0,
-            scale: 1.1,
-            transition: { duration: 0.8, ease: "easeInOut" }
-          }}
-          className="fixed inset-0 z-50 bg-gradient-to-br from-slate-900 via-slate-800 to-gray-900 flex items-center justify-center overflow-hidden"
+          exit={{ opacity: 0, transition: { duration: 0.4, ease: 'easeInOut' } }}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-[#0a1214] overflow-hidden"
         >
-          {/* Animated Binary Rain Background */}
-          <div className="absolute inset-0 overflow-hidden">
-            {[...Array(40)].map((_, i) => (
-              <motion.span
-                key={i}
-                className="absolute text-green-400/10 font-mono text-lg font-bold"
-                initial={{
-                  x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1200),
-                  y: -50,
-                  opacity: 0
-                }}
-                animate={{
-                  y: (typeof window !== 'undefined' ? window.innerHeight : 800) + 100,
-                  opacity: [0, 0.8, 0],
-                }}
-                transition={{
-                  duration: 8 + Math.random() * 10,
-                  repeat: Infinity,
-                  delay: Math.random() * 5,
-                  ease: "linear"
-                }}
-              >
-                {binaryParticles[Math.floor(Math.random() * binaryParticles.length)]}
-              </motion.span>
-            ))}
-          </div>
+          <div
+            className="absolute inset-0 pointer-events-none opacity-40"
+            style={{
+              backgroundImage:
+                'linear-gradient(rgba(44,152,160,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(44,152,160,0.07) 1px, transparent 1px)',
+              backgroundSize: '48px 48px',
+              maskImage: 'radial-gradient(ellipse 70% 55% at 50% 45%, black, transparent)',
+            }}
+          />
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background:
+                'radial-gradient(ellipse 55% 40% at 50% 40%, rgba(44,152,160,0.22), transparent 70%)',
+            }}
+          />
 
-          {/* Grid Pattern */}
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(44,152,160,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(44,152,160,0.05)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,black,transparent)]" />
-
-          {/* Main Content Container */}
-          <div className="relative z-10 text-center max-w-4xl mx-auto px-6">
-            {/* Animated Logo/Name */}
+          <div className="relative z-10 w-full max-w-md px-4 sm:px-5">
             <motion.div
-              initial={{ scale: 0.8, opacity: 0, y: 50 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              transition={{ 
-                duration: 0.8, 
-                type: "spring",
-                stiffness: 100
-              }}
-              className="mb-12"
-            >
-              <div className="relative inline-block">
-                <motion.div
-                  className="absolute -inset-4 bg-gradient-to-r from-[#2C98A0] to-[#4CC8A3] rounded-full blur-lg opacity-20"
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-                />
-                <h1 className="relative text-5xl md:text-7xl font-black text-white">
-                  <span className="bg-gradient-to-r from-[#2C98A0] via-[#38B2A3] to-[#4CC8A3] bg-clip-text text-transparent">
-                    BENEDICK
-                  </span>
-                </h1>
-              </div>
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3, duration: 0.6 }}
-                className="text-xl text-gray-300 font-light mt-4 tracking-wider"
-              >
-                FULL-STACK DEVELOPER
-              </motion.p>
-            </motion.div>
-
-            {/* Animated Tech Sphere */}
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ delay: 0.5, duration: 1, type: "spring" }}
-              className="relative w-48 h-48 mx-auto mb-12"
-            >
-              <motion.div
-                className="absolute inset-0 rounded-full border-2 border-[#2C98A0]/30"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              />
-              
-              {[
-                { icon: <FiCode />, color: "text-blue-400", angle: 0 },
-                { icon: <FiTerminal />, color: "text-green-400", angle: 60 },
-                { icon: <FiChip />, color: "text-purple-400", angle: 120 },
-                { icon: <FiDatabase />, color: "text-yellow-400", angle: 180 },
-                { icon: <FiCloud />, color: "text-cyan-400", angle: 240 },
-                { icon: <FiGitBranch />, color: "text-orange-400", angle: 300 },
-              ].map((tech, index) => (
-                <motion.div
-                  key={index}
-                  className={`absolute text-2xl ${tech.color}`}
-                  style={{
-                    transform: `rotate(${tech.angle}deg) translate(6rem) rotate(-${tech.angle}deg)`
-                  }}
-                  animate={{ 
-                    rotate: 360,
-                    scale: [1, 1.2, 1]
-                  }}
-                  transition={{
-                    duration: 4,
-                    repeat: Infinity,
-                    delay: index * 0.2,
-                    ease: "easeInOut"
-                  }}
-                >
-                  {tech.icon}
-                </motion.div>
-              ))}
-            </motion.div>
-
-            {/* Interactive Code Terminal */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 0.6 }}
-              className="bg-gray-900/80 backdrop-blur-xl border border-gray-700/50 rounded-xl p-6 mb-8 shadow-2xl"
+              transition={{ duration: 0.35 }}
+              className="text-center mb-5 sm:mb-6"
             >
-              <div className="flex items-center gap-3 mb-4">
-                <div className="flex gap-2">
-                  <div className="w-3 h-3 bg-red-400 rounded-full"></div>
-                  <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
-                  <div className="w-3 h-3 bg-green-400 rounded-full"></div>
-                </div>
-                <span className="text-gray-400 text-sm font-mono">portfolio.js</span>
-                <div className="flex-1" />
-                <motion.div
-                  className="w-2 h-2 bg-green-400 rounded-full"
-                  animate={{ opacity: [1, 0.3, 1] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                />
-                <span className="text-gray-500 text-xs font-mono">LIVE</span>
-              </div>
-              
-              <div className="bg-black/50 rounded-lg p-4 font-mono text-left">
-                <motion.code
-                  className="text-green-300 text-sm md:text-base block whitespace-pre-wrap"
-                >
-                  {codeSnippets[currentCode].slice(0, currentLine)}
-                  <motion.span
-                    animate={{ opacity: [1, 0] }}
-                    transition={{ duration: 0.8, repeat: Infinity }}
-                    className="text-white ml-1"
-                  >
-                    █
-                  </motion.span>
-                </motion.code>
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: isTyping ? 0 : 1 }}
-                  className="text-blue-300 text-sm mt-2"
-                >
-                  $ Ready in {Math.round(100 - progress)}s...
-                </motion.div>
-              </div>
+              <p className="font-display text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-white">
+                Ben<span className="text-[#4CC8A3]">.</span>
+              </p>
+              <p className="mt-2 text-[10px] sm:text-xs tracking-[0.22em] uppercase text-[#4CC8A3]/80 font-mono">
+                full-stack developer
+              </p>
             </motion.div>
 
-            {/* Enhanced Progress Bar */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1, duration: 0.6 }}
-              className="space-y-4"
+              transition={{ duration: 0.4, delay: 0.1 }}
+              className="rounded-xl border border-[#2C98A0]/25 bg-slate-950/80 backdrop-blur-sm shadow-2xl overflow-hidden"
             >
-              <div className="flex justify-between items-center text-sm">
-                <span className="text-gray-300 font-mono">
-                  INITIALIZING_SYSTEM{dots(progress)}
-                </span>
-                <span className="text-gray-300 font-mono bg-gradient-to-r from-[#2C98A0] to-[#4CC8A3] bg-clip-text text-transparent font-bold">
-                  {Math.round(progress)}%
+              <div className="flex items-center gap-2 px-3 sm:px-4 py-2.5 border-b border-[#2C98A0]/20 bg-slate-900/80">
+                <span className="w-2.5 h-2.5 rounded-full bg-red-400/80" />
+                <span className="w-2.5 h-2.5 rounded-full bg-amber-400/80" />
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-400/80" />
+                <span className="ml-2 text-xs font-mono text-slate-400">portfolio.js</span>
+                <span className="ml-auto flex items-center gap-1.5 text-[10px] font-mono text-[#4CC8A3]/90">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#4CC8A3] animate-pulse" />
+                  LIVE
                 </span>
               </div>
-              
-              <div className="w-full bg-gray-800/50 rounded-full h-3 overflow-hidden backdrop-blur-sm">
-                <motion.div
-                  className="h-full bg-gradient-to-r from-[#2C98A0] via-[#38B2A3] to-[#4CC8A3] rounded-full relative"
-                  initial={{ width: 0 }}
-                  animate={{ width: `${progress}%` }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <motion.div
-                    className="absolute inset-0 bg-white/20"
-                    animate={{ x: [-100, 100] }}
-                    transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                  />
-                </motion.div>
+
+              <pre className="px-3 sm:px-4 py-3 sm:py-4 text-left font-mono text-[10px] sm:text-xs leading-relaxed min-h-[132px] sm:min-h-[148px] whitespace-pre-wrap overflow-x-auto">
+                <code>
+                  {typedCode.split('\n').map((line, i) => (
+                    <span key={i} className="block">
+                      <span className="text-slate-600 select-none mr-2 sm:mr-3">
+                        {String(i + 1).padStart(2, ' ')}
+                      </span>
+                      <span>{highlightLine(line)}</span>
+                    </span>
+                  ))}
+                  <span className="inline-block w-1.5 h-3.5 ml-0.5 align-middle bg-[#4CC8A3] animate-pulse" />
+                </code>
+              </pre>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
+              className="mt-4 sm:mt-5 space-y-2"
+            >
+              <div className="flex justify-between items-center font-mono text-[11px] sm:text-xs gap-3">
+                <span className="text-slate-400 truncate">$ {statusLabel}</span>
+                <span className="text-[#4CC8A3] font-semibold shrink-0">{Math.round(progress)}%</span>
               </div>
-              
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.2 }}
-                className="text-gray-400 text-sm font-light"
-              >
-                {getLoadingMessage(progress)}
-              </motion.p>
+              <div className="w-full h-1 rounded-full bg-slate-800 overflow-hidden">
+                <div
+                  className="h-full rounded-full bg-gradient-to-r from-[#2C98A0] to-[#4CC8A3] transition-[width] duration-75"
+                  style={{ width: `${progress}%` }}
+                />
+              </div>
             </motion.div>
           </div>
-
-          {/* Animated Corner Accents */}
-          <CornerAccent position="top-left" />
-          <CornerAccent position="top-right" />
-          <CornerAccent position="bottom-left" />
-          <CornerAccent position="bottom-right" />
         </motion.div>
       )}
     </AnimatePresence>
   );
 };
 
-// Helper component for animated corners
-const CornerAccent = ({ position }) => {
-  const positions = {
-    'top-left': 'top-6 left-6',
-    'top-right': 'top-6 right-6',
-    'bottom-left': 'bottom-6 left-6',
-    'bottom-right': 'bottom-6 right-6'
-  };
+function highlightLine(line) {
+  if (!line) return line;
 
-  return (
-    <motion.div
-      className={`absolute w-12 h-12 border-2 border-[#2C98A0]/30 ${positions[position]}`}
-      initial={{ scale: 0, opacity: 0 }}
-      animate={{ scale: 1, opacity: 1 }}
-      transition={{ duration: 0.8, delay: 1.4 }}
-      whileHover={{ scale: 1.2, opacity: 0.8 }}
-    />
-  );
-};
+  const parts = [];
+  const regex =
+    /(\bconst\b|\bname\b|\brole\b|\bstack\b|\bstatus\b)|("[^"]*")|([{}\[\]:,])/g;
+  let lastIndex = 0;
+  let match;
 
-// Helper function for loading messages
-const getLoadingMessage = (progress) => {
-  const messages = [
-    "Compiling components...",
-    "Optimizing bundles...",
-    "Running tests...",
-    "Deploying to cloud...",
-    "Almost there...",
-    "Ready to inspire! 🚀"
-  ];
-  
-  const index = Math.floor((progress / 100) * (messages.length - 1));
-  return messages[index];
-};
+  while ((match = regex.exec(line)) !== null) {
+    if (match.index > lastIndex) {
+      parts.push(
+        <span key={`t-${lastIndex}`} className="text-slate-300">
+          {line.slice(lastIndex, match.index)}
+        </span>
+      );
+    }
+    if (match[1]) {
+      parts.push(
+        <span key={`k-${match.index}`} className="text-[#4CC8A3]">
+          {match[1]}
+        </span>
+      );
+    } else if (match[2]) {
+      parts.push(
+        <span key={`s-${match.index}`} className="text-[#38B2A3]">
+          {match[2]}
+        </span>
+      );
+    } else {
+      parts.push(
+        <span key={`p-${match.index}`} className="text-slate-500">
+          {match[3]}
+        </span>
+      );
+    }
+    lastIndex = match.index + match[0].length;
+  }
 
-// Helper function for animated dots
-const dots = (progress) => {
-  const count = Math.floor((progress / 25) % 4);
-  return '.'.repeat(count);
-};
+  if (lastIndex < line.length) {
+    parts.push(
+      <span key={`e-${lastIndex}`} className="text-slate-300">
+        {line.slice(lastIndex)}
+      </span>
+    );
+  }
+
+  return parts.length ? parts : line;
+}
 
 export default LoadingScreen;

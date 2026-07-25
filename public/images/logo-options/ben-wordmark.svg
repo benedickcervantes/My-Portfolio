@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 48" role="img" aria-label="Ben.">
+  <!-- D: Wordmark — clean developer brand -->
+  <text
+    x="4"
+    y="34"
+    font-family="Syne, Arial Black, Arial, sans-serif"
+    font-size="36"
+    font-weight="800"
+    letter-spacing="-1.5"
+    fill="#0F172A"
+  >Ben</text>
+  <circle cx="128" cy="34" r="5" fill="#2C98A0"/>
+</svg>
