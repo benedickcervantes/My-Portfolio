@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://bendev-phi.vercel.app/sitemap.xml
+Sitemap: https://bendev-phi.vercel.app/sitemap/sitemap.xml
