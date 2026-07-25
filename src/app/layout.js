@@ -1,8 +1,8 @@
-'use client';
 import { Syne, Source_Sans_3 } from "next/font/google";
-import { useState, useEffect } from 'react';
 import "./globals.css";
-import LoadingScreen from './components/LoadingScreen';
+import AppShell from "./components/AppShell";
+import SiteJsonLd from "./components/SiteJsonLd";
+import { buildRootMetadata } from "../lib/seo";
 
 const syne = Syne({
   variable: "--font-syne",
@@ -18,36 +18,20 @@ const sourceSans = Source_Sans_3({
   preload: true,
 });
 
+export const metadata = buildRootMetadata();
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: "#2C98A0",
+  colorScheme: "light dark",
+};
+
 export default function RootLayout({ children }) {
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 2100);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  const handleLoadingComplete = () => {
-    setIsLoading(false);
-  };
-
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <head>
-        <title>Benedick Cervantes - Full Stack Developer Portfolio</title>
-        <meta name="description" content="Benedick Cervantes - Full Stack Developer, UI/UX Designer, and IT Consultant. Explore my portfolio of modern web applications and digital solutions." />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=14" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png?v=14" />
-        <link rel="icon" href="/favicon.ico?v=14" sizes="any" />
-        <link rel="icon" href="/icon.svg?v=14" type="image/svg+xml" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=14" />
-        <link rel="shortcut icon" href="/favicon.ico?v=14" />
-        <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#2C98A0" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-        <meta name="color-scheme" content="light dark" />
         <meta name="supported-color-schemes" content="light dark" />
         <script
           dangerouslySetInnerHTML={{
@@ -94,13 +78,13 @@ export default function RootLayout({ children }) {
             `,
           }}
         />
-        
+
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://github.com" />
         <link rel="preconnect" href="https://linkedin.com" />
         <link rel="preconnect" href="https://facebook.com" />
-        
+
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
         <link rel="dns-prefetch" href="//github.com" />
@@ -111,49 +95,8 @@ export default function RootLayout({ children }) {
         className={`${syne.variable} ${sourceSans.variable} antialiased`}
         suppressHydrationWarning={true}
       >
-        <LoadingScreen isLoading={isLoading} onComplete={handleLoadingComplete} />
-        
-        {!isLoading && (
-          <div className="animate-fadeIn">
-            {children}
-          </div>
-        )}
-        
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              if ('serviceWorker' in navigator) {
-                window.addEventListener('load', function() {
-                  var isLocalDev = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
-
-                  if (isLocalDev) {
-                    navigator.serviceWorker.getRegistrations().then(function(registrations) {
-                      registrations.forEach(function(registration) {
-                        registration.unregister();
-                      });
-                    });
-                    if ('caches' in window) {
-                      caches.keys().then(function(names) {
-                        names.forEach(function(name) {
-                          caches.delete(name);
-                        });
-                      });
-                    }
-                    return;
-                  }
-
-                  navigator.serviceWorker.register('/sw.js')
-                    .then(function(registration) {
-                      console.log('SW registered: ', registration);
-                    })
-                    .catch(function(registrationError) {
-                      console.log('SW registration failed: ', registrationError);
-                    });
-                });
-              }
-            `
-          }}
-        />
+        <SiteJsonLd />
+        <AppShell>{children}</AppShell>
       </body>
     </html>
   );
