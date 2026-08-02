@@ -13,40 +13,40 @@ import {
 const About = () => {
   const milestones = [
     {
-      year: '2016-2021',
+      year: 'Feb 2016 – Feb 2021',
       title: 'IT Supervisor',
       company: 'Philsurv Geodetic Services',
       location: 'Mandaluyong City',
       description:
-        'Network Engineering, System Administration, Technical Support, Web Analytics, Digital Marketing, Asset Management, and IT Supervisory works. Optimized hardware infrastructure with strategic equipment upgrades, reducing maintenance costs.',
-      achievements: ['Network Infrastructure Optimization', 'Cost Reduction Initiatives', 'Team Leadership'],
+        'Supervised day-to-day IT operations, network infrastructure, and system administration. Oversaw asset management and equipment upgrades that reduced maintenance costs, while supporting growth through web analytics and digital marketing.',
+      achievements: ['Network & Systems Admin', 'IT Asset Management', 'Team Leadership'],
     },
     {
-      year: '2021-2025',
+      year: 'Feb 2021 – Feb 2025',
       title: 'Business Founder',
       company: 'Blue Switch PC',
       location: 'San Juan City',
       description:
-        'Established successful business by identifying market needs and developing innovative solutions. Managed Sales & Marketing, Technical Support, Social Media, and developed strong partnerships for growth opportunities.',
-      achievements: ['Business Establishment', 'Market Expansion', 'Partnership Development'],
+        'Built and operated a tech retail business covering sales, marketing, and support. Identified market needs, formed growth partnerships, and managed social channels and technical support to protect brand trust.',
+      achievements: ['Business Growth', 'Market Expansion', 'Partnership Development'],
     },
     {
-      year: 'Feb 2025 - Present',
-      title: 'Software Developer Team Lead',
-      company: 'Inspire Holdings Inc.',
-      location: 'Taguig City',
-      description:
-        'Conducted usability tests, collaborated with stakeholders, designed database solutions, implemented new systems and enhancements, and enhanced system functionality by identifying and rectifying software bugs.',
-      achievements: ['System Development', 'Database Design', 'Bug Resolution'],
-    },
-    {
-      year: 'Sep 2025-Present',
-      title: 'IT Consultant (Part-Time)',
+      year: 'Feb 2025 – Aug 2026',
+      title: 'IT Consultant — Part Time',
       company: 'Federal Pioneer Development Corporation',
       location: 'Mandaluyong City',
       description:
-        'Strategic IT planning, project leadership, custom software development, client advisory services, cybersecurity frameworks, and operational support with retainer-based maintenance.',
-      achievements: ['Strategic Planning', 'Custom Development', 'Cybersecurity Implementation'],
+        'Built multi-year IT plans and led implementations including Microsoft 365 migrations and CRM. Delivered IT Asset Management and helpdesk systems, custom software, cybersecurity frameworks, and retainer support with user training.',
+      achievements: ['Strategic IT Planning', 'Custom Systems', 'Cybersecurity Frameworks'],
+    },
+    {
+      year: 'Feb 2025 – Present',
+      title: 'Software Developer — Team Lead',
+      company: 'Inspire Holdings Inc. / Inspire Alliance Fund Group',
+      location: 'Taguig City',
+      description:
+        'Lead full-stack delivery across wallet (mobile + API gateway) and corporate web apps. Build React Native/Expo, NestJS/Express, and Next.js/TypeScript systems with Prisma/PostgreSQL, Docker, and cloud deployments on Vercel, Google Cloud Run, and AWS.',
+      achievements: ['Full-Stack Leadership', 'Mobile & API Delivery', 'Cloud Deployments'],
     },
   ];
 
@@ -74,7 +74,7 @@ const About = () => {
   ];
 
   const achievements = [
-    { number: '9+', label: 'Years Experience' },
+    { number: '10+', label: 'Years Experience' },
     { number: '4', label: 'Major Roles' },
     { number: '50+', label: 'Projects Delivered' },
     { number: '100%', label: 'Business Success' },
@@ -82,7 +82,7 @@ const About = () => {
 
   const handleDownloadResume = () => {
     const link = document.createElement('a');
-    link.href = '/pdf/Cervantes, Benedick L.pdf';
+    link.href = '/pdf/Benedick_Cervantes_Resume.pdf';
     link.download = 'Benedick_Cervantes_Resume.pdf';
     document.body.appendChild(link);
     link.click();
@@ -104,7 +104,7 @@ const About = () => {
           </h2>
           <div className="section-underline" />
           <p className="section-lead">
-            From IT Supervisor to Strategic Consultant — technical excellence and business innovation.
+            10+ years across IT operations, software development, and consulting — leading infrastructure, support, and systems that serve real business needs.
           </p>
         </motion.div>
 
@@ -155,7 +155,11 @@ const About = () => {
                   {milestone.title}
                 </h4>
                 <p className="text-sm text-[var(--text-muted)] mb-2 flex items-center gap-1.5">
-                  {index === 1 ? <FiTrendingUp className="w-3.5 h-3.5" /> : <FiBriefcase className="w-3.5 h-3.5" />}
+                  {milestone.title === 'Business Founder' ? (
+                    <FiTrendingUp className="w-3.5 h-3.5" />
+                  ) : (
+                    <FiBriefcase className="w-3.5 h-3.5" />
+                  )}
                   {milestone.company} · {milestone.location}
                 </p>
                 <p className="text-[var(--text-secondary)] leading-relaxed mb-3">

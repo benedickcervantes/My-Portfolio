@@ -98,6 +98,8 @@ const Skills = () => {
         'PWA',
         'React Native',
         'Flutter',
+        'Dart',
+        'Swift',
         'Cross-browser',
         'Accessibility',
       ],
