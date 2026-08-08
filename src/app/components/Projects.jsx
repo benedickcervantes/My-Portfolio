@@ -76,6 +76,19 @@ const Projects = ({ setActiveSection }) => {
       year: '2026',
     },
     {
+      title: 'CCTV Floor Planner',
+      description:
+        'Browser survey tool for placing cameras and NVRs on uploaded floor plans, aiming FOV coverage, linking units to recorders, and multi-page site layouts. Client-side autosave with JSON backup and one-page A4 audit PDF export per sheet — static deploy on Vercel.',
+      tags: ['HTML', 'JavaScript', 'PDF Export', 'localStorage', 'Vercel'],
+      github: 'https://github.com/benedickcervantes/cctv-floor-planner.git',
+      live: 'https://cctv-floor-planner.vercel.app/',
+      image: '/images/CCTV Floor Planner.png',
+      imageBg: 'bg-[#E8ECF1]',
+      category: 'Web App',
+      status: 'Live',
+      year: '2026',
+    },
+    {
       title: 'Inspire Hub - Co-working Space Platform',
       description:
         'Co-working reservation platform with office/room/desk booking, authentication, and workspace management for Inspire Holdings Inc.',
